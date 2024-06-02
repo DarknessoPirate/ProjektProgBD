@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProjektProgBD.Models;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +19,11 @@ namespace ProjektProgBD
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ShopDbContext _context;
         public MainWindow()
         {
             InitializeComponent();
+            _context = App.ServiceProvider.GetRequiredService<ShopDbContext>();
         }
     }
 }

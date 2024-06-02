@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,16 +12,18 @@ namespace ProjektProgBD.Models
 {
     public class ShopDbContext : DbContext
     {
-        public ShopDbContext()
+        private readonly IConfiguration _configuration;
+        public ShopDbContext(DbContextOptions<ShopDbContext> options)
+            : base(options)
         {
-            
         }
-
+        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer();
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
         }
-
+        */
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Review> Reviews { get; set; }

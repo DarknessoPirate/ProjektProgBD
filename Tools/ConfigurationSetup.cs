@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjektProgBD.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjektProgBD.Tools
 {
@@ -29,7 +31,7 @@ namespace ProjektProgBD.Tools
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton(configuration);
-            services.AddDbContext<DBContext>(options =>
+            services.AddDbContext<ShopDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<MainWindow>();
             // Add other services and dependencies here
