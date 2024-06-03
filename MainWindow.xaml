@@ -7,12 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
-        <TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Margin="10,0,310,194" Content="UserName" />
+        <TextBox Margin="10,23,690,391" Height="20" Width="100" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        <TextBox Margin="10,73,690,341" Height="20" Width="100" Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label Margin="10,43,310,149" Content="UserName" Width="80"/>
+        <TextBlock Margin="174,134,174,64">
             <Hyperlink >
                 Click me!
             </Hyperlink>
         </TextBlock>
         <Button Width="100" Height="40" Content="Test" Click="Button_Click"/>
+
     </Grid>
 </Window>
