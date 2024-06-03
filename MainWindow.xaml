@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektProgBD"
+        xmlns:tools="clr-namespace:ProjektProgBD.Tools"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -12,19 +13,29 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Margin="10,0,310,194" Content="UserName" />
-        <TextBox Margin="10,23,690,391" Height="20" Width="100" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-        <TextBox Margin="10,73,690,341" Height="20" Width="100" Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Margin="10,43,310,149" Content="UserName" Width="80"/>
-        <TextBlock Margin="174,134,174,64">
-            <Hyperlink >
+        <StackPanel Grid.Row="0" VerticalAlignment="Top">
+            <Label Content="UserName" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <Label Content="Password" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+            <PasswordBox x:Name="PasswordBox" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <Button Content="Log in" Grid.Row="2" Grid.Column="0" Width="70" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0"
+                Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=PasswordBox}"></Button>
+        
+        <Button Content="Test" Grid.Row="1" Grid.Column="1" Width="100" Height="40" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Hyperlink>
                 Click me!
             </Hyperlink>
         </TextBlock>
-        <Button Width="100" Height="40" Content="Test" Click="Button_Click"/>
-
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ProjektProgBD.Models;
 using ProjektProgBD.Repositories;
+using ProjektProgBD.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,9 +21,11 @@ namespace ProjektProgBD
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
             App.ServiceProvider.GetRequiredService<ShopDbContext>();
         }
 
