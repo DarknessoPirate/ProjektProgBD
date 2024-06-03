@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProjektProgBD.Models;
 using System.Collections.ObjectModel;
-
+using System.Linq;
 
 namespace ProjektProgBD.Repositories
 {
@@ -11,14 +11,13 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            if (user != null)
             {
-                if (user != null)
-                {
-                    db.Users.Add(user);
-                    state = true;
-                    db.SaveChanges();
-                }
+                db.Users.Add(user);
+                state = true;
+                db.SaveChanges();
             }
             return state;
         }
@@ -27,15 +26,14 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            using var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            var userToRemove = db.Users.SingleOrDefault(u => u.Id == id);
+            if (userToRemove != null)
             {
-                var userToRemove = db.Users.SingleOrDefault(u => u.Id == id);
-                if (userToRemove != null)
-                {
-                    db.Users.Remove(userToRemove);
-                    state = true;
-                    db.SaveChanges();
-                }
+                db.Users.Remove(userToRemove);
+                state = true;
+                db.SaveChanges();
             }
             return state;
         }
@@ -43,13 +41,12 @@ namespace ProjektProgBD.Repositories
         public static ObservableCollection<User> GetAllUsers()
         {
             var list = new ObservableCollection<User>();
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            var users = db.Users.ToList();
+            foreach (var user in users)
             {
-                var users = db.Users.ToList();
-                foreach (var user in users)
-                {
-                    list.Add(user);
-                }
+                list.Add(user);
             }
             return list;
         }

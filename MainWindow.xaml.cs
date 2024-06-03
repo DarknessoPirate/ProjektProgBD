@@ -23,12 +23,13 @@ namespace ProjektProgBD
         public MainWindow()
         {
             InitializeComponent();
-            
+            App.ServiceProvider.GetRequiredService<ShopDbContext>();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RepositoryUser.GetAllUsers();
+            var a = RepositoryUser.GetAllUsers();
+            MessageBox.Show($"{a}");
         }
     }
 }

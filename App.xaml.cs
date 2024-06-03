@@ -1,12 +1,8 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace ProjektProgBD
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static IServiceProvider ServiceProvider { get; private set; }
@@ -17,10 +13,9 @@ namespace ProjektProgBD
 
             ServiceProvider = Tools.ConfigurationSetup.ConfigureServices();
 
-            // Show the main window manually
-            var mainWindow = new MainWindow();
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
     }
-
 }

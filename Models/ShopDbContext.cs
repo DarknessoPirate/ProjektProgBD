@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -13,11 +14,31 @@ namespace ProjektProgBD.Models
     public class ShopDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public ShopDbContext(DbContextOptions<ShopDbContext> options)
-            : base(options)
+        public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options)
+        {
+
+        }
+        public ShopDbContext()
         {
         }
-       
+        // nie wiem czy to cos robi ale zostawiam narazie
+        /*  
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Load configuration from appsettings.json
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+                var configuration = builder.Build();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+        */
+
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Review> Reviews { get; set; }

@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ProjektProgBD.Models;
+using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProjektProgBD.Tools
@@ -18,7 +13,7 @@ namespace ProjektProgBD.Tools
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             var configuration = builder.Build();
 
@@ -30,9 +25,12 @@ namespace ProjektProgBD.Tools
 
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            Console.WriteLine("Connection String: " + connectionString); // Check if this prints the correct connection string
+
             services.AddSingleton(configuration);
             services.AddDbContext<ShopDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionString));
             services.AddTransient<MainWindow>();
             // Add other services and dependencies here
         }
