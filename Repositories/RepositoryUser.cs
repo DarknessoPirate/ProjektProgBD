@@ -26,7 +26,7 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            using var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
 
             var userToRemove = db.Users.SingleOrDefault(u => u.Id == id);
             if (userToRemove != null)
@@ -49,6 +49,18 @@ namespace ProjektProgBD.Repositories
                 list.Add(user);
             }
             return list;
+        }
+
+        public static bool FindUserInDB(User user)
+        {
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            if(user != null)
+            {
+                var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                if (foundUser != null)
+                    return true;
+            }
+            return false;
         }
     }
 }

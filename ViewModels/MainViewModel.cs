@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ProjektProgBD.Models;
+using ProjektProgBD.Repositories;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -85,7 +87,19 @@ namespace ProjektProgBD.ViewModels
 
         private void LogIn(object parameter)
         {
-            MessageBox.Show($"Username:{_userName}\nPassword:{GetPassword(parameter)}");
+            User newUser = new User { Name = _userName, Password = GetPassword(parameter) };
+            bool foundUser = RepositoryUser.FindUserInDB(newUser);
+            if (foundUser)
+            {
+                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView() });
+                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView() });
+                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView() });
+                MessageBox.Show("Logged in :)");
+            }
+            else
+            {
+                MessageBox.Show("Credentials not found");
+            }
         }
         #endregion
 

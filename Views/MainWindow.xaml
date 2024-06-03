@@ -12,16 +12,7 @@
     </Window.Resources>
     <Grid>
         <TabControl ItemsSource="{Binding Tabs}" Visibility="{Binding Tabs.Count, Converter={StaticResource IntToVisibilityConverter}}">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}"/>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ContentPresenter Content="{Binding Content}"/>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
+
         </TabControl>
         <local:LoginView Visibility="{Binding Tabs.Count, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=Inverse}" />
     </Grid>

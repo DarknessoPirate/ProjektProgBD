@@ -1,4 +1,5 @@
 ﻿using ProjektProgBD.Models;
+using ProjektProgBD.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,9 @@ namespace ProjektProgBD.ViewModels
 
         private void Register(object parameter)
         {
-            MessageBox.Show($"Username:{_userName}\nPassword:{GetPassword(parameter)}");
+            var newUser = new User { Name = _userName , Password = GetPassword(parameter)};
+            if (RepositoryUser.AddUserToDb(newUser))
+                MessageBox.Show("Account created!");
         }
         #endregion
 
