@@ -1,6 +1,7 @@
 ﻿using ProjektProgBD.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,16 @@ namespace ProjektProgBD.ViewModels
     {
         public MainViewModel() 
         {
-
+            Tabs = new ObservableCollection<TabItem>();
+            
         }
 
-        #region private properties
+        #region properties
         private string _userName;
+        private string _currentUser;
+        public ObservableCollection<TabItem> Tabs { get; set; }
+
+
         #endregion
 
         #region accessors
