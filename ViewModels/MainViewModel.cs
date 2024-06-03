@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjektProgBD.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,8 @@ namespace ProjektProgBD.ViewModels
 
         #region private properties
         private string _userName;
-        private string _userPassword;
-
         #endregion
+
         #region accessors
         public string UserName
         {
@@ -32,15 +32,6 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public string UserPassword
-        {
-            get { return _userPassword; }
-            set
-            {
-                _userPassword = value;
-                onPropertyChanged(nameof(UserPassword));
-            }
-        }
         #endregion
 
         #region commands
@@ -52,10 +43,23 @@ namespace ProjektProgBD.ViewModels
                 if (logInCommand == null)
                     logInCommand = new RelayCommand(
                         parameter => LogIn(parameter), 
-                        predicate => true
+                        predicate => true // /// // / // / / / / / / / pomyślec nad predykatem
                         );
                 
                 return logInCommand;
+            }
+        }
+
+        private ICommand openRegistrationWindowCommand;
+        public ICommand OpenRegistrationWindowCommand
+        {
+            get
+            {
+                if(openRegistrationWindowCommand == null)
+                    openRegistrationWindowCommand = new RelayCommand(
+                       parameter => OpenRegistrationWindow(),
+                       predicate => true); // // // // // // // // // // pomyślec nad predykatem
+                return openRegistrationWindowCommand;            
             }
         }
         #endregion
@@ -78,5 +82,11 @@ namespace ProjektProgBD.ViewModels
             MessageBox.Show($"Username:{_userName}\nPassword:{GetPassword(parameter)}");
         }
         #endregion
+
+        private void OpenRegistrationWindow()
+        {
+            var registrationWindow = new RegistrationWindow();
+            registrationWindow.Show();
+        }
     }
 }
