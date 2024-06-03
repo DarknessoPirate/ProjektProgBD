@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        
         <TextBlock>
             <Hyperlink >
                 Click me!
             </Hyperlink>
         </TextBlock>
+        <Button Width="100" Height="40" Content="Test" Click="Button_Click"/>
     </Grid>
 </Window>

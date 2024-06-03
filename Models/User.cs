@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ProjektProgBD.Models
@@ -10,5 +11,21 @@ namespace ProjektProgBD.Models
         public string Password { get; set; }
         public ObservableCollection<Game> Games { get; set; }
         public ObservableCollection<Review> Reviews { get; set; }
+
+        public string GetHashPassword()
+        {
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(Password);
+                byte[] hashBytes = sha.ComputeHash(textBytes);
+
+                string hash = BitConverter
+                    .ToString(hashBytes)
+                    .Replace("-", string.Empty);
+
+                return hash;
+            }
+        }
+
     }
 }
