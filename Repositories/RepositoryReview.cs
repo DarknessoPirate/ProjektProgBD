@@ -15,15 +15,15 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            
+            if (review != null)
             {
-                if (review != null)
-                {
-                    db.Reviews.Add(review);
-                    state = true;
-                    db.SaveChanges();
-                }
+                db.Reviews.Add(review);
+                state = true;
+                db.SaveChanges();
             }
+            
             return state;
         }
 
@@ -31,32 +31,30 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            
+            var reviewToRemove = db.Reviews.SingleOrDefault(r => r.Id == id);
+            if (reviewToRemove != null)
             {
-                var reviewToRemove = db.Reviews.SingleOrDefault(r => r.Id == id);
-                if (reviewToRemove != null)
-                {
-                    db.Reviews.Remove(reviewToRemove);
-                    state = true;
-                    db.SaveChanges();
-                }
+                db.Reviews.Remove(reviewToRemove);
+                state = true;
+                db.SaveChanges();
             }
+            
             return state;
         }
 
         public static ObservableCollection<Review> GetUserReviewsFromDb(int userId)
         {
             var list = new ObservableCollection<Review>();
-            using (var db = App.ServiceProvider.GetRequiredService<ShopDbContext>())
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            
+            var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).ToList();
+            foreach (var review in reviews)
             {
-                var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).ToList();
-                foreach (var review in reviews)
-                {
-                    list.Add(review);
-                }
-                return list;
+                list.Add(review);
             }
-
+            return list;
         }
     }
 }

@@ -51,6 +51,17 @@ namespace ProjektProgBD.Repositories
             return list;
         }
 
+        public static User GetUserFromDb(User user)
+        {
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            if (user != null)
+            {
+                return db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+               
+            }
+            return null;
+        }
+
         public static bool FindUserInDB(User user)
         {
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();

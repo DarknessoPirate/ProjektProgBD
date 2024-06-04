@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8 0 8 0">
@@ -24,10 +24,11 @@
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center">
                 <TextBlock Text="Write a review of the selected game" FontSize="18"/>
-                <RichTextBox FontSize="14" Height="100" VerticalScrollBarVisibility="Auto"/>
+                <TextBox FontSize="14" Height="100" VerticalScrollBarVisibility="Auto" Text="{Binding ReviewContent, Mode=TwoWay}"/>
+                <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}"/>
             </StackPanel>
 
-           <!-- <Button Command="{Binding SubmitReviewCommand}" Grid.Row="2" Content="Submit review" Width="200" Height="50"/> -->
+            <Button Command="{Binding SubmitReviewCommand}" Grid.Row="2" Content="Submit review" Width="200" Height="50"/>
 
         </Grid>
         <StackPanel Grid.Column="1" Margin="10 0 0 0">
