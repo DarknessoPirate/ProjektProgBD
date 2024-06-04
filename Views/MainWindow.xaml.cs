@@ -28,10 +28,5 @@ namespace ProjektProgBD.Views
             App.ServiceProvider.GetRequiredService<ShopDbContext>();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var a = RepositoryUser.GetAllUsers();
-            MessageBox.Show($"{a}");
-        }
     }
 }

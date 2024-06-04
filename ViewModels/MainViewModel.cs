@@ -24,7 +24,7 @@ namespace ProjektProgBD.ViewModels
 
         #region properties
         private string _userName;
-        private string _currentUser;
+        private User _currentUser;
         public ObservableCollection<TabItem> Tabs { get; set; }
 
 
@@ -38,6 +38,16 @@ namespace ProjektProgBD.ViewModels
             {
                 _userName = value;
                 onPropertyChanged(nameof(UserName));
+            }
+        }
+
+        public User CurrentUser
+        {
+            get { return _currentUser; }
+            set 
+            { 
+                _currentUser = value;
+                onPropertyChanged(nameof(CurrentUser));
             }
         }
 
@@ -105,6 +115,7 @@ namespace ProjektProgBD.ViewModels
                 Tabs.Add(new TabItem { Header = "Home", Content = new HomeView() });
                 Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView() });
                 Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView() });
+                CurrentUser = newUser;
                 MessageBox.Show("Logged in :)");
             }
             else
