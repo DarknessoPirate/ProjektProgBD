@@ -9,8 +9,8 @@ namespace ProjektProgBD.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public ObservableCollection<Game> Games { get; set; }
-        public ObservableCollection<Review> Reviews { get; set; }
+        public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<Game>();
+        public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
 
         public string GetHashPassword()
         {

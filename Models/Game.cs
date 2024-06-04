@@ -12,7 +12,7 @@ namespace ProjektProgBD.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public ObservableCollection<User> Users { get; set;}
-        public ObservableCollection<Review> Reviews { get; set;}
+        public ObservableCollection<User> Users { get; set;} = new ObservableCollection<User>();
+        public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
     }
 }
