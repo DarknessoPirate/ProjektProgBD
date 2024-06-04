@@ -24,7 +24,7 @@ namespace ProjektProgBD.ViewModels
 
         #region properties
         private string _userName;
-        private User _currentUser;
+
         public ObservableCollection<TabItem> Tabs { get; set; }
 
 
@@ -38,16 +38,6 @@ namespace ProjektProgBD.ViewModels
             {
                 _userName = value;
                 onPropertyChanged(nameof(UserName));
-            }
-        }
-
-        public User CurrentUser
-        {
-            get { return _currentUser; }
-            set 
-            { 
-                _currentUser = value;
-                onPropertyChanged(nameof(CurrentUser));
             }
         }
 
@@ -112,10 +102,9 @@ namespace ProjektProgBD.ViewModels
             bool foundUser = RepositoryUser.FindUserInDB(newUser);
             if (foundUser)
             {
-                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView() });
-                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView() });
-                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView() });
-                CurrentUser = newUser;
+                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(newUser) });
+                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(newUser) });
+                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(newUser) });
                 MessageBox.Show("Logged in :)");
             }
             else
