@@ -23,7 +23,9 @@ namespace ProjektProgBD.Views
         public RegistrationWindow()
         {
             InitializeComponent();
-            DataContext = new RegistrationWindowViewModel();
+            var registrationViewModel = new RegistrationWindowViewModel();
+            DataContext = registrationViewModel;
+            registrationViewModel.RequestClose += (s, e) => Close();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProjektProgBD.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using ProjektProgBD.Models;
 using ProjektProgBD.Repositories;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace ProjektProgBD.ViewModels
                 if (registerCommand == null)
                     registerCommand = new RelayCommand(
                         parameter => Register(parameter),
-                        predicate => true // /// // / // / / / / / / / pomyślec nad predykatem
+                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty()
                         );
 
                 return registerCommand;
@@ -60,8 +61,20 @@ namespace ProjektProgBD.ViewModels
         private void Register(object parameter)
         {
             var newUser = new User { Name = _userName , Password = GetPassword(parameter)};
+            newUser.Password = newUser.GetHashPassword();
             if (RepositoryUser.AddUserToDb(newUser))
                 MessageBox.Show("Account created!");
+                OnRequestClose();
+        }
+
+        #endregion
+
+        #region events
+        public event EventHandler RequestClose;
+
+        protected void OnRequestClose()
+        {
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
         #endregion
 

@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ProjektProgBD.Models;
 using ProjektProgBD.Repositories;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -51,7 +52,7 @@ namespace ProjektProgBD.ViewModels
                 if (logInCommand == null)
                     logInCommand = new RelayCommand(
                         parameter => LogIn(parameter), 
-                        predicate => true // /// // / // / / / / / / / pomyślec nad predykatem
+                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty()
                         );
                 
                 return logInCommand;
@@ -66,7 +67,8 @@ namespace ProjektProgBD.ViewModels
                 if(openRegistrationWindowCommand == null)
                     openRegistrationWindowCommand = new RelayCommand(
                        parameter => OpenRegistrationWindow(),
-                       predicate => true); // // // // // // // // // // pomyślec nad predykatem
+                       predicate => true
+                       ); 
                 return openRegistrationWindowCommand;            
             }
         }
@@ -85,9 +87,18 @@ namespace ProjektProgBD.ViewModels
             return "";
         }
 
+        private void SetPassword(object parameter, string text)
+        {
+            if (parameter is PasswordBox passwordBox)
+            {
+                passwordBox.Password = text;
+            }
+        }
+
         private void LogIn(object parameter)
         {
             User newUser = new User { Name = _userName, Password = GetPassword(parameter) };
+            newUser.Password = newUser.GetHashPassword();
             bool foundUser = RepositoryUser.FindUserInDB(newUser);
             if (foundUser)
             {
@@ -99,6 +110,8 @@ namespace ProjektProgBD.ViewModels
             else
             {
                 MessageBox.Show("Credentials not found");
+                UserName = string.Empty;
+                SetPassword(parameter, string.Empty);
             }
         }
         #endregion
