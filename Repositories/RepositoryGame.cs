@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using static System.Windows.Forms.AxHost;
 
 namespace ProjektProgBD.Repositories
@@ -62,5 +63,19 @@ namespace ProjektProgBD.Repositories
             return list;
             
         }
+
+        public static ObservableCollection<Game> GetAllGamesFromDb()
+        {
+            var list = new ObservableCollection<Game>();
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            var games = db.Games.ToList();
+
+            foreach (var game in games)
+            {
+                list.Add(game);
+            }
+            return list;
+        }
+
     }
 }
