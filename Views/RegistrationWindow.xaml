@@ -20,13 +20,33 @@
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="BorderBrush" Value="Gray"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsEmailValid}" Value="False">
-                                <Setter Property="BorderBrush" Value="Red"/>
-                                <!-- Show a tooltip with an error message -->
-                                <Setter Property="ToolTip" Value="Invalid email format"/>
-                            </DataTrigger>
-                        </Style.Triggers>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="2">
+                                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsEmailValid}" Value="1">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                                            <Setter Property="ToolTip" Value="Valid email format"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsEmailValid}" Value="0">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                            <Setter Property="ToolTip" Value="Invalid email format"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsEmailValid}" Value="-1">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
+                                            <Setter Property="ToolTip" Value="Invalid email format"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                 </TextBox.Style>
             </TextBox>

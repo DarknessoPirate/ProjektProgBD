@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Net.Mail;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -18,7 +19,7 @@ namespace ProjektProgBD.ViewModels
         #region private properties
 
         private string _userEmail;
-        private bool _isEmailVaild;
+        private int _isEmailVaild;
         private string _userName;
         private bool _isUserNameValid;
         #endregion
@@ -45,7 +46,7 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public bool IsEmailValid
+        public int IsEmailValid
         {
             get { return _isEmailVaild; }
             set
@@ -67,7 +68,7 @@ namespace ProjektProgBD.ViewModels
                 if (registerCommand == null)
                     registerCommand = new RelayCommand(
                         parameter => Register(parameter),
-                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty() && IsEmailValid// ADD USERNAME CHECK HERE
+                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty() && IsEmailValid == 1// ADD USERNAME CHECK HERE
                         );
 
                 return registerCommand;
@@ -97,9 +98,36 @@ namespace ProjektProgBD.ViewModels
 
         private void ValidateEmail()
         {
-            string pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-            Regex regex = new Regex(pattern);
-            IsEmailValid = regex.IsMatch(UserEmail);
+            try
+            {
+                var address = new MailAddress(UserEmail).Address;
+                // Regular expression to enforce more strict email validation
+                string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                if (Regex.IsMatch(UserEmail, pattern))
+                {
+                    IsEmailValid = 1;
+                }
+                else
+                {
+                    IsEmailValid = -1;
+                }
+            }
+            catch (FormatException)
+            {
+                if (UserEmail == null)
+                {
+                    IsEmailValid = 0;
+                }
+                else
+                {
+                    IsEmailValid = -1;
+                }
+            }
+            catch (ArgumentException)
+            {
+                IsEmailValid = -1;
+            }
+
         }
 
         private void ValidateUserName()
