@@ -104,7 +104,9 @@ namespace ProjektProgBD.ViewModels
             {
                 Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(newUser) });
                 Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(newUser) });
+                Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(newUser) });
                 Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(newUser) });
+                
                 MessageBox.Show("Logged in :)");
             }
             else

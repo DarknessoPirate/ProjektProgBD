@@ -6,20 +6,20 @@ namespace ProjektProgBD.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        private User _currUser;
-        public User CurrUser {
-            get { return _currUser; }
+        private User _currentUser;
+        public User CurrentUser {
+            get { return _currentUser; }
             set 
             {
-                _currUser = value;
-                onPropertyChanged(nameof(CurrUser)); 
+                _currentUser = value;
+                onPropertyChanged(nameof(CurrentUser)); 
             }
         }
 
 
         public HomeViewModel(User user)
         {
-            CurrUser = user;
+            CurrentUser = user;
         }
     }
 }

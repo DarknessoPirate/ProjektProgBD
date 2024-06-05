@@ -4,21 +4,21 @@ namespace ProjektProgBD.ViewModels
 {
     public class ShopViewModel : ViewModelBase
     {
-        private User _currUser;
-        public User CurrUser
+        private User _currentUser;
+        public User CurrentUser
         {
-            get { return _currUser; }
+            get { return _currentUser; }
             set
             {
-                _currUser = value;
-                onPropertyChanged(nameof(CurrUser));
+                _currentUser = value;
+                onPropertyChanged(nameof(CurrentUser));
             }
         }
 
 
         public ShopViewModel(User user)
         {
-            CurrUser = user;
+            CurrentUser = user;
         }
     }
 }
