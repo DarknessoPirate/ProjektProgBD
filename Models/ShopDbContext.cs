@@ -70,7 +70,7 @@ namespace ProjektProgBD.Models
 
             modelBuilder.Entity<UserGame>(eb =>
             {
-                
+                eb.HasKey(x => new { x.UserId, x.GameId });
             });
 
             modelBuilder.Entity<Review>(eb =>

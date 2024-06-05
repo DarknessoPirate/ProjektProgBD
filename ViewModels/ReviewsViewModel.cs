@@ -196,6 +196,7 @@ namespace ProjektProgBD.ViewModels
 
                 if (RepositoryReview.ModifyReviewInDb(newReview, SelectedReview.Id))
                 {
+                    
                     int index = Reviews.IndexOf(SelectedReview);
 
                     Reviews[index] = newReview;

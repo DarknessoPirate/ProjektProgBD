@@ -39,7 +39,7 @@ namespace ProjektProgBD.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("ProjektProgBD.Models.Review", b =>
@@ -69,7 +69,7 @@ namespace ProjektProgBD.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("ProjektProgBD.Models.User", b =>
@@ -103,7 +103,7 @@ namespace ProjektProgBD.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ProjektProgBD.Models.UserGame", b =>
@@ -131,7 +131,7 @@ namespace ProjektProgBD.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserGames");
+                    b.ToTable("UserGames", (string)null);
                 });
 
             modelBuilder.Entity("ProjektProgBD.Models.Review", b =>

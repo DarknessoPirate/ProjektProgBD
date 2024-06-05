@@ -42,6 +42,9 @@ namespace ProjektProgBD.Repositories
             {
                 reviewToModify.Content = newReview.Content;
                 reviewToModify.Score = newReview.Score;
+
+                db.Entry(reviewToModify).State = EntityState.Modified;
+
                 state = true;
                 db.SaveChanges();
             }

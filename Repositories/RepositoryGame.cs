@@ -51,6 +51,7 @@ namespace ProjektProgBD.Repositories
             var list = new ObservableCollection<Game>();
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
 
+            //////////// Tymczasowy hasz set, bo są duplikaty w bazie /////////////////////////////
             var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToHashSet().ToList();
 
             
