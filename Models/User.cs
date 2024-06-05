@@ -8,9 +8,9 @@ namespace ProjektProgBD.Models
     public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public string Email { get; set; } = null!;
         [Column(TypeName = "decimal(9, 2)")] // 9 total digits, 2 decimal places
         public decimal Money { get; set; }
         public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<Game>();
