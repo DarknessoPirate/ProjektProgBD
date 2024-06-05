@@ -22,10 +22,13 @@
                 <TextBlock Text="Welcome on your profile page" FontSize="20"/>
                 <TextBlock Text="{Binding CurrentUser.Name}" FontSize="24"/>
             </StackPanel>
-            
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock Text="Write a review of the selected game" FontSize="18"/>
+                <TextBox FontSize="14" Height="100" VerticalScrollBarVisibility="Auto" Text="{Binding ReviewContent, Mode=TwoWay}"/>
+                <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}"/>
+            </StackPanel>
 
-           
-
+            <Button Command="{Binding SubmitReviewCommand}" Grid.Row="2" Content="Submit review" Width="200" Height="50"/>
         </Grid>
         <StackPanel Grid.Column="1" Margin="10 0 0 0">
             <TextBlock FontSize="24" Text="Your games" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -35,8 +38,7 @@
             AutoGenerateColumns="False"
             CanUserDeleteRows="False"
             CanUserResizeColumns="False"
-            CanUserResizeRows="False"
-            CanUserSortColumns="False">
+            CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Name}" />

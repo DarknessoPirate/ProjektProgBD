@@ -88,7 +88,7 @@ namespace ProjektProgBD.ViewModels
         private void Register(object parameter)
         {
 
-            var newUser = new User { Name = _userName, Password = GetPassword(parameter) , Email=_userEmail};
+            var newUser = new User { Name = _userName, Password = GetPassword(parameter) , Email=_userEmail, Money=100};
             newUser.Password = newUser.GetHashPassword();
             if (RepositoryUser.AddUserToDb(newUser))
                 MessageBox.Show("Account created!");

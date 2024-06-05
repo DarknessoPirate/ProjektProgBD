@@ -7,30 +7,63 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Review Manager" FontSize="20" HorizontalAlignment="Center"/>
+            <StackPanel Margin="10">
+                <Label Content="Edit your review:" FontSize="12"/>
+                <TextBox Text="{Binding ReviewContent}" Height="75"/>
+                <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}"/>
+            </StackPanel>
+            <Button Command="{Binding EditReviewCommand}" Content="Edit" Margin="10 0 10 0"/>
+        </StackPanel>
 
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8 0 8 0">
-                </StackPanel>
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock Text="Write a review of the selected game" FontSize="18"/>
-                    <TextBox FontSize="14" Height="100" VerticalScrollBarVisibility="Auto" Text="{Binding ReviewContent, Mode=TwoWay}"/>
-                    <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}"/>
-                </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Delete your review:" FontSize="24" Margin="0 0 0 20"/>
+            <Button Command="{Binding DeleteReviewCommand}" Content="Delete" Height="30"/>
+        </StackPanel>
+        
+        <DataGrid Grid.Column="1" ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
+            IsReadOnly="True"
+            CanUserAddRows="False"
+            AutoGenerateColumns="False"
+            CanUserDeleteRows="False"
+            CanUserResizeColumns="False"
+            CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
+                <DataGridTextColumn Header="Content" Binding="{Binding Content}" />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="40"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding User.Name}"  />
+                <DataGridTextColumn Header="Game Title" Binding="{Binding Game.Name}"  />
+            </DataGrid.Columns>
+        </DataGrid>
 
-                <Button Command="{Binding SubmitReviewCommand}" Grid.Row="2" Content="Submit review" Width="200" Height="50"/>
-            </Grid>
-            
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
+                <Label Content="Select your reviews:" FontSize="16"/>
+                <Button Command="{Binding YourReviewsCommand}" Content="Your Reviews" Margin="10 0 0 0"/>
+            </StackPanel>
 
-        </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
+                <Label Content="Select all reviews:" FontSize="16"/>
+                <Button Command="{Binding AllReviewsCommand}" Content="All Reviews" Margin="10 0 0 0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Select reviews from user:" FontSize="16"/>
+                <TextBox Text="{Binding ReviewAuthor}" Width="150" Height="25" Margin="10 0 10 0"/>
+                <Button Command="{Binding ReviewAuthorReviewsCommand}" Content="User Reviews"/>
+            </StackPanel>
+
+        </StackPanel>
+        
     </Grid>
 </UserControl>
