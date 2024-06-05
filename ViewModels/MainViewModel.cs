@@ -126,12 +126,15 @@ namespace ProjektProgBD.ViewModels
                 SetPassword(parameter, string.Empty);
             }
         }
-        #endregion
 
         private void OpenRegistrationWindow()
         {
             var registrationWindow = new RegistrationWindow();
             registrationWindow.Show();
         }
+
+        #endregion
+
+
     }
 }

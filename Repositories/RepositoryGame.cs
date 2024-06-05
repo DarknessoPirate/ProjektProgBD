@@ -30,6 +30,23 @@ namespace ProjektProgBD.Repositories
             return state;
         }
 
+        public static bool ModifyGameInDb(int idToModify, string newName, decimal newPrice)
+        {
+            bool state = false;
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            var rowsAffected = db.Games
+                .Where(r => r.Id == idToModify)
+                .ExecuteUpdate(review => review
+                    .SetProperty(r => r.Name, r => newName)
+                    .SetProperty(r => r.Price, r => newPrice));
+
+            if (rowsAffected > 0)
+                state = true;
+
+
+            return state;
+        }
         public static bool DeleteGameFromDb(int id)
         {
             bool state = false;

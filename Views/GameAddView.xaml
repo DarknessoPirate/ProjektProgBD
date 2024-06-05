@@ -17,10 +17,12 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Label>Game Name</Label>
-            <TextBox></TextBox>
+            <TextBox Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Price</Label>
-            <TextBox></TextBox>
-            <Button >Add Game</Button>
+            <TextBox Text="{Binding GamePrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"></TextBox>
+            <Button Command="{Binding AddGameCommand}">Add Game</Button>
+            <Button Command="{Binding ModifyGameCommand}">Modify Game</Button>
+            <Button Command="{Binding DeleteGameCommand}">Delete Game</Button>
 
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
