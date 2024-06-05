@@ -11,7 +11,7 @@ namespace ProjektProgBD.Models
         public User User { get; set; }
         public int UserId { get; set; }
 
-        public Game Game { get; set; }
+        public Game Game { get; set; } = null!;
         public int GameId { get; set; }
 
         public DateTime TransactionDate { get; set; }
