@@ -7,21 +7,26 @@ using ProjektProgBD.Models;
 using ProjektProgBD.Repositories;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 namespace ProjektProgBD.ViewModels
 {
     public class ReviewsViewModel : ViewModelBase
     { 
         public ReviewsViewModel(User user)
         {
-            CurrentUser = user;
+            _currentUser = user;
+            _reviews = RepositoryReview.GetAllReviews();
+            _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
-        private Game _selectedGame;
+        private Review _selectedReview;
+        private ObservableCollection<Review> _reviews;
         private string _reviewContent;
         private int[] _ratings;
         private int _selectedRating;
+        private string _reviewAuthor;
         #endregion
 
 
@@ -36,13 +41,23 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public Game SelectedGame
+        public Review SelectedReview
         {
-            get { return _selectedGame; }
+            get { return _selectedReview; }
             set
             {
-                _selectedGame = value;
-                onPropertyChanged(nameof(SelectedGame));
+                _selectedReview = value;
+                onPropertyChanged(nameof(SelectedReview));
+            }
+        }
+
+        public ObservableCollection<Review> Reviews
+        {
+            get { return _reviews; }
+            set
+            {
+                _reviews = value;
+                onPropertyChanged(nameof(Reviews));
             }
         }
 
@@ -75,46 +90,161 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(SelectedRating));
             }
         }
+
+        public string ReviewAuthor
+        {
+            get { return _reviewAuthor; }
+            set 
+            { 
+                _reviewAuthor = value;
+                onPropertyChanged(nameof(ReviewAuthor));
+            }
+        }
+
         #endregion
 
         #region commands
-        private ICommand submitReviewCommand;
-        public ICommand SubmitReviewCommand
+        private ICommand editReviewCommand;
+        public ICommand EditReviewCommand
         {
             get
             {
-                if (submitReviewCommand == null)
-                    submitReviewCommand = new RelayCommand(
-                            parameter => AddReview(),
-                            predicate => ReviewContent != "" &&
-                                         SelectedGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
+                if (editReviewCommand == null)
+                    editReviewCommand = new RelayCommand(
+                        parameter => EditReview(),
+                        predicate => SelectedReview != null &&
+                                     SelectedRating >= 1 && SelectedRating <= 5 &&
+                                     ReviewContent != ""
                         );
-                return submitReviewCommand;
+                return editReviewCommand;
             }
         }
+
+        private ICommand deleteReviewCommand;
+        public ICommand DeleteReviewCommand
+        {
+            get
+            {
+                if (deleteReviewCommand == null)
+                    deleteReviewCommand = new RelayCommand(
+                        parameter => DeleteReview(),
+                        predicate => SelectedReview != null
+                        );
+                return deleteReviewCommand;
+            }
+        }
+        private ICommand yourReviewsCommand;
+        public ICommand YourReviewsCommand
+        {
+            get
+            {
+                if (yourReviewsCommand == null)
+                    yourReviewsCommand = new RelayCommand(
+                        parameter => ShowCurrentUserReviews(),
+                        predicate => true
+                        );
+                return yourReviewsCommand;
+            }
+        }
+
+        private ICommand allReviewsCommand;
+        public ICommand AllReviewsCommand
+        {
+            get
+            {
+                if (allReviewsCommand == null)
+                    allReviewsCommand = new RelayCommand(
+                        parameter => ShowAllReviews(),
+                        predicate => true
+                        );
+                return allReviewsCommand;
+            }
+        }
+
+        private ICommand reviewAuthorReviewsCommand;
+        public ICommand ReviewAuthorReviewsCommand
+        {
+            get
+            {
+                if (reviewAuthorReviewsCommand == null)
+                    reviewAuthorReviewsCommand = new RelayCommand(
+                        parameter => ShowAuthorFromTextBoxReviews(),
+                        predicate => ReviewAuthor != ""
+                        );
+                return reviewAuthorReviewsCommand;
+            }
+        }
+
         #endregion
 
         #region functions
-        private void AddReview()
+        private void EditReview()
         {
-            if (!string.IsNullOrEmpty(ReviewContent))
+            if (!string.IsNullOrWhiteSpace(ReviewContent) && SelectedReview.UserId == CurrentUser.Id)
             {
                 var newReview = new Review
                 {
+                    Id = SelectedReview.Id,
                     Content = ReviewContent,
                     Score = SelectedRating,
                     UserId = CurrentUser.Id,
-                    GameId = SelectedGame.Id
+                    GameId = SelectedReview.GameId,
+                    Game = SelectedReview.Game,
+                    User = SelectedReview.User,
                 };
 
-                if (RepositoryReview.AddReviewToDb(newReview))
+
+                if (RepositoryReview.ModifyReviewInDb(newReview, SelectedReview.Id))
                 {
-                    MessageBox.Show("Review Added");
+                    int index = Reviews.IndexOf(SelectedReview);
+
+                    Reviews[index] = newReview;
                     ReviewContent = string.Empty;
                 }
             }
+            else
+            {
+                MessageBox.Show("You can only edit your reviews");
+            }
+        }
 
+        private void DeleteReview()
+        {
+            if (SelectedReview != null && SelectedReview.UserId == CurrentUser.Id)
+            {
+                if (RepositoryReview.DeleteReviewFromDb(SelectedReview.Id))
+                {
+                    Reviews.Remove(SelectedReview);
+                    SelectedReview = null;
+                }           
+            }
+            else
+            {
+                MessageBox.Show("You can only delete your reviews");
+            }
+        }
+
+        private void ShowCurrentUserReviews()
+        {
+            Reviews = RepositoryReview.GetUserReviewsFromDb(CurrentUser.Id);
+        }
+
+        private void ShowAllReviews()
+        {
+            Reviews = RepositoryReview.GetAllReviews();
+        }
+
+        private void ShowAuthorFromTextBoxReviews()
+        {
+            if (RepositoryUser.FindUserInDB(ReviewAuthor))
+            {
+                var author = RepositoryUser.GetUserFromDb(ReviewAuthor);
+                Reviews = RepositoryReview.GetUserReviewsFromDb(author.Id);
+            }
+            else
+            {
+                MessageBox.Show("User with this username does not exist");
+            }
         }
 
         #endregion

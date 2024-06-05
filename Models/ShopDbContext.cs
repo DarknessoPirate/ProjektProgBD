@@ -68,7 +68,7 @@ namespace ProjektProgBD.Models
                     );
             });
 
-            modelBuilder.Entity<Game>(eb =>
+            modelBuilder.Entity<UserGame>(eb =>
             {
                 
             });

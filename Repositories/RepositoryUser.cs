@@ -56,8 +56,27 @@ namespace ProjektProgBD.Repositories
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
             if (user != null)
             {
-                return db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                var resultUser =  db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                if (resultUser != null)
+                {
+                    return resultUser;
+                }
                
+            }
+            return null;
+        }
+
+        public static User GetUserFromDb(string userName)
+        {
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            if (userName != string.Empty)
+            {
+                var resultUser = db.Users.SingleOrDefault(u => u.Name == userName);
+                if (resultUser != null)
+                {
+                    return resultUser;
+                }
+
             }
             return null;
         }
@@ -68,6 +87,18 @@ namespace ProjektProgBD.Repositories
             if(user != null)
             {
                 var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                if (foundUser != null)
+                    return true;
+            }
+            return false;
+        }
+
+        public static bool FindUserInDB(string userName)
+        {
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            if (userName != string.Empty)
+            {
+                var foundUser = db.Users.SingleOrDefault(u => u.Name == userName);
                 if (foundUser != null)
                     return true;
             }

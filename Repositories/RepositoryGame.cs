@@ -50,8 +50,10 @@ namespace ProjektProgBD.Repositories
         {
             var list = new ObservableCollection<Game>();
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToHashSet().ToList();
+
             
-            var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToList();
             foreach (var game in games)
             {
                 list.Add(game);

@@ -102,10 +102,11 @@ namespace ProjektProgBD.ViewModels
             bool foundUser = RepositoryUser.FindUserInDB(newUser);
             if (foundUser)
             {
-                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(newUser) });
-                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(newUser) });
-                Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(newUser) });
-                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(newUser) });
+                var currentUser = RepositoryUser.GetUserFromDb(newUser);
+                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(currentUser) });
+                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser) });
+                Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(currentUser) });
+                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser) });
                 
                 MessageBox.Show("Logged in :)");
             }
