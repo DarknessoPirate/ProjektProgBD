@@ -15,6 +15,22 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center">
             <Label Content="Username"   Margin="10,0,0,0" HorizontalAlignment="Center"/>
             <TextBox Grid.Row="0" Margin="10,0,0,0" Width="100" HorizontalAlignment="Center" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Email"   Margin="10,0,0,0" HorizontalAlignment="Center"/>
+            <TextBox Grid.Row="0" Margin="10,0,0,0" Width="100" HorizontalAlignment="Center" Text="{Binding UserEmail, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEmailValid}" Value="False">
+                                <Setter Property="BorderBrush" Value="Red"/>
+                                <!-- Show a tooltip with an error message -->
+                                <Setter Property="ToolTip" Value="Invalid email format"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
             <Label Content="Password" Margin="10,0,0,0" HorizontalAlignment="Center"/>
             <PasswordBox x:Name="PasswordBox"  Margin="10,0,0,0" Width="100" HorizontalAlignment="Center"/>
             <Button Content="Register" Height="30" Width="70" Margin="10,10,0,0"
