@@ -8,6 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
+            <Label>Game Name</Label>
+            <TextBox></TextBox>
+            <Label>Price</Label>
+            <TextBox></TextBox>
             <Button >Add Game</Button>
             
         </StackPanel>
