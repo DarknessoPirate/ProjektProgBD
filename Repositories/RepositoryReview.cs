@@ -60,19 +60,18 @@ namespace ProjektProgBD.Repositories
             return state;
         }
 
-        public static bool DeleteReviewFromDb(int id)
+        public static bool DeleteReviewFromDb(int idToDelete)
         {
             bool state = false;
 
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            
-            var reviewToRemove = db.Reviews.SingleOrDefault(r => r.Id == id);
-            if (reviewToRemove != null)
-            {
-                db.Reviews.Remove(reviewToRemove);
+
+            var rowsAffected = db.Reviews
+                .Where(r => r.Id == idToDelete).ExecuteDelete();
+            var reviewToRemove = db.Reviews.SingleOrDefault(r => r.Id == idToDelete);
+
+            if (rowsAffected > 0)
                 state = true;
-                db.SaveChanges();
-            }
             
             return state;
         }
