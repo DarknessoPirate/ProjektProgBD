@@ -32,22 +32,31 @@ namespace ProjektProgBD.Repositories
             return state;
         }
 
-        public static bool ModifyReviewInDb(Review newReview, int reviewIdToModify)
+        public static bool ModifyReviewInDb(int idToModify, string newContent, int newScore)
         {
             bool state = false;
 
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            var reviewToModify = db.Reviews.SingleOrDefault(r => r.Id == reviewIdToModify);
+
+            var rowsAffected = db.Reviews
+                .Where(r => r.Id == idToModify)
+                .ExecuteUpdate(review => review
+                    .SetProperty(r => r.Content, r => newContent)
+                    .SetProperty(r => r.Score, r => newScore));
+
+            if (rowsAffected > 0)
+                state = true;
+
+            /*
             if (reviewToModify != null)
             {
-                reviewToModify.Content = newReview.Content;
-                reviewToModify.Score = newReview.Score;
-
-                db.Entry(reviewToModify).State = EntityState.Modified;
-
-                state = true;
+                reviewToModify.Content = newContent;
+                reviewToModify.Score = newScore;
+                
                 db.SaveChanges();
+                state = true;
             }
+            */
             return state;
         }
 

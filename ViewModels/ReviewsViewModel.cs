@@ -182,6 +182,7 @@ namespace ProjektProgBD.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(ReviewContent) && SelectedReview.UserId == CurrentUser.Id)
             {
+                
                 var newReview = new Review
                 {
                     Id = SelectedReview.Id,
@@ -192,14 +193,14 @@ namespace ProjektProgBD.ViewModels
                     Game = SelectedReview.Game,
                     User = SelectedReview.User,
                 };
+            
 
-
-                if (RepositoryReview.ModifyReviewInDb(newReview, SelectedReview.Id))
-                {
-                    
+                if (RepositoryReview.ModifyReviewInDb(SelectedReview.Id, ReviewContent, SelectedRating))
+                {                   
                     int index = Reviews.IndexOf(SelectedReview);
 
                     Reviews[index] = newReview;
+
                     ReviewContent = string.Empty;
                 }
             }
