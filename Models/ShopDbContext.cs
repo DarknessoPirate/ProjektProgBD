@@ -21,8 +21,7 @@ namespace ProjektProgBD.Models
         public ShopDbContext()
         {
         }
-        // nie wiem czy to cos robi ale zostawiam narazie
-        /*  
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -37,7 +36,7 @@ namespace ProjektProgBD.Models
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
-        */
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
@@ -48,6 +47,10 @@ namespace ProjektProgBD.Models
         {
             modelBuilder.Entity<User>(eb =>
             {
+                eb.HasIndex(u => u.Name).IsUnique();
+                eb.HasIndex(u => u.Email).IsUnique();
+
+
                 eb.HasMany(x => x.Games)
                 .WithMany(x => x.Users)
                 .UsingEntity<UserGame>(
