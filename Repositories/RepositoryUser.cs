@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ProjektProgBD.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static System.Windows.Forms.AxHost;
 
 namespace ProjektProgBD.Repositories
 {
@@ -35,6 +37,22 @@ namespace ProjektProgBD.Repositories
                 state = true;
                 db.SaveChanges();
             }
+            return state;
+        }
+
+        public static bool ModifyUserInDb(User user)
+        {
+            bool state = false;
+            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+
+            var rowsAffected = db.Users
+                .Where(r => r.Id == user.Id)
+                .ExecuteUpdate(review => review
+                    .SetProperty(r => r.Money, r => user.Money));
+
+            if (rowsAffected > 0)
+                state = true;
+
             return state;
         }
 

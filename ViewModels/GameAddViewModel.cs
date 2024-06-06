@@ -46,6 +46,7 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(SelectedGame));
             }
         }
+
         public string GameName
         {
             get { return _gameName; }
@@ -64,7 +65,6 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(GamePrice));
             }
         }
-
 
         #endregion
 
