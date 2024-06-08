@@ -31,7 +31,7 @@ namespace ProjektProgBD.Tools
 
             services.AddSingleton(configuration);
             services.AddDbContext<ShopDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
             services.AddTransient<MainWindow>();
             // Add other services and dependencies here
         }

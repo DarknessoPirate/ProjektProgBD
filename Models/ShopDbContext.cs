@@ -31,9 +31,10 @@ namespace ProjektProgBD.Models
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
+
                 var configuration = builder.Build();
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8,0,36)));
             }
         }
 
@@ -63,7 +64,7 @@ namespace ProjektProgBD.Models
                     .WithMany()
                     .HasForeignKey(x => x.UserId),
 
-                    w => w.Property(x => x.TransactionDate).HasDefaultValueSql("getutcdate()")
+                    w => w.Property(x => x.TransactionDate).HasDefaultValueSql("CURRENT_TIMESTAMP(6)")
 
                     );
             });
