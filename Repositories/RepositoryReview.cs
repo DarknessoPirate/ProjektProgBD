@@ -18,51 +18,40 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            if (!db.Reviews.Any(r => r.GameId == review.GameId && r.UserId == review.UserId))
+            using (var db = new ShopDbContext())
             {
-                if (review != null)
+                if (!db.Reviews.Any(r => r.GameId == review.GameId && r.UserId == review.UserId))
                 {
-
-                    foreach (var ug in db.UserGames.ToList())
+                    if (review != null)
                     {
-                        db.Entry(ug).State = EntityState.Unchanged;
-                    }
+                        foreach (var ug in db.UserGames.ToList())
+                        {
+                            db.Entry(ug).State = EntityState.Unchanged;
+                        }
 
-                    db.Reviews.Add(review);
-                    state = true;
-                    db.SaveChanges();
-                }
-            }       
+                        db.Reviews.Add(review);
+                        state = true;
+                        db.SaveChanges();
+                    }
+                }       
+            }
             return state;
         }
 
         public static bool ModifyReviewInDb(int idToModify, string newContent, int newScore)
         {
             bool state = false;
-
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            var rowsAffected = db.Reviews
-                .Where(r => r.Id == idToModify)
-                .ExecuteUpdate(review => review
-                    .SetProperty(r => r.Content, r => newContent)
-                    .SetProperty(r => r.Score, r => newScore));
-
-            if (rowsAffected > 0)
-                state = true;
-
-            /*
-            if (reviewToModify != null)
+            using (var db = new ShopDbContext())
             {
-                reviewToModify.Content = newContent;
-                reviewToModify.Score = newScore;
-                
-                db.SaveChanges();
-                state = true;
+                var rowsAffected = db.Reviews
+                    .Where(r => r.Id == idToModify)
+                    .ExecuteUpdate(review => review
+                        .SetProperty(r => r.Content, r => newContent)
+                        .SetProperty(r => r.Score, r => newScore));
+
+                if (rowsAffected > 0)
+                    state = true;
             }
-            */
             return state;
         }
 
@@ -70,26 +59,28 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            using (var db = new ShopDbContext())
+            {
+                var rowsAffected = db.Reviews
+                    .Where(r => r.Id == idToDelete).ExecuteDelete();
 
-            var rowsAffected = db.Reviews
-                .Where(r => r.Id == idToDelete).ExecuteDelete();
-
-            if (rowsAffected > 0)
-                state = true;
-            
+                if (rowsAffected > 0)
+                    state = true;
+            }
             return state;
         }
 
         public static ObservableCollection<Review> GetUserReviewsFromDb(int userId)
         {
             var list = new ObservableCollection<Review>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            
-            var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).ToList();
-            foreach (var review in reviews)
+
+            using (var db = new ShopDbContext())
             {
-                list.Add(review);
+                var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).ToList();
+                foreach (var review in reviews)
+                {
+                    list.Add(review);
+                }
             }
             return list;
         }
@@ -97,12 +88,14 @@ namespace ProjektProgBD.Repositories
         public static ObservableCollection<Review> GetAllReviews()
         {
             var list = new ObservableCollection<Review>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
 
-            var reviews = db.Reviews.Include(g => g.User).Include(g => g.Game).ToList();
-            foreach (var review in reviews)
+            using (var db = new ShopDbContext())
             {
-                list.Add(review);
+                var reviews = db.Reviews.Include(g => g.User).Include(g => g.Game).ToList();
+                foreach (var review in reviews)
+                {
+                    list.Add(review);
+                }
             }
             return list;
         }
