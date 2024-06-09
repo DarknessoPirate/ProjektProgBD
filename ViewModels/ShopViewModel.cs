@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ProjektProgBD.Models;
 using ProjektProgBD.Repositories;
+using ProjektProgBD.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection.Metadata;
@@ -86,11 +87,23 @@ namespace ProjektProgBD.ViewModels
                 return buyGameCommand;
             }
 }
+        private ICommand openGameWindowCommand;
+        public ICommand OpenGameWindowCommand
+        {
+            get
+            {
+                if (openGameWindowCommand == null)
+                    openGameWindowCommand = new RelayCommand(
+                       parameter => OpenGameWindow(parameter),
+                       predicate => true
+                       );
+                return openGameWindowCommand;
+            }
+        }
 
+        #region functions
 
-#region functions
-
-public void BuyGame()
+        public void BuyGame()
         {
         
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
@@ -103,6 +116,17 @@ public void BuyGame()
                 RepositoryUser.ModifyUserInDb(CurrentUser);
 
             }              
+        }
+
+        private void OpenGameWindow(object parameter)
+        {
+            var game = parameter as Game;
+            if (game != null)
+            {
+                var GameWindow = new GameDetailsWindow();
+                GameWindow.DataContext = new GameDetailsWindowViewModel(_currentUser, game);
+                GameWindow.Show();
+            }
         }
 
 

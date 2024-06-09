@@ -9,23 +9,24 @@ using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Windows.Input;
 using System.Windows;
-using ProjektProgBD.Views;
 
 namespace ProjektProgBD.ViewModels
 {
-    public class ProfileViewModel : ViewModelBase
+    public class GameDetailsWindowViewModel : ViewModelBase
     {
-
-        public ProfileViewModel(User user)
+        public GameDetailsWindowViewModel(User user, Game game)
         {
+            _currentGame = game;
             _currentUser = user;
+            _reviews = RepositoryReview.GetGameReviews(_currentGame);
             _currentUser.Games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
             _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
-        private Game _selectedGame;
+        private Game _currentGame;
+        private ObservableCollection<Review> _reviews { get; set; }
         private string _reviewContent;
         private int[] _ratings;
         private int _selectedRating;
@@ -42,13 +43,23 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public Game SelectedGame
+        public Game CurrentGame
         {
-            get { return _selectedGame; }
+            get { return _currentGame; }
             set
             {
-                _selectedGame = value;
-                onPropertyChanged(nameof(SelectedGame));
+                _currentGame = value;
+                onPropertyChanged(nameof(CurrentGame));
+            }
+        }
+
+        public ObservableCollection<Review> Reviews
+        {
+            get { return _reviews; }
+            set
+            {
+                _reviews = value;
+                onPropertyChanged(nameof(Reviews));
             }
         }
 
@@ -82,6 +93,7 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+
         #endregion
         #region commands
         private ICommand submitReviewCommand;
@@ -93,24 +105,11 @@ namespace ProjektProgBD.ViewModels
                     submitReviewCommand = new RelayCommand(
                             parameter => AddReview(),
                             predicate => ReviewContent != "" &&
-                                         SelectedGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
+                                         CurrentGame != null &&
+                                         SelectedRating >= 1 && SelectedRating <= 5 &&
+                                         _currentUser.Games.Contains(CurrentGame)
                         );
                 return submitReviewCommand;
-            }
-        }
-
-        private ICommand openGameWindowCommand;
-        public ICommand OpenGameWindowCommand
-        {
-            get
-            {
-                if (openGameWindowCommand == null)
-                    openGameWindowCommand = new RelayCommand(
-                       parameter => OpenGameWindow(parameter),
-                       predicate => true
-                       );
-                return openGameWindowCommand;
             }
         }
         #endregion
@@ -125,7 +124,7 @@ namespace ProjektProgBD.ViewModels
                     Content = ReviewContent,
                     Score = SelectedRating,
                     UserId = CurrentUser.Id,
-                    GameId = SelectedGame.Id
+                    GameId = CurrentGame.Id
                 };
 
                 if (RepositoryReview.AddReviewToDb(newReview))
@@ -141,18 +140,6 @@ namespace ProjektProgBD.ViewModels
 
         }
 
-        private void OpenGameWindow(object parameter)
-        {
-            var game = parameter as Game;
-            if (game != null)
-            {
-                var GameWindow = new GameDetailsWindow();
-                GameWindow.DataContext = new GameDetailsWindowViewModel(_currentUser, game);
-                GameWindow.Show();
-            }
-        }
-
         #endregion
-
     }
 }

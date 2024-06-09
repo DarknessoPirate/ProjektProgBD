@@ -3,45 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,0,0">
-            <TextBlock Text="Logged in as: " ></TextBlock>
-            <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="12" />
-        </StackPanel>
-            <StackPanel  Margin="10,0,0,0" Orientation="Horizontal">
-            <TextBlock>Money: </TextBlock>
-            <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}"></TextBlock>
-        </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
-            <TextBlock FontSize="24" Text="Games in DB" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
+    <Viewbox Height="449.9">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,0,0">
+                    <TextBlock Text="Logged in as: " Height="10" Width="49" FontSize="8" ></TextBlock>
+                    <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="12" />
+                </StackPanel>
+                <StackPanel  Margin="10,0,0,0" Orientation="Horizontal" Height="16" Width="54">
+                    <TextBlock Height="9" Width="22" FontSize="8">Money:</TextBlock>
+                    <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Height="98" VerticalAlignment="Top">
+                <TextBlock Text="Games in DB" Margin="0 0 0 10" HorizontalAlignment="Center" Height="11" Width="89" FontSize="8"/>
+                <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
 IsReadOnly="True"
 CanUserAddRows="False"
 AutoGenerateColumns="False"
 CanUserDeleteRows="False"
 CanUserResizeColumns="False"
-CanUserResizeRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Height="20" Width="70" Margin="0,10,0,0" Command="{Binding BuyGameCommand}">Buy game</Button>
-            
-        </StackPanel>
+CanUserResizeRows="False" FontSize="7" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+                <Button Height="7" Width="45" Margin="0,10,0,0" Command="{Binding BuyGameCommand}" FontSize="9">Buy game</Button>
+
+            </StackPanel>
 
 
-    </Grid>
+        </Grid>
+    </Viewbox>
 </UserControl>
