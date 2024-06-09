@@ -102,35 +102,37 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+
         #region functions
 
         public void BuyGame()
         {
-        
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            var existingUserGame = db.UserGames
-           .FirstOrDefault(ug => ug.UserId == CurrentUser.Id && ug.GameId == SelectedGame.Id);
 
-            if (existingUserGame == null)
+            using (var db = new ShopDbContext())
             {
+                var existingUserGame = db.UserGames
+                .FirstOrDefault(ug => ug.UserId == CurrentUser.Id && ug.GameId == SelectedGame.Id);
 
-                foreach (var ug in db.UserGames.ToList())
+                if (existingUserGame == null)
                 {
-                    db.Entry(ug).State = EntityState.Unchanged;
+
+                    foreach (var ug in db.UserGames.ToList())
+                    {
+                        db.Entry(ug).State = EntityState.Unchanged;
+                    }
+
+                    db.UserGames.Add(new UserGame { UserId = CurrentUser.Id, GameId = SelectedGame.Id });
+                    db.SaveChanges();
+                    CurrentMoney -= SelectedGame.Price;
+                    CurrentUser.Money = CurrentMoney;
+
+                    RepositoryUser.ModifyUserInDb(CurrentUser);
                 }
-
-                db.UserGames.Add(new UserGame { UserId = CurrentUser.Id, GameId = SelectedGame.Id });
-                db.SaveChanges();
-                CurrentMoney -= SelectedGame.Price;
-                CurrentUser.Money = CurrentMoney;
-
-                RepositoryUser.ModifyUserInDb(CurrentUser);
+                else
+                {
+                    MessageBox.Show("You have this game");
+                }
             }
-            else
-            {
-                MessageBox.Show("You have this game");
-            }
-
                          
         }
 
