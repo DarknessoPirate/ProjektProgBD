@@ -87,7 +87,6 @@ namespace ProjektProgBD.ViewModels
             }
 }
 
-
 #region functions
 
 public void BuyGame()
