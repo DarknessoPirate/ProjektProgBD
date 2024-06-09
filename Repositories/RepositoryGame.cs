@@ -20,19 +20,20 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            
-            if (game != null)
+            using (var db = new ShopDbContext())
             {
-
-                foreach (var ug in db.UserGames.ToList())
+                if (game != null)
                 {
-                    db.Entry(ug).State = EntityState.Unchanged;
-                }
 
-                db.Games.Add(game);
-                state = true;
-                db.SaveChanges();
+                    foreach (var ug in db.UserGames.ToList())
+                    {
+                        db.Entry(ug).State = EntityState.Unchanged;
+                    }
+
+                    db.Games.Add(game);
+                    state = true;
+                    db.SaveChanges();
+                }
             }
             return state;
         }
@@ -40,47 +41,47 @@ namespace ProjektProgBD.Repositories
         public static bool ModifyGameInDb(int idToModify, string newName, decimal newPrice)
         {
             bool state = false;
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            using (var db = new ShopDbContext())
+            {
+                var rowsAffected = db.Games
+                    .Where(r => r.Id == idToModify)
+                    .ExecuteUpdate(review => review
+                        .SetProperty(r => r.Name, r => newName)
+                        .SetProperty(r => r.Price, r => newPrice));
 
-            var rowsAffected = db.Games
-                .Where(r => r.Id == idToModify)
-                .ExecuteUpdate(review => review
-                    .SetProperty(r => r.Name, r => newName)
-                    .SetProperty(r => r.Price, r => newPrice));
-
-            if (rowsAffected > 0)
-                state = true;
-
-
+                if (rowsAffected > 0)
+                    state = true;
+            }
             return state;
         }
         public static bool DeleteGameFromDb(int idToDelete)
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            using (var db = new ShopDbContext())
+            {
+                var rowsAffected = db.Games
+                   .Where(g => g.Id == idToDelete).ExecuteDelete();
 
-            var rowsAffected = db.Games
-               .Where(g => g.Id == idToDelete).ExecuteDelete();
-
-            if (rowsAffected > 0)
-                state = true;
-
+                if (rowsAffected > 0)
+                    state = true;
+            }
             return state;
         }
 
         public static ObservableCollection<Game> GetUserGamesFromDb(int userId)
         {
             var list = new ObservableCollection<Game>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            //////////// Tymczasowy hasz set, bo są duplikaty w bazie /////////////////////////////
-            var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToHashSet().ToList();
-
-            
-            foreach (var game in games)
+            using (var db = new ShopDbContext())
             {
-                list.Add(game);
+                //////////// Tymczasowy hasz set, bo są duplikaty w bazie /////////////////////////////
+                var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToList();
+
+                foreach (var game in games)
+                {
+                    list.Add(game);
+                }
+
             }
             return list;
             
@@ -89,12 +90,15 @@ namespace ProjektProgBD.Repositories
         public static ObservableCollection<Game> GetAllGamesFromDb()
         {
             var list = new ObservableCollection<Game>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            var games = db.Games.ToList();
 
-            foreach (var game in games)
+            using (var db = new ShopDbContext())
             {
-                list.Add(game);
+                var games = db.Games.ToList();
+
+                foreach (var game in games)
+                {
+                    list.Add(game);
+                }
             }
             return list;
         }
