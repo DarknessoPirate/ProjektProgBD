@@ -10,48 +10,90 @@
         <local:PathConverter x:Key="PathConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,0,0">
-            <TextBlock Text="Logged in as: " ></TextBlock>
-            <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="12" />
-        </StackPanel>
-            <StackPanel  Margin="10,0,0,0" Orientation="Horizontal">
-            <TextBlock>Money: </TextBlock>
-            <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}"></TextBlock>
-        </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
-            <TextBlock FontSize="24" Text="Games in DB" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
-IsReadOnly="True"
-CanUserAddRows="False"
-AutoGenerateColumns="False"
-CanUserDeleteRows="False"
-CanUserResizeColumns="False"
-CanUserResizeRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
-                    <DataGridTemplateColumn Header="Cover">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Height="20" Width="70" Margin="0,10,0,0" Command="{Binding BuyGameCommand}">Buy game</Button>
-            
-        </StackPanel>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF984063" Offset="0"/>
+                <GradientStop Color="#FF47416A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Border Padding="20" Background="White" CornerRadius="10" Margin="14,10,14,14">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
 
 
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
+                    <TextBlock Text="Logged in as:" FontSize="16" Foreground="#984063" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="14" Foreground="Black" Margin="0,5,0,0"/>
+                    <TextBlock Text="Money:" FontSize="16" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}" FontSize="14" Foreground="Black"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
+                    <TextBlock FontSize="24" Text="Games in DB" Margin="0,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#984063"/>
+                    <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
+                              IsReadOnly="True"
+                              CanUserAddRows="False"
+                              AutoGenerateColumns="False"
+                              CanUserDeleteRows="False"
+                              CanUserResizeColumns="False"
+                              CanUserResizeRows="False"
+                              Foreground="#41436A" FontSize="14"
+                              Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1"
+                              RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
+                              ColumnHeaderHeight="32">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#984063"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="BorderBrush" Value="#DDDDDD"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#B0728F"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="80"/>
+                            <DataGridTemplateColumn Header="Cover">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Height="30" Width="100" Margin="10,20,0,0" Command="{Binding BuyGameCommand}" Content="Buy game"
+                            Background="#F64668" Foreground="White" FontSize="16" FontWeight="Bold"
+                            Padding="10" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
