@@ -28,14 +28,15 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-
+                <!-- User Info and Game Details -->
                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
-                    <TextBlock Text="Logged in as:" FontSize="16" Foreground="#984063" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="14" Foreground="Black" Margin="0,5,0,0"/>
-                    <TextBlock Text="Money:" FontSize="16" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}" FontSize="14" Foreground="Black"/>
+                    <TextBlock Text="Logged in as:" FontSize="16" Foreground="#984063" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="14" Foreground="Black" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Money:" FontSize="16" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentMoney, Mode=TwoWay}" FontSize="14" Foreground="Black" HorizontalAlignment="Center"/>
                 </StackPanel>
 
+                <!-- DataGrid for Game Display -->
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
                     <TextBlock FontSize="24" Text="Games in DB" Margin="0,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#984063"/>
                     <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
@@ -45,10 +46,10 @@
                               CanUserDeleteRows="False"
                               CanUserResizeColumns="False"
                               CanUserResizeRows="False"
-                              Foreground="#41436A" FontSize="14"
+                              Foreground="White" FontSize="14"
                               Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1"
                               RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
-                              ColumnHeaderHeight="32">
+                              ColumnHeaderHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="DataGrid_SelectionChanged">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="Background" Value="#984063"/>
@@ -64,16 +65,75 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="80"/>
-                            <DataGridTemplateColumn Header="Cover">
+                            <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#B0728F"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="80">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#B0728F"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Cover" Width="70">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
+                                        <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#B0728F"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
+
+
+
                     </DataGrid>
                     <Button Height="30" Width="100" Margin="10,20,0,0" Command="{Binding BuyGameCommand}" Content="Buy game"
                             Background="#F64668" Foreground="White" FontSize="16" FontWeight="Bold"
