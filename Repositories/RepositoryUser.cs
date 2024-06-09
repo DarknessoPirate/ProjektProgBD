@@ -15,8 +15,16 @@ namespace ProjektProgBD.Repositories
 
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
 
+
+
             if (user != null)
             {
+
+                foreach (var ug in db.UserGames.ToList())
+                {
+                    db.Entry(ug).State = EntityState.Unchanged;
+                }
+
                 db.Users.Add(user);
                 state = true;
                 db.SaveChanges();
@@ -24,19 +32,17 @@ namespace ProjektProgBD.Repositories
             return state;
         }
 
-        public static bool DeleteUserFromDb(int id)
+        public static bool DeleteUserFromDb(int idToDelete)
         {
             bool state = false;
 
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
 
-            var userToRemove = db.Users.SingleOrDefault(u => u.Id == id);
-            if (userToRemove != null)
-            {
-                db.Users.Remove(userToRemove);
+            var rowsAffected = db.Users
+                .Where(r => r.Id == idToDelete).ExecuteDelete();
+
+            if (rowsAffected > 0)
                 state = true;
-                db.SaveChanges();
-            }
             return state;
         }
 

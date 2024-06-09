@@ -8,6 +8,8 @@ using ProjektProgBD.Repositories;
 using ProjektProgBD.Models;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
+using System.IO;
 
 
 namespace ProjektProgBD.ViewModels
@@ -22,6 +24,7 @@ namespace ProjektProgBD.ViewModels
         private ObservableCollection<Game> _games;
         private string _gameName;
         private string _gamePrice;
+        private string _coverImagePath;
         private Game _selectedGame;
 
         #endregion
@@ -66,6 +69,16 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        public string CoverImagePath
+        {
+            get { return _coverImagePath; }
+            set
+            {
+                _coverImagePath = value;
+                onPropertyChanged(nameof(CoverImagePath));
+            }
+        }
+
         #endregion
 
         #region commands
@@ -80,7 +93,8 @@ namespace ProjektProgBD.ViewModels
                     addGameCommand = new RelayCommand(
                             parameter => AddGame(),
                             predicate => GameName != null && GameName != "" &&
-                                         GamePrice != null && GamePrice != ""      
+                                         GamePrice != null && GamePrice != "" &&
+                                         CoverImagePath != null && CoverImagePath != ""
                         );
                 return addGameCommand;
             }
@@ -95,7 +109,8 @@ namespace ProjektProgBD.ViewModels
                     modifyGameCommand = new RelayCommand(
                         parameter => ModifyGame(),
                         predicate => SelectedGame != null && GameName != null && GameName != "" && 
-                                     GamePrice != null && GamePrice != ""
+                                     GamePrice != null && GamePrice != "" &&
+                                    CoverImagePath != null && CoverImagePath != ""
                         );
                 return modifyGameCommand;
             }
@@ -115,19 +130,66 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        private ICommand selectCoverImageCommand;
+        public ICommand SelectCoverImageCommand
+        {
+            get
+            {
+                if (selectCoverImageCommand == null)
+                    selectCoverImageCommand = new RelayCommand(
+                        parameter => SelectCoverImage(),
+                        predicate => true
+                    );
+                return selectCoverImageCommand;
+            }
+        }
 
         #endregion
 
         #region functions
+
+        private void SelectCoverImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                CoverImagePath = openFileDialog.FileName;
+            }
+        }
+
+        private string SaveCoverImage(string originalPath)
+        {
+            string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CoverImages");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            string fileName = Path.GetFileName(originalPath);
+            string destinationPath = Path.Combine(directory, fileName);
+
+            if (!File.Exists(destinationPath))
+            {
+                File.Copy(originalPath, destinationPath);
+            }
+
+            return Path.Combine("CoverImages", fileName);
+        }
+
         private void AddGame()
         {
             var decimalPrice = new Decimal();
             if (Decimal.TryParse(GamePrice, out decimalPrice))
             {
+                string relativePath = SaveCoverImage(CoverImagePath);
+
                 var newGame = new Game
                 {
                     Name = GameName,
-                    Price = decimalPrice
+                    Price = decimalPrice,
+                    CoverImagePath = relativePath
                 };
 
                 if (RepositoryGame.AddGameToDb(newGame))
@@ -136,6 +198,7 @@ namespace ProjektProgBD.ViewModels
                     Games.Add(newGame);
                     GameName = string.Empty;
                     GamePrice = string.Empty;
+                    CoverImagePath = string.Empty;
                 }
                 else
                 {
@@ -166,18 +229,21 @@ namespace ProjektProgBD.ViewModels
             var decimalPrice = new Decimal();
             if (Decimal.TryParse(GamePrice, out decimalPrice))
             {
-                
+                string relativePath = SaveCoverImage(CoverImagePath);
+
                 if (RepositoryGame.ModifyGameInDb(SelectedGame.Id, GameName, decimalPrice))
                 {
                     int indexOfSelectedGame = Games.IndexOf(SelectedGame);
                     var newGame = new Game
                     {
                         Name = GameName,
-                        Price = decimalPrice
+                        Price = decimalPrice,
+                        CoverImagePath = relativePath
                     };
                     Games[indexOfSelectedGame] = newGame;
                     GameName = string.Empty;
                     GamePrice = string.Empty;
+                    CoverImagePath = string.Empty;
                 }
                 else
                 {

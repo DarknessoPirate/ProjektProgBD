@@ -6,6 +6,7 @@ using ProjektProgBD.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection.Metadata;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ProjektProgBD.ViewModels
@@ -16,7 +17,7 @@ namespace ProjektProgBD.ViewModels
         {
             CurrentUser = user;
             CurrentMoney = CurrentUser.Money;
-            Games = Games = RepositoryGame.GetAllGamesFromDb();
+            Games = RepositoryGame.GetAllGamesFromDb();
         }
         #region properties
         private User _currentUser;
@@ -107,15 +108,30 @@ namespace ProjektProgBD.ViewModels
         {
         
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            if (!CurrentUser.Games.Contains(SelectedGame))
+            var existingUserGame = db.UserGames
+           .FirstOrDefault(ug => ug.UserId == CurrentUser.Id && ug.GameId == SelectedGame.Id);
+
+            if (existingUserGame == null)
             {
+
+                foreach (var ug in db.UserGames.ToList())
+                {
+                    db.Entry(ug).State = EntityState.Unchanged;
+                }
+
                 db.UserGames.Add(new UserGame { UserId = CurrentUser.Id, GameId = SelectedGame.Id });
                 db.SaveChanges();
                 CurrentMoney -= SelectedGame.Price;
                 CurrentUser.Money = CurrentMoney;
-                RepositoryUser.ModifyUserInDb(CurrentUser);
 
-            }              
+                RepositoryUser.ModifyUserInDb(CurrentUser);
+            }
+            else
+            {
+                MessageBox.Show("You have this game");
+            }
+
+                         
         }
 
         private void OpenGameWindow(object parameter)

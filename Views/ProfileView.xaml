@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ProjektProgBD.Views"
+             xmlns:local="clr-namespace:ProjektProgBD.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:PathConverter x:Key="PathConverter"/>
+    </UserControl.Resources>
     <Viewbox>
         <Grid Height="245" Width="436">
         <Grid.ColumnDefinitions>
@@ -38,6 +42,13 @@
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
+                    <DataGridTemplateColumn Header="Cover">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
