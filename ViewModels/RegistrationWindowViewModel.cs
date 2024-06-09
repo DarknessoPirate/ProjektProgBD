@@ -97,7 +97,28 @@ namespace ProjektProgBD.ViewModels
                 OnRequestClose();
             }catch(Microsoft.EntityFrameworkCore.DbUpdateException exception)
             {
-                MessageBox.Show(exception.InnerException.Message);
+
+                if(exception.InnerException!= null)
+                {
+                    var innerException = exception.InnerException.Message;
+                    
+                    if (innerException.Contains("for key 'users.IX_Users_Name"))
+                    {
+                        MessageBox.Show("Username is already taken");
+                    }
+                    else if (innerException.Contains("for key 'users.IX_Users_Email"))
+                    {
+                        MessageBox.Show("Email already taken");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Error: {innerException}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Database error");
+                }
             }
             
            
