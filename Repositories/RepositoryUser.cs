@@ -13,21 +13,18 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-
-
-            if (user != null)
+            using (var db = new ShopDbContext())
             {
-
-                foreach (var ug in db.UserGames.ToList())
+                if (user != null)
                 {
-                    db.Entry(ug).State = EntityState.Unchanged;
+                    foreach (var ug in db.UserGames.ToList())
+                    {
+                        db.Entry(ug).State = EntityState.Unchanged;
+                    }
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    state = true;
                 }
-
-                db.Users.Add(user);
-                state = true;
-                db.SaveChanges();
             }
             return state;
         }
@@ -36,95 +33,101 @@ namespace ProjektProgBD.Repositories
         {
             bool state = false;
 
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            var rowsAffected = db.Users
+            using (var db = new ShopDbContext())
+            {
+                var rowsAffected = db.Users
                 .Where(r => r.Id == idToDelete).ExecuteDelete();
 
-            if (rowsAffected > 0)
-                state = true;
+                if (rowsAffected > 0)
+                    state = true;
+            }
             return state;
         }
 
         public static bool ModifyUserInDb(User user)
         {
             bool state = false;
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            var rowsAffected = db.Users
+            using (var db = new ShopDbContext())
+            {
+                var rowsAffected = db.Users
                 .Where(r => r.Id == user.Id)
                 .ExecuteUpdate(review => review
                     .SetProperty(r => r.Money, r => user.Money));
 
-            if (rowsAffected > 0)
-                state = true;
-
+                if (rowsAffected > 0)
+                    state = true;
+            }
             return state;
         }
 
         public static ObservableCollection<User> GetAllUsers()
         {
             var list = new ObservableCollection<User>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            var users = db.Users.ToList();
-            foreach (var user in users)
+            using (var db = new ShopDbContext())
             {
-                list.Add(user);
+                var users = db.Users.ToList();
+                
+                foreach (var user in users)
+                {
+                    list.Add(user);
+                }
             }
+
             return list;
         }
 
         public static User GetUserFromDb(User user)
         {
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            if (user != null)
+            using (var db = new ShopDbContext())
             {
-                var resultUser =  db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-                if (resultUser != null)
+                if (user != null)
                 {
+                    var resultUser =  db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
                     return resultUser;
                 }
-               
+                return null;
             }
-            return null;
         }
 
         public static User GetUserFromDb(string userName)
-        {
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            if (userName != string.Empty)
+        {   
+            using (var db = new ShopDbContext())
             {
-                var resultUser = db.Users.SingleOrDefault(u => u.Name == userName);
-                if (resultUser != null)
+                if (userName != string.Empty)
                 {
+                    var resultUser = db.Users.SingleOrDefault(u => u.Name == userName);
                     return resultUser;
                 }
 
+                return null;
             }
-            return null;
         }
 
         public static bool FindUserInDB(User user)
         {
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            if(user != null)
+            using (var db = new ShopDbContext())
             {
-                var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-                if (foundUser != null)
-                    return true;
+                if (user != null)
+                {
+                    var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                    if (foundUser != null)
+                        return true;
+                }
             }
-            return false;
+                return false;
         }
 
         public static bool FindUserInDB(string userName)
         {
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
+            using (var db = new ShopDbContext())
+            {
             if (userName != string.Empty)
             {
                 var foundUser = db.Users.SingleOrDefault(u => u.Name == userName);
                 if (foundUser != null)
                     return true;
+            }
+
             }
             return false;
         }

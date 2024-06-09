@@ -15,6 +15,7 @@ namespace ProjektProgBD.Repositories
 {
     public static class RepositoryGame
     {
+
         public static bool AddGameToDb(Game game)
         {
             bool state = false;

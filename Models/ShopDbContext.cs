@@ -13,7 +13,6 @@ namespace ProjektProgBD.Models
 {
     public class ShopDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
         public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options)
         {
 
