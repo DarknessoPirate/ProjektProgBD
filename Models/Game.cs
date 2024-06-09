@@ -16,6 +16,7 @@ namespace ProjektProgBD.Models
         public string Name { get; set; } = null!;
         [Column(TypeName = "decimal(9, 2)")]
         public decimal Price { get; set; }
+        public string CoverImagePath { get; set; } = null!;
         public ObservableCollection<User> Users { get; set;} = new ObservableCollection<User>();
         public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
     }

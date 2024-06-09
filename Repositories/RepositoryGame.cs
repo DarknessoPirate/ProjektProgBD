@@ -23,6 +23,12 @@ namespace ProjektProgBD.Repositories
             
             if (game != null)
             {
+
+                foreach (var ug in db.UserGames.ToList())
+                {
+                    db.Entry(ug).State = EntityState.Unchanged;
+                }
+
                 db.Games.Add(game);
                 state = true;
                 db.SaveChanges();
@@ -47,20 +53,18 @@ namespace ProjektProgBD.Repositories
 
             return state;
         }
-        public static bool DeleteGameFromDb(int id)
+        public static bool DeleteGameFromDb(int idToDelete)
         {
             bool state = false;
 
             var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-            
-            var gameToRemove = db.Games.SingleOrDefault(g => g.Id == id);
-            if (gameToRemove != null)
-            {
-                db.Games.Remove(gameToRemove);
+
+            var rowsAffected = db.Games
+               .Where(g => g.Id == idToDelete).ExecuteDelete();
+
+            if (rowsAffected > 0)
                 state = true;
-                db.SaveChanges();
-            }
-            
+
             return state;
         }
 

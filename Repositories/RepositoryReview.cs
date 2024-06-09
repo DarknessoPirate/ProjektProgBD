@@ -24,6 +24,12 @@ namespace ProjektProgBD.Repositories
             {
                 if (review != null)
                 {
+
+                    foreach (var ug in db.UserGames.ToList())
+                    {
+                        db.Entry(ug).State = EntityState.Unchanged;
+                    }
+
                     db.Reviews.Add(review);
                     state = true;
                     db.SaveChanges();
@@ -68,7 +74,6 @@ namespace ProjektProgBD.Repositories
 
             var rowsAffected = db.Reviews
                 .Where(r => r.Id == idToDelete).ExecuteDelete();
-            var reviewToRemove = db.Reviews.SingleOrDefault(r => r.Id == idToDelete);
 
             if (rowsAffected > 0)
                 state = true;

@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProjektProgBD.Views"
+             xmlns:local="clr-namespace:ProjektProgBD.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:PathConverter x:Key="PathConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -20,11 +23,21 @@
             <TextBox Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label>Price</Label>
             <TextBox Text="{Binding GamePrice, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"></TextBox>
+
+            
+
             <Button Command="{Binding AddGameCommand}">Add Game</Button>
             <Button Command="{Binding ModifyGameCommand}">Modify Game</Button>
             <Button Command="{Binding DeleteGameCommand}">Delete Game</Button>
 
         </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Label>Cover Image Path</Label>
+            <Button Content="Select Cover Image" Command="{Binding SelectCoverImageCommand}" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding CoverImagePath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"></TextBox>
+        </StackPanel>
+        
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
             <TextBlock FontSize="24" Text="Games in DB" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
@@ -38,6 +51,13 @@
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
+                    <DataGridTemplateColumn Header="Cover">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn> 
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
