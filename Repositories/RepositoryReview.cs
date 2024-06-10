@@ -88,6 +88,7 @@ namespace ProjektProgBD.Repositories
         public static ObservableCollection<Review> GetAllReviews()
         {
             var list = new ObservableCollection<Review>();
+           
 
             using (var db = new ShopDbContext())
             {
@@ -96,19 +97,6 @@ namespace ProjektProgBD.Repositories
                 {
                     list.Add(review);
                 }
-            }
-            return list;
-        }
-
-        public static ObservableCollection<Review> GetGameReviews(Game game)
-        {
-            var list = new ObservableCollection<Review>();
-            var db = App.ServiceProvider.GetRequiredService<ShopDbContext>();
-
-            var reviews = db.Reviews.Where(u => u.GameId == game.Id).Include(g => g.User).Include(g => g.Game).ToList();
-            foreach (var review in reviews)
-            {
-                list.Add(review);
             }
             return list;
         }
