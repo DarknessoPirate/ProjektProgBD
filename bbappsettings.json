@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=projekt.mysql.database.azure.com;Database=projekt_prog;User=dpacia;Password=dawid#987;SslMode=Preferred;"
+  }
+}
