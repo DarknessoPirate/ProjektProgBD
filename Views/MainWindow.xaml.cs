@@ -25,7 +25,6 @@ namespace ProjektProgBD.Views
         {
             InitializeComponent();
             DataContext = new MainViewModel();
-            App.ServiceProvider.GetRequiredService<ShopDbContext>();
         }
 
     }

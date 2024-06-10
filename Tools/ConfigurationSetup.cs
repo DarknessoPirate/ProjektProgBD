@@ -8,6 +8,7 @@ using ProjektProgBD.Views;
 
 namespace ProjektProgBD.Tools
 {
+    /*
     public static class ConfigurationSetup
     {
         public static IServiceProvider ConfigureServices()
@@ -36,4 +37,5 @@ namespace ProjektProgBD.Tools
             // Add other services and dependencies here
         }
     }
+    */
 }

@@ -12,10 +12,9 @@ namespace ProjektProgBD
         {
             base.OnStartup(e);
 
-            ServiceProvider = Tools.ConfigurationSetup.ConfigureServices();
 
 
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            var mainWindow = new MainWindow();
             mainWindow.Show();
         }
     }
