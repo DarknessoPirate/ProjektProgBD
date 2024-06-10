@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ProjektProgBD.Views
 {
     /// <summary>
-    /// Interaction logic for ShopView.xaml
+    /// Logika interakcji dla klasy GameDetailsWindow.xaml
     /// </summary>
-    public partial class ShopView : UserControl
+    public partial class GameDetailsWindow : Window
     {
-        public ShopView()
+        public GameDetailsWindow()
         {
             InitializeComponent();
-        }
-
-        private void abc(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }
