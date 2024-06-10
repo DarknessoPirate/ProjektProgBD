@@ -51,7 +51,7 @@
                               Foreground="White" FontSize="14"
                               Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1"
                               RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
-                              ColumnHeaderHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="DataGrid_SelectionChanged">
+                              ColumnHeaderHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="Background" Value="#984063"/>
@@ -131,12 +131,12 @@
                                         </Style.Triggers>
                                     </Style>
                                 </DataGridTemplateColumn.HeaderStyle>
-                            </DataGridTemplateColumn>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
                                     <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
 
 
