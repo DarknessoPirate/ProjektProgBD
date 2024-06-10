@@ -100,5 +100,21 @@ namespace ProjektProgBD.Repositories
             }
             return list;
         }
+
+        public static ObservableCollection<Review> GetGameReviews(Game game)
+        {
+            var list = new ObservableCollection<Review>();
+            using (var db = new ShopDbContext())
+            {
+                var reviews = db.Reviews.Where(u => u.GameId == game.Id).Include(g => g.User).Include(g => g.Game).ToList();
+                foreach (var review in reviews)
+                {
+                    list.Add(review);
+                }
+            }
+
+            return list;
+        }
+
     }
 }
