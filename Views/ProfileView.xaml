@@ -44,9 +44,9 @@
                         <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
                         <DataGridTemplateColumn Header="Cover">
                             <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding CoverImagePath}" Width="50" Height="50" />
-                                </DataTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding CoverImagePath}" Stretch="Uniform" />
+                            </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>

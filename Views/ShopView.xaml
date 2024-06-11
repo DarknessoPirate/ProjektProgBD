@@ -59,7 +59,7 @@
 
 
                 <!-- DataGrid for Game Display -->
-                <StackPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
+                <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
                     <TextBlock FontSize="24" Text="Games in DB" Margin="0,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#984063"/>
                     <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
                               Height="200"
@@ -133,10 +133,10 @@
                                     </Style>
                                 </DataGridTextColumn.HeaderStyle>
                             </DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Cover" Width="70">
+                            <DataGridTemplateColumn Header="Cover">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding CoverImagePath}" Width="50" Height="50"
+                                        <Image Source="{Binding CoverImagePath}" Stretch="Uniform"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
