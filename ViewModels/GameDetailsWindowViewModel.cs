@@ -111,6 +111,7 @@ namespace ProjektProgBD.ViewModels
                 return submitReviewCommand;
             }
         }
+
         #endregion
 
         #region functions
@@ -131,6 +132,7 @@ namespace ProjektProgBD.ViewModels
                     MessageBox.Show("Review Added");
                     ReviewContent = string.Empty;
                     Reviews = RepositoryReview.GetGameReviews(_currentGame);
+                    SelectedRating = 0;
                 }
                 else
                 {

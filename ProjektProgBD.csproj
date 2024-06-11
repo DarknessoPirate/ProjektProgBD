@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\desktop-wallpaper-aesthetic-anime-for-laptop-anime-otosection-pink-aesthetic-anime-pc.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="CoverImages\" />
   </ItemGroup>
 

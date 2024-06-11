@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:t="clr-namespace:ProjektProgBD.Tools"
         xmlns:local="clr-namespace:ProjektProgBD.Views"
         mc:Ignorable="d"
-        Title="GameDetailsWindow" Height="450" Width="800">
+        Title="GameDetailsWindow">
+    <Window.Resources>
+        <t:RadiobuttonConverter x:Key="RadiobuttonConverter"/>
+    </Window.Resources>
 
-    
-        <Grid Height="450" Width="800">
+    <Viewbox Stretch="Fill">
+        <Grid>
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF984063"/>
@@ -16,14 +20,25 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <Grid Margin="0,10,400,301">
+            <Border Width="330"
+            Background="White"
+            CornerRadius="6" Margin="35,23,435,19">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="15"
+                              Direction ="-90" 
+                              RenderingBias ="Quality" 
+                              ShadowDepth ="2" 
+                              Color ="Gray" />
+                </Border.Effect>
+                <Grid Margin="0,10,-28,277">
 
-                <Border CornerRadius="20, 0, 20, 0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="364" Height="54" Margin="0,42,0,0" BorderBrush="#FFFFBA69" BorderThickness="4,2,4,2">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Name}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFFFBA69" TextAlignment="Center" Margin="0,0,0,5"/>
-                </Border>
-                <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Price}" Grid.Column="0" VerticalAlignment="Top" Height="37" Margin="272,0,47,0" FontSize="25" Foreground="#FFFFBA69" TextAlignment="Right"/>
-                <TextBlock TextWrapping="Wrap" Text="zł" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Margin="353,0,0,0" Width="37" FontSize="25" TextAlignment="Center" Foreground="#FFFFBA69"/>
-            </Grid>
+                    <Border  Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="313" Height="60" Margin="10,0,0,0" BorderBrush="#FFFFBA69" BorderThickness="0,2,0,2">
+                        <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Name}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" TextAlignment="Center" Margin="0,0,0,5"/>
+                    </Border>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Price}" Grid.Column="0" VerticalAlignment="Top" Height="37" Margin="205,0,77,0" FontSize="25" Foreground="#FFFFBA69" TextAlignment="Right"/>
+                    <TextBlock TextWrapping="Wrap" Text="zł" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Margin="286,0,0,0" Width="37" FontSize="25" TextAlignment="Center" Foreground="#FFFFBA69"/>
+                </Grid>
+            </Border>
             <Border Width="200" Height="250" Margin="100,137,500,46" CornerRadius="20">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
@@ -31,6 +46,7 @@
                 <Image Source="{Binding CurrentGame.CoverImagePath}"/>
 
             </Border>
+
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
 IsReadOnly="True"
 CanUserAddRows="False"
@@ -55,15 +71,79 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="385" Margin="405,10,
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel HorizontalAlignment="Left" Margin="400,252,0,0" Width="400">
+                <StackPanel.Resources>
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="AppBar" x:Name="appbar_star" Width="20" Height="20" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                        <Path Width="20" Height="20" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" Fill="#FF000000" Data="F1 M 17.4167,32.25L 32.9107,32.25L 38,18L 43.0893,32.25L 58.5833,32.25L 45.6798,41.4944L 51.4583,56L 38,48.0833L 26.125,56L 30.5979,41.7104L 17.4167,32.25 Z "/>
+                    </Canvas>
+                    <!-- StarButton Template -->
+                    <ControlTemplate x:Key="StarToggleButton" TargetType="{x:Type ToggleButton}">
+                        <Canvas
+                    Width="27"
+                    Height="20"
+                    Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                            <Path
+                        x:Name="ButtonPath"
+                        Width="20"
+                        Height="20
+                                "
+                        Canvas.Left="2"
+                        Canvas.Top="2"
+                        Data="F1 M 17.416,32.25L 32.910,32.25L 38,18L 43.089,32.25L 58.583,32.25L 45.679,41.494L 51.458,56L 38,48.083L 26.125,56L 30.597,41.710L 17.416,32.25 Z "
+                        Fill="Transparent"
+                        Stroke="#FFFFBA69"
+                        StrokeThickness="2"
+                        Stretch="Fill"/>
+                        </Canvas>
+                        <!-- When checked, fill with Yellow -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="ButtonPath" Property="Fill" Value="#FFFFBA69"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </StackPanel.Resources>
                 <StackPanel Orientation="Horizontal" Width="382" Height="29" Margin="0,0,0,5">
-                    <TextBlock FontSize="15" Width="315" Height="22" VerticalAlignment="Bottom" Margin="5,0,0,0" Foreground="#FFF64668"><Run Text="Write a review"/><Run Language="pl-pl" Text=":"/><LineBreak/><Run Language="pl-pl"/></TextBlock>
-                    <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}" Width="55" Height="24" BorderThickness="1,1,0,1" Padding="2" BorderBrush="#FFF64668" Foreground="#FFF64668" SnapsToDevicePixels="True" FontSize="15" Background="{x:Null}"/>
+                    <TextBlock FontSize="15" Width="241" Height="22" VerticalAlignment="Bottom" Margin="5,0,0,0" Foreground="#FFF64668"><Run Text="Write a review"/><Run Language="pl-pl" Text=":"/><LineBreak/><Run Language="pl-pl"/></TextBlock>
+                    <RadioButton
+                    Content="All"
+                    GroupName="View"
+                    Padding="2"
+                    Template="{DynamicResource StarToggleButton}" Height="20"
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=1}"/>
+                    <RadioButton
+                    Content="All2"
+                    GroupName="View"
+                    Padding="2"
+                    Template="{DynamicResource StarToggleButton}"
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}"/>
+                    <RadioButton
+                    Content="All3"
+                    GroupName="View"
+                    Padding="2"
+                    Template="{DynamicResource StarToggleButton}" Height="20"
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=3}"/>
+                    <RadioButton
+                    Content="All4"
+                    GroupName="View"
+                    Padding="2"
+                    Template="{DynamicResource StarToggleButton}" Height="20"
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=4}"/>
+                    <RadioButton
+                    Content="All5"
+                    GroupName="View"
+                    Padding="2"
+                    Template="{DynamicResource StarToggleButton}" Height="20"
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=5}"/>
+              
+
+
+
 
                 </StackPanel>
                 <Border>
 
                     <Border CornerRadius="10" BorderBrush="#FFF54567" BorderThickness="1,1,1,1" Width="376">
-                        <TextBox FontSize="15" Height="81" VerticalScrollBarVisibility="Auto" Text="{Binding ReviewContent, Mode=TwoWay}" Width="384" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                        <TextBox FontSize="15" Height="81" VerticalScrollBarVisibility="Auto" Text="{Binding ReviewContent, Mode=TwoWay}" Width="384" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="#FFFAC4FF"/>
                     </Border>
                 </Border>
                 <Button x:Name="LoginBtn" 
@@ -99,5 +179,5 @@ Command="{Binding SubmitReviewCommand}">
             </StackPanel>
 
         </Grid>
-    
+    </Viewbox>
 </Window>
