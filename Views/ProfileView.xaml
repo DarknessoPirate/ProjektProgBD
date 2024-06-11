@@ -11,53 +11,53 @@
     <UserControl.Resources>
         <l:PathConverter x:Key="PathConverter"/>
     </UserControl.Resources>
-    <Viewbox>
-        <Grid Height="245" Width="436">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+    <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8 0 8 0">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8 0 8 0">
                     <TextBlock Text="Welcome on your profile page" FontSize="10" Height="32"/>
-                <TextBlock Text="{Binding CurrentUser.Name}" FontSize="24"/>
-            </StackPanel>
-        </Grid>
-        <StackPanel Grid.Column="1" Margin="10 0 0 0">
-            <TextBlock FontSize="24" Text="Your games" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <DataGrid ColumnWidth="*" ItemsSource="{Binding CurrentUser.Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
+                    <TextBlock Text="{Binding CurrentUser.Name}" FontSize="24"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Column="1" Margin="10 0 0 0">
+                <TextBlock FontSize="24" Text="Your games" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
+            Height="200"
             IsReadOnly="True"
             CanUserAddRows="False"
             AutoGenerateColumns="False"
             CanUserDeleteRows="False"
             CanUserResizeColumns="False"
             CanUserResizeRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
-                    <DataGridTemplateColumn Header="Cover">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80"/>
+                        <DataGridTemplateColumn Header="Cover">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding CoverImagePath}" Width="50" Height="50" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
+            <Button Content="Refresh your games" Margin="30 10 30 0" Command="{Binding RefreshGamesCommand}"/>
         </StackPanel>
-        
-    </Grid>
-</Viewbox>
+
+        </Grid>
 </UserControl>

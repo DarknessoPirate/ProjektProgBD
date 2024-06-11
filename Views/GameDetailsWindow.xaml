@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="GameDetailsWindow" Height="450" Width="800">
 
-    <Viewbox Height="450" Width="800">
+    
         <Grid Height="450" Width="800">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -28,7 +28,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
-                <Image Source="/Views/desktop-wallpaper-aesthetic-anime-for-laptop-anime-otosection-pink-aesthetic-anime-pc.jpg" Stretch="UniformToFill"/>
+                <Image Source="{Binding CurrentGame.CoverImagePath}"/>
 
             </Border>
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
@@ -99,5 +99,5 @@ Command="{Binding SubmitReviewCommand}">
             </StackPanel>
 
         </Grid>
-    </Viewbox>
+    
 </Window>

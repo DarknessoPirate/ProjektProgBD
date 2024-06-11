@@ -130,66 +130,21 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        private ICommand selectCoverImageCommand;
-        public ICommand SelectCoverImageCommand
-        {
-            get
-            {
-                if (selectCoverImageCommand == null)
-                    selectCoverImageCommand = new RelayCommand(
-                        parameter => SelectCoverImage(),
-                        predicate => true
-                    );
-                return selectCoverImageCommand;
-            }
-        }
-
         #endregion
 
         #region functions
-
-        private void SelectCoverImage()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                CoverImagePath = openFileDialog.FileName;
-            }
-        }
-
-        private string SaveCoverImage(string originalPath)
-        {
-            string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CoverImages");
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            string fileName = Path.GetFileName(originalPath);
-            string destinationPath = Path.Combine(directory, fileName);
-
-            if (!File.Exists(destinationPath))
-            {
-                File.Copy(originalPath, destinationPath);
-            }
-
-            return Path.Combine("CoverImages", fileName);
-        }
 
         private void AddGame()
         {
             var decimalPrice = new Decimal();
             if (Decimal.TryParse(GamePrice, out decimalPrice))
             {
-                string relativePath = SaveCoverImage(CoverImagePath);
 
                 var newGame = new Game
                 {
                     Name = GameName,
                     Price = decimalPrice,
-                    CoverImagePath = relativePath
+                    CoverImagePath = CoverImagePath
                 };
 
                 if (RepositoryGame.AddGameToDb(newGame))
@@ -229,16 +184,15 @@ namespace ProjektProgBD.ViewModels
             var decimalPrice = new Decimal();
             if (Decimal.TryParse(GamePrice, out decimalPrice))
             {
-                string relativePath = SaveCoverImage(CoverImagePath);
 
-                if (RepositoryGame.ModifyGameInDb(SelectedGame.Id, GameName, decimalPrice))
+                if (RepositoryGame.ModifyGameInDb(SelectedGame.Id, GameName, decimalPrice, CoverImagePath))
                 {
                     int indexOfSelectedGame = Games.IndexOf(SelectedGame);
                     var newGame = new Game
                     {
                         Name = GameName,
                         Price = decimalPrice,
-                        CoverImagePath = relativePath
+                        CoverImagePath = CoverImagePath
                     };
                     Games[indexOfSelectedGame] = newGame;
                     GameName = string.Empty;

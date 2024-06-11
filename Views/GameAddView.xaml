@@ -34,19 +34,20 @@
 
         <StackPanel Grid.Row="1">
             <Label>Cover Image Path</Label>
-            <Button Content="Select Cover Image" Command="{Binding SelectCoverImageCommand}" Margin="0,0,0,10"/>
             <TextBox Text="{Binding CoverImagePath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"></TextBox>
         </StackPanel>
         
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
+        <StackPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Margin="10 0 0 0">
             <TextBlock FontSize="24" Text="Games in DB" Margin="0 0 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
+    Height="200"
     IsReadOnly="True"
     CanUserAddRows="False"
     AutoGenerateColumns="False"
     CanUserDeleteRows="False"
     CanUserResizeColumns="False"
-    CanUserResizeRows="False">
+    CanUserResizeRows="False"
+    VerticalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Name}" />
@@ -54,7 +55,7 @@
                     <DataGridTemplateColumn Header="Cover">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding CoverImagePath, Converter={StaticResource PathConverter}}" Width="50" Height="50" />
+                                <Image Source="{Binding CoverImagePath}" Width="50" Height="50" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn> 

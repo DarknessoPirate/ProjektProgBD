@@ -38,7 +38,7 @@ namespace ProjektProgBD.Repositories
             return state;
         }
 
-        public static bool ModifyGameInDb(int idToModify, string newName, decimal newPrice)
+        public static bool ModifyGameInDb(int idToModify, string newName, decimal newPrice, string newCoverImagePath)
         {
             bool state = false;
             using (var db = new ShopDbContext())
@@ -47,7 +47,8 @@ namespace ProjektProgBD.Repositories
                     .Where(r => r.Id == idToModify)
                     .ExecuteUpdate(review => review
                         .SetProperty(r => r.Name, r => newName)
-                        .SetProperty(r => r.Price, r => newPrice));
+                        .SetProperty(r => r.Price, r => newPrice)
+                        .SetProperty(r => r.CoverImagePath, r => newCoverImagePath));
 
                 if (rowsAffected > 0)
                     state = true;
@@ -74,7 +75,7 @@ namespace ProjektProgBD.Repositories
             var list = new ObservableCollection<Game>();
             using (var db = new ShopDbContext())
             {
-                //////////// Tymczasowy hasz set, bo są duplikaty w bazie /////////////////////////////
+                
                 var games = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Games).ToList();
 
                 foreach (var game in games)

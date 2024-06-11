@@ -76,7 +76,7 @@ namespace ProjektProgBD.Repositories
 
             using (var db = new ShopDbContext())
             {
-                var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).ToList();
+                var reviews = db.Users.Where(u => u.Id == userId).SelectMany(u => u.Reviews).Include(g => g.User).Include(g => g.Game).ToList();
                 foreach (var review in reviews)
                 {
                     list.Add(review);

@@ -19,13 +19,14 @@ namespace ProjektProgBD.ViewModels
         public ProfileViewModel(User user)
         {
             _currentUser = user;
-            _currentUser.Games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
+            _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
             _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
         private Game _selectedGame;
+        private ObservableCollection<Game> _games;
         private string _reviewContent;
         private int[] _ratings;
         private int _selectedRating;
@@ -49,6 +50,16 @@ namespace ProjektProgBD.ViewModels
             {
                 _selectedGame = value;
                 onPropertyChanged(nameof(SelectedGame));
+            }
+        }
+
+        public ObservableCollection<Game> Games
+        {
+            get { return _games; }
+            set
+            {
+                _games = value;
+                onPropertyChanged(nameof(Games));
             }
         }
 
@@ -113,6 +124,21 @@ namespace ProjektProgBD.ViewModels
                 return openGameWindowCommand;
             }
         }
+
+        private ICommand refreshGamesCommand;
+        public ICommand RefreshGamesCommand
+        {
+            get
+            {
+                if (refreshGamesCommand == null)
+                    refreshGamesCommand = new RelayCommand(
+                       parameter => RefreshGames(),
+                       predicate => true
+                       );
+                return refreshGamesCommand;
+            }
+        }
+
         #endregion
 
         #region functions
@@ -147,9 +173,14 @@ namespace ProjektProgBD.ViewModels
             if (game != null)
             {
                 var GameWindow = new GameDetailsWindow();
-                GameWindow.DataContext = new GameDetailsWindowViewModel(_currentUser, game);
+                GameWindow.DataContext = new GameDetailsWindowViewModel(CurrentUser, game);
                 GameWindow.Show();
             }
+        }
+
+        private void RefreshGames()
+        {
+            Games = RepositoryGame.GetUserGamesFromDb(CurrentUser.Id);
         }
 
         #endregion
