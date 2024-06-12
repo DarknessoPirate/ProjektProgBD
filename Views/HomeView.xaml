@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Viewbox>
+
+    <Grid>
+        
         <TextBlock Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Viewbox>
-    
+    </Grid>
+
 </UserControl>

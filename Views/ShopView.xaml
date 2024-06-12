@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
@@ -60,7 +60,11 @@
 
                 <!-- DataGrid for Game Display -->
                 <StackPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
-                    <TextBlock FontSize="24" Text="Games in DB" Margin="0,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#984063"/>
+                    <Grid>
+                        <Image ToolTip="Double click on a game to see its details." Source="/Icons/tooltip.png" OpacityMask="Black" Height="18" VerticalAlignment="Bottom" Width="18" HorizontalAlignment="Right" Margin="0,0,0,5"/>
+                        <TextBlock FontSize="24" Text="Games in DB" Foreground="#984063" Margin="160,14,147,9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    </Grid>
                     <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
                               Height="200"
                               IsReadOnly="True"
@@ -75,7 +79,7 @@
                               ColumnHeaderHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center"
                               VerticalScrollBarVisibility="Visible">
                         <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#984063"/>
                                 <Setter Property="Foreground" Value="White"/>
                                 <Setter Property="FontWeight" Value="Bold"/>
@@ -91,14 +95,14 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="*">
                                 <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
+                                    <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="TextAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                         <Setter Property="Foreground" Value="Black"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                                 <DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                         <Setter Property="Foreground" Value="White"/>
                                         <Setter Property="Background" Value="Transparent"/>
@@ -113,14 +117,14 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="80">
                                 <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
+                                    <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="TextAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                         <Setter Property="Foreground" Value="Black"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                                 <DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                         <Setter Property="Foreground" Value="White"/>
                                         <Setter Property="Background" Value="Transparent"/>
@@ -141,7 +145,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                         <Setter Property="Foreground" Value="White"/>
                                         <Setter Property="Background" Value="Transparent"/>
@@ -153,18 +157,21 @@
                                         </Style.Triggers>
                                     </Style>
                                 </DataGridTemplateColumn.HeaderStyle>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
-
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
                     </DataGrid>
-                   
+
                 </StackPanel>
             </Grid>
         </Border>

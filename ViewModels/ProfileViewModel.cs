@@ -30,6 +30,7 @@ namespace ProjektProgBD.ViewModels
         private string _reviewContent;
         private int[] _ratings;
         private int _selectedRating;
+        private int _visible = 0;
         #endregion
 
         #region accessors
@@ -93,6 +94,16 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        public int Visible
+        {
+            get { return _visible; }
+            set
+            {
+                _visible = value;
+                onPropertyChanged(nameof(Visible));
+            }
+        }
+
         #endregion
         #region commands
         private ICommand submitReviewCommand;
@@ -136,6 +147,34 @@ namespace ProjektProgBD.ViewModels
                        predicate => true
                        );
                 return refreshGamesCommand;
+            }
+        }
+         
+        private ICommand openMenuCommand;
+        public ICommand OpenMenuCommand
+        {
+            get
+            {
+                if (openMenuCommand == null)
+                    openMenuCommand = new RelayCommand(
+                       parameter => OpenMenu(),
+                       predicate => true
+                       );
+                return openMenuCommand;
+            }
+        }
+
+        private ICommand closeMenuCommand;
+        public ICommand CloseMenuCommand
+        {
+            get
+            {
+                if (closeMenuCommand == null)
+                    closeMenuCommand = new RelayCommand(
+                       parameter => CloseMenu(),
+                       predicate => true
+                       );
+                return closeMenuCommand;
             }
         }
 
@@ -183,6 +222,15 @@ namespace ProjektProgBD.ViewModels
             Games = RepositoryGame.GetUserGamesFromDb(CurrentUser.Id);
         }
 
+        private void OpenMenu()
+        {
+            Visible = 1;
+        }
+
+        private void CloseMenu()
+        {
+            Visible = 0;
+        }
         #endregion
 
     }

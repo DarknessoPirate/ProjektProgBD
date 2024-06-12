@@ -24,5 +24,7 @@ namespace ProjektProgBD.Views
         {
             InitializeComponent();
         }
+
+       
     }
 }

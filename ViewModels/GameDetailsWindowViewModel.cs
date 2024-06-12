@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Windows.Input;
 using System.Windows;
+using static Azure.Core.HttpHeader;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -19,12 +20,14 @@ namespace ProjektProgBD.ViewModels
             _currentGame = game;
             _currentUser = user;
             _reviews = RepositoryReview.GetGameReviews(_currentGame);
+            _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
             _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
         private Game _currentGame;
+        private ObservableCollection<Game> _games;
         private ObservableCollection<Review> _reviews { get; set; }
         private string _reviewContent;
         private int[] _ratings;
@@ -49,6 +52,16 @@ namespace ProjektProgBD.ViewModels
             {
                 _currentGame = value;
                 onPropertyChanged(nameof(CurrentGame));
+            }
+        }
+
+        public ObservableCollection<Game> Games
+        {
+            get { return _games; }
+            set
+            {
+                _games = value;
+                onPropertyChanged(nameof(Games));
             }
         }
 
@@ -105,7 +118,8 @@ namespace ProjektProgBD.ViewModels
                             parameter => AddReview(),
                             predicate => ReviewContent != "" &&
                                          CurrentGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
+                                         SelectedRating >= 1 && SelectedRating <= 5 &&
+                                         Games.Contains(CurrentGame)
 
                         );
                 return submitReviewCommand;
