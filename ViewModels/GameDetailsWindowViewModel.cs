@@ -126,16 +126,26 @@ namespace ProjektProgBD.ViewModels
                     GameId = CurrentGame.Id
                 };
 
-                if (RepositoryReview.AddReviewToDb(newReview))
+                if (RepositoryGame.GetUserGamesFromDb(CurrentUser.Id).FirstOrDefault(g => g.Id == CurrentGame.Id) != null)
                 {
-                    MessageBox.Show("Review Added");
-                    ReviewContent = string.Empty;
-                    Reviews = RepositoryReview.GetGameReviews(_currentGame);
+                    if (RepositoryReview.AddReviewToDb(newReview))
+                    {
+                        MessageBox.Show("Review Added");
+                        ReviewContent = string.Empty;
+                        Reviews = RepositoryReview.GetGameReviews(_currentGame);
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("You've already reviewed this game");
+                    }
                 }
+
                 else
                 {
-                    MessageBox.Show("You've already reviewed this game");
+                    MessageBox.Show("You don't have this game");
                 }
+               
             }
 
         }

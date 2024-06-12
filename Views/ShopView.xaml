@@ -11,6 +11,13 @@
     <UserControl.Resources>
         
     </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDoubleClick">
+            <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -153,11 +160,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </DataGridTemplateColumn.HeaderStyle>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
 

@@ -31,7 +31,7 @@
                 <Image Source="{Binding CurrentGame.CoverImagePath}"/>
 
             </Border>
-            <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
+            <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}"
 IsReadOnly="True"
 CanUserAddRows="False"
 AutoGenerateColumns="False"
