@@ -6,9 +6,29 @@
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Label>Date:</Label>
+            <TextBlock Text="{Binding CurrentDate}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Label>Hour:</Label>
+            <TextBlock Text="{Binding CurrentTime}"/>    
+        </StackPanel>
+
     
-    <Viewbox>
-        <TextBlock Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Viewbox>
-    
+    </Grid>
 </UserControl>
