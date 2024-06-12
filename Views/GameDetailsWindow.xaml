@@ -47,9 +47,10 @@
 
             </Border>
 
-            <TextBlock FontWeight="Bold" Margin="474,16,85,392" FontSize="20" TextAlignment="Center"><Run Language="pl-pl" Text="Game r"/><Run Text="eviews"/></TextBlock>
+            <TextBlock FontWeight="Bold" Margin="474,16,85,392" FontSize="20" TextAlignment="Center" Text="Game reviews"/>
 
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
+
 IsReadOnly="True"
 CanUserAddRows="False"
 CanUserDeleteRows="False"

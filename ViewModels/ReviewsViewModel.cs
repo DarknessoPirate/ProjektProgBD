@@ -115,22 +115,6 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region commands
-        private ICommand submitReviewCommand;
-        public ICommand SubmitReviewCommand
-        {
-            get
-            {
-                if (submitReviewCommand == null)
-                    submitReviewCommand = new RelayCommand(
-                            parameter => AddReview(),
-                            predicate => ReviewContent != "" &&
-                                         SelectedGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
-                        );
-                return submitReviewCommand;
-            }
-        }
-
         private ICommand editReviewCommand;
         public ICommand EditReviewCommand
         {
@@ -140,7 +124,7 @@ namespace ProjektProgBD.ViewModels
                     editReviewCommand = new RelayCommand(
                         parameter => EditReview(),
                         predicate => SelectedReview != null &&
-                                     SelectedRating >= 1 && SelectedRating <= 5 &&
+                                     SelectedRating >= 1 && SelectedRating <= 10 &&
                                      ReviewContent != ""
                         );
                 return editReviewCommand;
@@ -205,31 +189,6 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region functions
-
-        private void AddReview()
-        {
-            if (!string.IsNullOrEmpty(ReviewContent))
-            {
-                var newReview = new Review
-                {
-                    Content = ReviewContent,
-                    Score = SelectedRating,
-                    UserId = CurrentUser.Id,
-                    GameId = SelectedGame.Id
-                };
-
-                if (RepositoryReview.AddReviewToDb(newReview))
-                {
-                    MessageBox.Show("Review Added");
-                    ReviewContent = string.Empty;
-                }
-                else
-                {
-                    MessageBox.Show("You've already reviewed this game");
-                }
-            }
-
-        }
         private void EditReview()
         {
             if (!string.IsNullOrWhiteSpace(ReviewContent) && SelectedReview.UserId == CurrentUser.Id)

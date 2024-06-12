@@ -4,23 +4,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektProgBD.Views"
+             xmlns:tools="clr-namespace:ProjektProgBD.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+        <tools:RatingToColorConverter x:Key="RatingToColorConverter"/>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/SliderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock Text="Review Manager" FontSize="20" HorizontalAlignment="Center"/>
             <StackPanel Margin="10">
                 <Label Content="Edit your review:" FontSize="12"/>
                 <TextBox Text="{Binding ReviewContent}" Height="75"/>
-                <ComboBox ItemsSource="{Binding Ratings}" SelectedValue="{Binding SelectedRating}"/>
+                <Label Content="Rating" FontSize="12"/>
+                <StackPanel>
+                    <Grid>
+                        <ProgressBar Height="18" VerticalAlignment="Center" x:Name="RatingBar"
+                                     Minimum="1" Maximum="10"
+                                     
+                                     Value="{Binding SelectedRating, Mode=OneWay}" 
+                                     Foreground="{Binding SelectedRating, Converter={StaticResource RatingToColorConverter}, Mode=OneWay}"/>
+
+                        <Slider Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Height="18"
+                                Value="{Binding SelectedRating, Mode=TwoWay}" 
+                                VerticalAlignment="Center" Background="Transparent"
+                                Style="{StaticResource TransparentSliderStyle}"/>
+                    </Grid>
+                </StackPanel>
+
             </StackPanel>
             <Button Command="{Binding EditReviewCommand}" Content="Edit" Margin="10 0 10 0"/>
         </StackPanel>
