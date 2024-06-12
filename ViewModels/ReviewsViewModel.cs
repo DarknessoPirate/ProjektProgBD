@@ -124,7 +124,7 @@ namespace ProjektProgBD.ViewModels
                     editReviewCommand = new RelayCommand(
                         parameter => EditReview(),
                         predicate => SelectedReview != null &&
-                                     SelectedRating >= 1 && SelectedRating <= 5 &&
+                                     SelectedRating >= 1 && SelectedRating <= 10 &&
                                      ReviewContent != ""
                         );
                 return editReviewCommand;
