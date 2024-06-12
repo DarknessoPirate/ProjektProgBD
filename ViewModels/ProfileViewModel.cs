@@ -20,16 +20,12 @@ namespace ProjektProgBD.ViewModels
         {
             _currentUser = user;
             _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
-            _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
         private Game _selectedGame;
         private ObservableCollection<Game> _games;
-        private string _reviewContent;
-        private int[] _ratings;
-        private int _selectedRating;
         #endregion
 
         #region accessors
@@ -63,54 +59,11 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public string ReviewContent
-        {
-            get { return _reviewContent; }
-            set
-            {
-                _reviewContent = value;
-                onPropertyChanged(nameof(ReviewContent));
-            }
-        }
-
-        public int[] Ratings
-        {
-            get { return _ratings; }
-            set
-            {
-                _ratings = value;
-                onPropertyChanged(nameof(Ratings));
-            }
-        }
-
-        public int SelectedRating
-        {
-            get { return _selectedRating; }
-            set
-            {
-                _selectedRating = value;
-                onPropertyChanged(nameof(SelectedRating));
-            }
-        }
+       
 
         #endregion
         #region commands
-        private ICommand submitReviewCommand;
-        public ICommand SubmitReviewCommand
-        {
-            get
-            {
-                if (submitReviewCommand == null)
-                    submitReviewCommand = new RelayCommand(
-                            parameter => AddReview(),
-                            predicate => ReviewContent != "" &&
-                                         SelectedGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
-                        );
-                return submitReviewCommand;
-            }
-        }
-
+      
         private ICommand openGameWindowCommand;
         public ICommand OpenGameWindowCommand
         {
@@ -142,30 +95,6 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region functions
-        private void AddReview()
-        {
-            if (!string.IsNullOrEmpty(ReviewContent))
-            {
-                var newReview = new Review
-                {
-                    Content = ReviewContent,
-                    Score = SelectedRating,
-                    UserId = CurrentUser.Id,
-                    GameId = SelectedGame.Id
-                };
-
-                if (RepositoryReview.AddReviewToDb(newReview))
-                {
-                    MessageBox.Show("Review Added");
-                    ReviewContent = string.Empty;
-                }
-                else
-                {
-                    MessageBox.Show("You've already reviewed this game");
-                }
-            }
-
-        }
 
         private void OpenGameWindow(object parameter)
         {
