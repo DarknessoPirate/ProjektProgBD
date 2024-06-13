@@ -10,27 +10,27 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Windows.Input;
 using System.Windows;
 using ProjektProgBD.Views;
+using System.Windows.Controls;
 
 namespace ProjektProgBD.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
 
-        public ProfileViewModel(User user)
+        public ProfileViewModel(User user, ObservableCollection<TabItem> tabs)
         {
             _currentUser = user;
             _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
+            _tabs = tabs;
         }
 
         #region properties
         private User _currentUser;
         private Game _selectedGame;
         private ObservableCollection<Game> _games;
-        private string _reviewContent;
-        private int[] _ratings;
-        private int _selectedRating;
+        private ObservableCollection<TabItem> _tabs;
         private int _visible = 0;
-
+        private string _userNameToDelete;
         #endregion
 
         #region accessors
@@ -41,6 +41,16 @@ namespace ProjektProgBD.ViewModels
             {
                 _currentUser = value;
                 onPropertyChanged(nameof(CurrentUser));
+            }
+        }
+
+        public ObservableCollection<TabItem> Tabs
+        {
+            get { return _tabs; }
+            set
+            {
+                _tabs = value;
+                onPropertyChanged(nameof(Tabs));
             }
         }
 
@@ -64,7 +74,15 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-       
+        public string UserNameToDelete
+        {
+            get { return _userNameToDelete; }
+            set
+            {
+                _userNameToDelete = value;
+                onPropertyChanged(nameof(UserNameToDelete));
+            }
+        }
 
         public int Visible
         {
@@ -135,6 +153,34 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        private ICommand logoutCommand;
+        public ICommand LogoutCommand
+        {
+            get
+            {
+                if (logoutCommand == null)
+                    logoutCommand = new RelayCommand(
+                       parameter => Logout(),
+                       predicate => true
+                       );
+                return logoutCommand;
+            }
+        }
+
+        private ICommand deleteAccountCommand;
+        public ICommand DeleteAccountCommand
+        {
+            get
+            {
+                if (deleteAccountCommand == null)
+                    deleteAccountCommand = new RelayCommand(
+                       parameter => DeleteAccount(),
+                       predicate => UserNameToDelete == CurrentUser.Name
+                       );
+                return deleteAccountCommand;
+            }
+        }
+
         #endregion
 
         #region functions
@@ -164,6 +210,22 @@ namespace ProjektProgBD.ViewModels
         {
             Visible = 0;
         }
+
+        private void Logout()
+        {
+            Tabs.Clear();
+        }
+
+        private void DeleteAccount()
+        {
+            if (RepositoryUser.DeleteUserFromDb(CurrentUser.Id))
+            {
+                Tabs.Clear();
+                MessageBox.Show($"Account {CurrentUser.Name} has been deleted");
+            }
+
+        }
+
         #endregion
 
     }

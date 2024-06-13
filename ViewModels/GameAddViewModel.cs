@@ -26,7 +26,6 @@ namespace ProjektProgBD.ViewModels
         private string _gamePrice;
         private string _coverImagePath;
         private Game _selectedGame;
-
         #endregion
 
         #region accessors

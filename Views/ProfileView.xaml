@@ -53,7 +53,7 @@
                     </Button>
                     <Button Margin="11,117,10,304" Content="Shop" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,1"></Button>
                     <Button Margin="11,146,10,274" Content="Reviews" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,0,0,1"></Button>
-                    <Button x:Name="LogoutBtn" 
+                    <Button Command="{Binding LogoutCommand}" x:Name="LogoutBtn" 
                     Content="Log out" 
                     Foreground="White"
                     Background="#FFFD836D"
@@ -80,7 +80,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button x:Name="DeeleteBtn" 
+                    <Button Command="{Binding DeleteAccountCommand}" x:Name="DeeleteBtn" 
                 Content="Delete account" 
                 Foreground="White"
                 Background="#FFFFBA69"
@@ -107,6 +107,10 @@
                             </Style>
                         </Button.Style>
                     </Button>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Label Content="Type your username"/>
+                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 5"/>
+                    </StackPanel>
                     <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14" >
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="/Icons/close.png"/>

@@ -32,6 +32,7 @@ namespace ProjektProgBD.ViewModels
         private string _reviewContent;
         private int[] _ratings;
         private int _selectedRating;
+        private Review _selectedReview;
         #endregion
 
         #region accessors
@@ -72,6 +73,17 @@ namespace ProjektProgBD.ViewModels
             {
                 _reviews = value;
                 onPropertyChanged(nameof(Reviews));
+            }
+        }
+
+
+        public Review SelectedReview
+        {
+            get { return _selectedReview; }
+            set
+            {
+                _selectedReview = value;
+                onPropertyChanged(nameof(SelectedReview));
             }
         }
 

@@ -103,10 +103,10 @@ namespace ProjektProgBD.ViewModels
             if (foundUser)
             {
                 var currentUser = RepositoryUser.GetUserFromDb(newUser);
-                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(currentUser) });
-                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser) });
+                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(currentUser)});
+                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser)});
                 Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(currentUser) });
-                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser) });     
+                Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser, Tabs) });     
                 /*
                  * 
                  * DEBUGGING PURPOSES ONLY
@@ -122,9 +122,11 @@ namespace ProjektProgBD.ViewModels
             else
             {
                 MessageBox.Show("Credentials not found");
-                UserName = string.Empty;
-                SetPassword(parameter, string.Empty);
+               
             }
+
+            UserName = string.Empty;
+            SetPassword(parameter, string.Empty);
         }
 
         private void OpenRegistrationWindow()
