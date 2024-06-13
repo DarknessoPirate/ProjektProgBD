@@ -35,7 +35,7 @@
                     <Border  Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="313" Height="60" Margin="10,0,0,0" BorderBrush="#FFFFBA69" BorderThickness="0,2,0,2">
                         <Viewbox>
                             <TextBlock Text="{Binding CurrentGame.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" TextAlignment="Center" Margin="0,0,0,5" />
-                        </Viewbox>
+                        </Viewbox> 
                     </Border>
                     <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Price}" Grid.Column="0" VerticalAlignment="Top" Height="37" Margin="205,0,77,0" FontSize="25" Foreground="#FFFFBA69" TextAlignment="Right"/>
                     <TextBlock TextWrapping="Wrap" Text="$" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Margin="286,0,0,0" Width="37" FontSize="25" TextAlignment="Center" Foreground="#FFFFBA69"/>
@@ -57,13 +57,13 @@ IsReadOnly="True"
 CanUserAddRows="False"
 CanUserDeleteRows="False"
 CanUserResizeColumns="False"
-CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,0,199" RenderTransformOrigin="0.5,0.5" Background="White" CanUserReorderColumns="False" GridLinesVisibility="None" AutoGenerateColumns="False" MinColumnWidth="100" HeadersVisibility="None" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200" SelectionMode="Single" SelectionUnit="Cell" BorderBrush="{x:Null}">
+CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,0,199" RenderTransformOrigin="0.5,0.5" Background="#00000000" CanUserReorderColumns="False" GridLinesVisibility="None" AutoGenerateColumns="False" MinColumnWidth="100" HeadersVisibility="None" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200" SelectionMode="Single" SelectionUnit="Cell" BorderBrush="{x:Null}" RowBackground="#00000000">
 
                 <DataGrid.Columns>
                     <DataGridTemplateColumn CanUserResize="False" Width="390">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="6" BorderThickness="3,3,3,3" Margin="0,0,10,0" Background="#FFE9DED1">
+                                <Border CornerRadius="6" BorderThickness="3,3,3,3" Margin="0,0,10,0" Background="White">
                                     <Border.Effect>
                                         <DropShadowEffect BlurRadius="15"
                                                           Direction ="-90" 
@@ -73,11 +73,11 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                                     </Border.Effect>
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding User.Name}" Margin="5,5,0,0" FontWeight="Bold" FontSize="15" />
+                                            <TextBlock Text="{Binding User.Name}" Margin="5,5,0,0" FontWeight="Bold" FontSize="15" Foreground="Black"/>
                                             <TextBlock Text="{Binding Score}" Margin="5,5,0,0" FontWeight="Bold" FontSize="15" Foreground="Black"/>
                                             <TextBlock Text="/5" Margin="0,5,0,0" FontWeight="Bold" FontSize="15" Foreground="Black"/>
                                         </StackPanel>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Content}" HorizontalAlignment="Center" Width="370" TextAlignment="Justify" Margin="0,2,5,5" Panel.ZIndex="6" Padding="5,0,7,0"/>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Content}" Foreground="Black" HorizontalAlignment="Center" Width="370" TextAlignment="Justify" Margin="0,2,5,5" Panel.ZIndex="6" Padding="5,0,7,0"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -109,8 +109,7 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                         Stroke="#FFFFBA69"
                         StrokeThickness="2"
                         Stretch="Fill"/>
-                        </Canvas>
-                        <!-- When checked, fill with Yellow -->
+                        </Canvas>                        
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="ButtonPath" Property="Fill" Value="#FFFFBA69"/>
@@ -120,31 +119,33 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                 </StackPanel.Resources>
                 <StackPanel Orientation="Horizontal" Width="417" Height="29" Margin="0,0,0,5">
                     <TextBlock FontSize="15" Width="268" Height="22" VerticalAlignment="Bottom" Margin="5,0,0,0" Foreground="#FFF64668"><Run Text="Write a review"/><Run Language="pl-pl" Text=":"/><LineBreak/><Run Language="pl-pl"/></TextBlock>
-                    <RadioButton
+                    <RadioButton x:Name="btn1"                       
                     Content="All"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
                     IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=1}"/>
-                    <RadioButton
+                    <RadioButton x:Name="btn2"
                     Content="All2"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}"/>
-                    <RadioButton
+                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}">
+                        
+                    </RadioButton>
+                    <RadioButton x:Name="btn3"
                     Content="All3"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
                     IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=3}"/>
-                    <RadioButton
+                    <RadioButton x:Name="btn4"
                     Content="All4"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
                     IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=4}"/>
-                    <RadioButton
+                    <RadioButton x:Name="btn5"
                     Content="All5"
                     GroupName="View"
                     Padding="2"
