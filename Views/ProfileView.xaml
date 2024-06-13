@@ -9,7 +9,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <l:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <l:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Viewbox Stretch="Fill">
@@ -29,89 +34,21 @@
                 <ColumnDefinition Width="*"/>
 
             </Grid.ColumnDefinitions>
-            <Border CornerRadius="0,10,10, 0" Background="White" Panel.ZIndex="1" Visibility="{Binding Path=Visible, Converter={StaticResource IntToVisibilityConverter}}" Margin="0,0,284,0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="15"
-              Direction ="-90" 
-              RenderingBias ="Quality" 
-              ShadowDepth ="2" 
-              Color ="Gray" />
-                </Border.Effect>
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
+            <Border Style="{StaticResource CustomBorderStyle}" Visibility="{Binding Path=Visible, Converter={StaticResource IntToVisibilityConverter}}">
                 <Grid Grid.Column="0" Margin="0,0,2,0">
                     <Border CornerRadius="0, 10, 0, 0" Margin="0,0,-2,423" Background="#FFF64668">
                         <TextBlock Margin="9,0,0,0" Text="Menu" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68" Height="19"/>
                     </Border>
-                    <Button Margin="10,88,10,333" Content="Home" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,0">
-                    </Button>
-                    <Button Margin="11,117,10,304" Content="Shop" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,1"></Button>
-                    <Button Margin="11,146,10,274" Content="Reviews" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,0,0,1"></Button>
-                    <Button Command="{Binding LogoutCommand}" x:Name="LogoutBtn" 
-                    Content="Log out" 
-                    Foreground="White"
-                    Background="#FFFD836D"
-                    Margin="10,338,10,85" FontSize="10" Height="25">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border x:Name="LogoutBorder" Background="{TemplateBinding Background}"
-                                            CornerRadius="16">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                          VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FFAC9D" TargetName="LogoutBorder"  />
-                                                    <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LogoutBorder" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button Command="{Binding DeleteAccountCommand}" x:Name="DeeleteBtn" 
-                Content="Delete account" 
-                Foreground="White"
-                Background="#FFFFBA69"
-                Margin="10,374,10,50" FontSize="10" Height="25">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border x:Name="DeleteBorder" Background="{TemplateBinding Background}"
-                            CornerRadius="16">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FFCB8F" TargetName="DeleteBorder"  />
-                                                    <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="DeleteBorder" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                    <Button Margin="10,88,10,333" Content="Home" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,0"/>
+                    <Button Margin="11,117,10,304" Content="Shop" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,1"/>
+                    <Button Margin="11,146,10,274" Content="Reviews" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,0,0,1"/>
+                    <Button Command="{Binding LogoutCommand}" x:Name="LogoutBtn" Content="Log out" Margin="10,338,10,85" Style="{StaticResource LogoutButtonStyle}"/>
+                    <Button Command="{Binding DeleteAccountCommand}" x:Name="DeeleteBtn" Content="Delete account" Margin="10,374,10,50" Style="{StaticResource DeleteButtonStyle}"/>
                     <StackPanel VerticalAlignment="Bottom">
                         <Label Content="Type your username"/>
                         <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 5"/>
                     </StackPanel>
-                    <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14" >
+                    <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14">
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="/Icons/close.png"/>
                         </Button.OpacityMask>
@@ -140,20 +77,22 @@
 
             <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                 <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
-                  IsReadOnly="True"
-      CanUserAddRows="False"
-      AutoGenerateColumns="False"
-      CanUserDeleteRows="False"
-      CanUserResizeColumns="False"
-      CanUserResizeRows="False"
-      Foreground="White" FontSize="14"
-      Background="#19FFFFFF" BorderBrush="#FF411C36" BorderThickness="1"
-      RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
-      ColumnHeaderHeight="32" HorizontalAlignment="Center"
-      VerticalScrollBarVisibility="Visible" Height="235" Width="762">
+                          RowHeight="100"
+                          IsReadOnly="True" 
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeColumns="False"
+                          CanUserResizeRows="False"
+                          Foreground="White" FontSize="14"
+                          Background="#19FFFFFF" BorderBrush="#FF411C36" BorderThickness="1"
+                          RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
+                          ColumnHeaderHeight="32" HorizontalAlignment="Center"
+                          VerticalScrollBarVisibility="Visible" Height="235" Width="500">
+
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="#984063"/>
+                            <Setter Property="Background" Value="#B23F54"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                             <Setter Property="Foreground" Value="Black"/>
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -166,59 +105,14 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
+
                     <DataGrid.Columns>
-                        
-                        <DataGridTextColumn Header="Title" Binding="{Binding Name}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#B0728F"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"  Width="80">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#B0728F"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Cover">
+                        <DataGridTemplateColumn Width="200" Header="Cover">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding CoverImagePath}" Width="50" Height="50"
-HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Image Source="{Binding CoverImagePath}" Stretch="UniformToFill"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>
-                                
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -234,20 +128,49 @@ HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Style>
                             </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Title" Binding="{Binding Name}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#B0728F"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
+                
                 <Button x:Name="RefreshBtn" 
                     Content="Refresh your games" 
                     Foreground="White"
                     Background="#FFF64668"
                     Height="35"
                     Width="250"
-		    Command="{Binding RefreshGamesCommand}" Margin="0,15,0,0">
+		            Command="{Binding RefreshGamesCommand}" Margin="0,15,0,0">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Template">

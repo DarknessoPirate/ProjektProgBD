@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjektProgBD.Views"
         xmlns:tools="clr-namespace:ProjektProgBD.Tools"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
     <Window.Resources>
         <tools:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
     </Window.Resources>
