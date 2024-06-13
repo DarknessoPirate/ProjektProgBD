@@ -70,7 +70,7 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="AliceBlue" TargetName="LogoutBorder"  />
+                                                    <Setter Property="Background" Value="#FFAC9D" TargetName="LogoutBorder"  />
                                                     <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LogoutBorder" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
@@ -97,7 +97,7 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="AliceBlue" TargetName="DeleteBorder"  />
+                                                    <Setter Property="Background" Value="#FFCB8F" TargetName="DeleteBorder"  />
                                                     <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="DeleteBorder" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
@@ -256,7 +256,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="AliceBlue" TargetName="LoginBorder"  />
+                                                <Setter Property="Background" Value="#FA7F97" TargetName="LoginBorder"  />
                                                 <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LoginBorder" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
@@ -267,8 +267,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button.Style>
                 </Button>
             </StackPanel>
-            <Border  CornerRadius="0,15,15,0" Margin="0,46,372,68" Background="White" MaxWidth="50" MaxHeight="50">
-                <Button Command="{Binding OpenMenuCommand}" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Background="#FFFD836D">
+            <Border  CornerRadius="0,15,15,0" Margin="0,46,366,68" Background="White" MaxWidth="50" MaxHeight="50">
+                <Button Command="{Binding OpenMenuCommand}" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Background="#FFFD836D" Margin="0,6,0,5">
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="/Icons/settings.png" Stretch="Uniform"/>
                     </Button.OpacityMask>

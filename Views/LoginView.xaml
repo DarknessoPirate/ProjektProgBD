@@ -85,7 +85,7 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="AliceBlue" TargetName="LoginBorder"  />
+                                                <Setter Property="Background" Value="#FA7F97" TargetName="LoginBorder"  />
                                                 <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LoginBorder" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>

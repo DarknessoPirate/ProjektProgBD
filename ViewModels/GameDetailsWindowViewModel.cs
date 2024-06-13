@@ -118,9 +118,7 @@ namespace ProjektProgBD.ViewModels
                             parameter => AddReview(),
                             predicate => ReviewContent != "" &&
                                          CurrentGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5 &&
-                                         Games.Contains(CurrentGame)
-
+                                         SelectedRating >= 1 && SelectedRating <= 5
                         );
                 return submitReviewCommand;
             }
@@ -143,11 +141,6 @@ namespace ProjektProgBD.ViewModels
 
                 if (RepositoryGame.GetUserGamesFromDb(CurrentUser.Id).FirstOrDefault(g => g.Id == CurrentGame.Id) != null)
                 {
-
-                    MessageBox.Show("Review Added");
-                    ReviewContent = string.Empty;
-                    Reviews = RepositoryReview.GetGameReviews(_currentGame);
-                    SelectedRating = 0;
 
                     if (RepositoryReview.AddReviewToDb(newReview))
                     {
