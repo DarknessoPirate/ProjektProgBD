@@ -6,14 +6,6 @@
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-<<<<<<< HEAD
-
-    <Grid>
-        
-        <TextBlock Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
-
-=======
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -39,5 +31,4 @@
 
     
     </Grid>
->>>>>>> 7d4931013f92bda206105987b95333696b20ccda
 </UserControl>
