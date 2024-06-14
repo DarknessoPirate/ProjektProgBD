@@ -151,6 +151,7 @@ namespace ProjektProgBD.ViewModels
                 "clouds" => "/Images/clouds.png",
                 "rain" => "/Images/rain.png",
                 "snow" => "/Images/snow.png",
+                "thundering" => "/Images/snow.png",
                 _ => "Images/default.png"
             };
 
