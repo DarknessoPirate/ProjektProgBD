@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using XPlat.Device.Geolocation;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -34,7 +35,7 @@ namespace ProjektProgBD.ViewModels
         private string _currentDate;
         private string _currentTime;
         private string _weatherCondition;
-        private BitmapImage _weatherImage;
+        private string _weatherImage;
         private double _temperature;
         private DispatcherTimer _timer;
         #endregion
@@ -84,7 +85,7 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(WeatherCondition));
             }
         }
-        public BitmapImage WeatherImage
+        public string WeatherImage
         {
             get => _weatherImage;
             set
@@ -148,14 +149,14 @@ namespace ProjektProgBD.ViewModels
             string imagePath = condition.ToLower() switch
             {
                 "clear" => "/Images/clear.png",
-                "clouds" => "/Images/clouds.png",
-                "rain" => "/Images/rain.png",
-                "snow" => "/Images/snow.png",
-                "thundering" => "/Images/snow.png",
+                "clouds" => "/Images/cloudy.png",
+                "rain" => "/Images/rainy.png",
+                "snow" => "/Images/snowing.png",
+                "thundering" => "/Images/stormy.png",
                 _ => "Images/default.png"
             };
 
-            WeatherImage = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+            WeatherImage = Directory.GetCurrentDirectory() + imagePath;
         }
 
 

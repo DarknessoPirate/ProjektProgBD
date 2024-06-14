@@ -7,8 +7,9 @@
              xmlns:tools="clr-namespace:ProjektProgBD.Tools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
-   
+    <UserControl.Resources>
+        <tools:ImageConverter x:Key="ImageConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -44,7 +45,7 @@
 Start your gaming journey with us today. Let the fun begin!" TextWrapping="Wrap" Margin="0,67,0,100" FontSize="17" TextAlignment="Justify" Grid.ColumnSpan="3" Grid.RowSpan="2" Width="664" Grid.Row="1" HorizontalAlignment="Center"/>
 
 
-        <Image Source="{Binding WeatherImage}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0"/>
+        <Image Source="{Binding WeatherImage, Converter={StaticResource ImageConverter}}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0"/>
         <StackPanel  Orientation="Vertical">
             <TextBlock Text="{Binding WeatherCondition}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
             <TextBlock Text="{Binding Temperature, StringFormat={}{0:F1}°C}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="24"/>
