@@ -4,6 +4,10 @@ using ProjektProgBD.Models;
 using System.Net.Http;
 using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
+using System.Windows;
+using System.Windows.Input;
+using XPlat.Device.Geolocation;
+using System.Windows.Media.Imaging;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -14,13 +18,15 @@ namespace ProjektProgBD.ViewModels
             CurrentUser = user;
             CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
             CurrentTime = DateTime.Now.ToString("HH:mm");
-
+            
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMinutes(1)
             };
             _timer.Tick += TimerTick;
             _timer.Start();
+
+            InitializeAsync();
         }
 
         #region properties
@@ -28,7 +34,7 @@ namespace ProjektProgBD.ViewModels
         private string _currentDate;
         private string _currentTime;
         private string _weatherCondition;
-        private string _weatherImage;
+        private BitmapImage _weatherImage;
         private double _temperature;
         private DispatcherTimer _timer;
         #endregion
@@ -78,7 +84,7 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(WeatherCondition));
             }
         }
-        public string WeatherImage
+        public BitmapImage WeatherImage
         {
             get => _weatherImage;
             set
@@ -102,6 +108,8 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region commands
+
+
         #endregion
 
         #region functions
@@ -110,10 +118,15 @@ namespace ProjektProgBD.ViewModels
             CurrentTime = DateTime.Now.ToString("HH:mm");
         }
 
+        private async void InitializeAsync()
+        {
+            await GetWeatherDataAsync();
+        }
+
         public async Task GetWeatherDataAsync()
         {
-            string apiKey = "YOUR_API_KEY";
-            string url = $"http://api.openweathermap.org/data/2.5/weather?q=YOUR_CITY_NAME&appid={apiKey}&units=metric";
+            string apiKey = "fa418d9978c099f0c7c3739558cdff67";
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q=Gliwice&appid={apiKey}&units=metric";
 
             using (HttpClient client = new HttpClient())
             {
@@ -129,26 +142,19 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+
         private void UpdateWeatherImage(string condition)
         {
-            switch (condition.ToLower())
+            string imagePath = condition.ToLower() switch
             {
-                case "clear":
-                    WeatherImage = "Images/clear.png";
-                    break;
-                case "clouds":
-                    WeatherImage = "Images/clouds.png";
-                    break;
-                case "rain":
-                    WeatherImage = "Images/rain.png";
-                    break;
-                case "snow":
-                    WeatherImage = "Images/snow.png";
-                    break;
-                default:
-                    WeatherImage = "Images/default.png";
-                    break;
-            }
+                "clear" => "./Images/clear.png",
+                "clouds" => "./Images/clouds.png",
+                "rain" => "./Images/rain.png",
+                "snow" => "./Images/snow.png",
+                _ => "./Images/default.png"
+            };
+
+            WeatherImage = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
         }
 
 
