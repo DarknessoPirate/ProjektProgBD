@@ -20,8 +20,8 @@
     <Viewbox Stretch="Fill">
         <Grid Width="800" Height="450">
             <Grid.RowDefinitions>
-                <RowDefinition Height="149*"/>
-                <RowDefinition Height="301*"/>
+                <RowDefinition Height="31*"/>
+                <RowDefinition Height="59*"/>
             </Grid.RowDefinitions>
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="*"/>
 
             </Grid.ColumnDefinitions>
-            <Border Style="{StaticResource CustomBorderStyle}" Visibility="{Binding Path=Visible, Converter={StaticResource IntToVisibilityConverter}}">
+            <Border Style="{StaticResource CustomBorderStyle}" Visibility="{Binding Path=Visible, Converter={StaticResource IntToVisibilityConverter}}" Grid.RowSpan="2">
                 <Grid Grid.Column="0" Margin="0,0,2,0">
                     <Border CornerRadius="0, 10, 0, 0" Margin="0,0,-2,423" Background="#FFF64668">
                         <TextBlock Margin="9,0,0,0" Text="Menu" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68" Height="19"/>
@@ -73,104 +73,45 @@
                     <TextBlock Text="$" FontSize="20" Height="34" Width="21" VerticalAlignment="Top" FontWeight="Bold"/>
                 </StackPanel>
             </Grid>
-            <TextBlock FontSize="20" Margin="39,112,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="27" Width="122" FontWeight="Bold"><Run Text="Your games"/><Run Language="pl-pl" Text=":"/></TextBlock>
+            <TextBlock FontSize="20" Margin="104,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="27" Width="122" FontWeight="Bold" Grid.Row="1"><Run Text="Your games"/><Run Language="pl-pl" Text=":"/></TextBlock>
 
-            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-                <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
-                          RowHeight="100"
-                          IsReadOnly="True" 
-                          CanUserAddRows="False"
-                          AutoGenerateColumns="False"
-                          CanUserDeleteRows="False"
-                          CanUserResizeColumns="False"
-                          CanUserResizeRows="False"
-                          Foreground="White" FontSize="14"
-                          Background="#19FFFFFF" BorderBrush="#FF411C36" BorderThickness="1"
-                          RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
-                          ColumnHeaderHeight="32" HorizontalAlignment="Center"
-                          VerticalScrollBarVisibility="Visible" Height="235" Width="675">
+            <ListBox Padding="100, 0, 100, 20" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}" Grid.ColumnSpan="2" Margin="0,65,0,1" Grid.Row="1" Panel.ZIndex="1" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Width="797">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>                       
+                        <UniformGrid Columns="4" Width="539" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
 
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="#B23F54"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="Foreground" Value="Black"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="BorderBrush" Value="#FF4D2548"/>
-                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#B0728F"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
+                        <StackPanel Width="100" Height="170" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,10,0,10">
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
+                            <Border BorderThickness="1" Margin="2" Background="Transparent" HorizontalAlignment="Center">
+                                <Border.Effect>
+                                    <DropShadowEffect/>
+                                </Border.Effect>
+                                <Image Source="{Binding CoverImagePath}" Stretch="UniformToFill"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="92" Height="150" Margin="0,0,0,0"/>
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
 
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Width="200" Header="Cover">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding CoverImagePath}" Stretch="UniformToFill"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#B0728F"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
-                        </DataGridTemplateColumn>
+            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Top">
 
-                        <DataGridTextColumn Header="Title" Binding="{Binding Name}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="20"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                    <Setter Property="TextWrapping" Value="Wrap"/>
-                                    
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#B0728F"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding OpenGameWindowCommand}" CommandParameter="{Binding SelectedGame}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </DataGrid>
-                
                 <Button x:Name="RefreshBtn" 
                     Content="Refresh your games" 
                     Foreground="White"
                     Background="#FFF64668"
                     Height="35"
                     Width="250"
-		            Command="{Binding RefreshGamesCommand}" Margin="0,15,0,0">
+		            Command="{Binding RefreshGamesCommand}" HorizontalAlignment="Right" Margin="0,0,20,0">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Template">
@@ -194,7 +135,7 @@
                     </Button.Style>
                 </Button>
             </StackPanel>
-            <Border  CornerRadius="0,15,15,0" Margin="0,46,366,68" Background="White" MaxWidth="50" MaxHeight="50">
+            <Border  Grid.Row="0" CornerRadius="0,15,15,0" Margin="0,90,366,30" Background="White" MaxWidth="50" MaxHeight="50">
                 <Button Command="{Binding OpenMenuCommand}" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Background="#FFFD836D" Margin="0,6,0,5">
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="/Icons/settings.png" Stretch="Uniform"/>
@@ -209,7 +150,7 @@
                     </Button.RenderTransform>
                 </Button>
             </Border>
-            <Image ToolTip="Double click on a game to see its details." Margin="308,109,62,13" Grid.Column="1" Source="/Icons/tooltip.png"/>
+            <Image ToolTip="Double click on a game to see its details." Margin="241,5,129,257" Source="/Icons/tooltip.png" Grid.Row="1"/>
         </Grid>
     </Viewbox>
 </UserControl>
