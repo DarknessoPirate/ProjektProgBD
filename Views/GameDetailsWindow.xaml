@@ -35,13 +35,13 @@
                     <Border  Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="313" Height="60" Margin="10,0,0,0" BorderBrush="#FFFFBA69" BorderThickness="0,2,0,2">
                         <Viewbox>
                             <TextBlock Text="{Binding CurrentGame.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" TextAlignment="Center" Margin="0,0,0,5" />
-                        </Viewbox> 
+                        </Viewbox>
                     </Border>
                     <TextBlock TextWrapping="Wrap" Text="{Binding CurrentGame.Price}" Grid.Column="0" VerticalAlignment="Top" Height="37" Margin="205,0,77,0" FontSize="25" Foreground="#FFFFBA69" TextAlignment="Right"/>
                     <TextBlock TextWrapping="Wrap" Text="$" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Margin="286,0,0,0" Width="37" FontSize="25" TextAlignment="Center" Foreground="#FFFFBA69"/>
                 </Grid>
             </Border>
-            <Border Width="200" Height="250" Margin="100,137,500,46" CornerRadius="20">
+            <Border Margin="118,184,533,43" CornerRadius="20">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
@@ -109,7 +109,7 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                         Stroke="#FFFFBA69"
                         StrokeThickness="2"
                         Stretch="Fill"/>
-                        </Canvas>                        
+                        </Canvas>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="ButtonPath" Property="Fill" Value="#FFFFBA69"/>
@@ -131,7 +131,7 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}"
                     IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}">
-                        
+
                     </RadioButton>
                     <RadioButton x:Name="btn3"
                     Content="All3"
