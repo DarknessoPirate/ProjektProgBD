@@ -117,7 +117,7 @@ namespace ProjektProgBD.ViewModels
                 {
                     Tabs.Add(new TabItem { Header = "GameAdd", Content = new GameAddView(), DataContext = new GameAddViewModel() });
                 }
-                MessageBox.Show("Logged in :)");
+
             }
             else
             {

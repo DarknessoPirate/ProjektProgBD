@@ -4,11 +4,8 @@ using ProjektProgBD.Models;
 using System.Net.Http;
 using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
-using System.Windows;
-using System.Windows.Input;
-using XPlat.Device.Geolocation;
-using System.Windows.Media.Imaging;
 using System.IO;
+using ProjektProgBD.Tools;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -19,6 +16,7 @@ namespace ProjektProgBD.ViewModels
             CurrentUser = user;
             CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
             CurrentTime = DateTime.Now.ToString("HH:mm");
+            _geolocationService = new GeolocationService();
             
             _timer = new DispatcherTimer
             {
@@ -34,9 +32,11 @@ namespace ProjektProgBD.ViewModels
         private User _currentUser;
         private string _currentDate;
         private string _currentTime;
+        private string _city;
         private string _weatherCondition;
         private string _weatherImage;
         private double _temperature;
+        private GeolocationService _geolocationService;
         private DispatcherTimer _timer;
         #endregion
 
@@ -105,6 +105,16 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                onPropertyChanged(nameof(City));
+            }
+        }
+
 
         #endregion
 
@@ -127,7 +137,12 @@ namespace ProjektProgBD.ViewModels
         public async Task GetWeatherDataAsync()
         {
             string apiKey = "fa418d9978c099f0c7c3739558cdff67";
-            string url = $"http://api.openweathermap.org/data/2.5/weather?q=Gliwice&appid={apiKey}&units=metric";
+            City = await _geolocationService.GetGeolocationAsync();
+            
+
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q={City}&appid={apiKey}&units=metric";
+
+
 
             using (HttpClient client = new HttpClient())
             {
