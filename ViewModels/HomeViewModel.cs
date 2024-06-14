@@ -147,11 +147,11 @@ namespace ProjektProgBD.ViewModels
         {
             string imagePath = condition.ToLower() switch
             {
-                "clear" => "./Images/clear.png",
-                "clouds" => "./Images/clouds.png",
-                "rain" => "./Images/rain.png",
-                "snow" => "./Images/snow.png",
-                _ => "./Images/default.png"
+                "clear" => "/Images/clear.png",
+                "clouds" => "/Images/clouds.png",
+                "rain" => "/Images/rain.png",
+                "snow" => "/Images/snow.png",
+                _ => "Images/default.png"
             };
 
             WeatherImage = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));

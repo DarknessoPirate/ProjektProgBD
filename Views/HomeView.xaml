@@ -45,7 +45,7 @@ Start your gaming journey with us today. Let the fun begin!" TextWrapping="Wrap"
 
 
         <Image Source="{Binding WeatherImage}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel  Orientation="Vertical">
             <TextBlock Text="{Binding WeatherCondition}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
             <TextBlock Text="{Binding Temperature, StringFormat={}{0:F1}°C}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="24"/>
         </StackPanel>
