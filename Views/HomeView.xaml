@@ -10,27 +10,40 @@
 
    
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF41436A" Offset="1"/>
+                <GradientStop Color="#FF984063" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock  Grid.Row="0" Grid.Column="2" Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label>Date:</Label>
-            <TextBlock Text="{Binding CurrentDate}"/>
+        <TextBlock Grid.Column="2" Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="175" Margin="75,14,0,0" TextAlignment="Right" FontWeight="Bold"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,266,45" Orientation="Horizontal">
+            <Label VerticalAlignment="Bottom" FontSize="15" Width="81" Padding="25,0,0,0" Height="22">Date:</Label>
+            <TextBlock Text="{Binding CurrentDate}" FontSize="15" Width="174" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Label>Hour:</Label>
-            <TextBlock Text="{Binding CurrentTime}"/>    
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-1,45,1,1">
+            <Label Width="82" FontSize="15" VerticalContentAlignment="Center" Height="21" Padding="25,0,5,0" Content="Hour:" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding CurrentTime}" Width="149" Height="21" FontSize="15" VerticalAlignment="Top" FontWeight="Bold"/>
         </StackPanel>
+        <TextBlock Text="Welcome to our Online Game Store!" Grid.ColumnSpan="3" Margin="130,13,0,80" Grid.Row="1" FontSize="30" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Width="548"/>
+        <TextBlock Text="Discover the latest and greatest in gaming at our virtual doorstep. Dive into a world of immersive experiences, endless adventures, and thrilling challenges. Whether you're a casual player, hardcore gamer, or somewhere in between, we've got something for everyone. 
+            &#x0a;Get exclusive deals, special offers, and discounts on your favorite games. Stay updated with the latest news and reviews. Join our vibrant community of gamers, share your experiences, and connect with fellow enthusiasts from around the globe.
+
+Start your gaming journey with us today. Let the fun begin!" TextWrapping="Wrap" Margin="0,67,0,100" FontSize="17" TextAlignment="Justify" Grid.ColumnSpan="3" Grid.RowSpan="2" Width="664" Grid.Row="1" HorizontalAlignment="Center"/>
+
+
         <Image Source="{Binding WeatherImage}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
             <TextBlock Text="{Binding WeatherCondition}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>

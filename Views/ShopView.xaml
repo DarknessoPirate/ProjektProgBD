@@ -19,20 +19,22 @@
                 <GradientStop Color="#FF47416A" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Border Padding="20" Background="White" CornerRadius="10" Margin="14,10,14,14">
-            <Grid Margin="10">
+        <Border Padding="20" Background="White" CornerRadius="10" Margin="22,22,22,22">
+            <Grid Margin="10,-10,-10,-10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="155*"/>
+                    <ColumnDefinition Width="557*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- User Info and Game Details -->
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
+
+                
+                
+                <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="-11,262,31,0" Height="90" Grid.Row="1">
                     <TextBlock Text="Logged in as:" FontSize="16" Foreground="#984063" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="14" Foreground="Black" Margin="0,5,0,0" HorizontalAlignment="Center"/>
                     <TextBlock Text="Money:" FontSize="16" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0" HorizontalAlignment="Center"/>
@@ -40,9 +42,11 @@
                 </StackPanel>
 
 
-                <Button Grid.Row="1" Height="30" Width="100" Margin="10,20,0,0" Command="{Binding BuyGameCommand}" Content="Buy game"
+                
+                
+                <Button Grid.Row="1" Height="103" Width="150" Margin="-14,51,0,0" Command="{Binding BuyGameCommand}" Content="Buy game"
          Background="#F64668" Foreground="White" FontSize="16" FontWeight="Bold"
-         Padding="10" HorizontalAlignment="Center" VerticalAlignment="Top">
+         Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">
@@ -59,17 +63,16 @@
                 </Button>
 
 
-                <!-- DataGrid for Game Display -->
-                <StackPanel Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
-                    <Grid Width="435">
+
+                <StackPanel Grid.RowSpan="3" Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Column="1" Height="371" HorizontalAlignment="Center" Width="622">
+                    <Grid Width="500">
                         <Image ToolTip="Double click on a game to see its details." Source="/Icons/tooltip.png" OpacityMask="Black" Height="18" VerticalAlignment="Bottom" Width="18" HorizontalAlignment="Right"/>
-                        <TextBlock FontSize="24" Text="Games in DB" Foreground="#984063" Margin="0,14,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="185" TextAlignment="Center"/>
+                        <TextBlock FontSize="24" Text="Games in DB" Foreground="#984063" HorizontalAlignment="Center" Width="184" TextAlignment="Center"/>
 
                     </Grid>
-                    <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="10">
-
+                    <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="10" Width="568">
                         <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
-                              Height="200"
+                              Height="348"
                               IsReadOnly="True"
                               CanUserAddRows="False"
                               AutoGenerateColumns="False"
@@ -79,8 +82,8 @@
                               Foreground="White" FontSize="14"
                               Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1"
                               RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
-                              ColumnHeaderHeight="32" HorizontalAlignment="Center" VerticalAlignment="Center"
-                              VerticalScrollBarVisibility="Visible">
+                              ColumnHeaderHeight="32"
+                              VerticalScrollBarVisibility="Visible" Width="541">
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#984063"/>

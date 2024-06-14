@@ -45,8 +45,8 @@
                     <Button Command="{Binding LogoutCommand}" x:Name="LogoutBtn" Content="Log out" Margin="10,338,10,85" Style="{StaticResource LogoutButtonStyle}"/>
                     <Button Command="{Binding DeleteAccountCommand}" x:Name="DeeleteBtn" Content="Delete account" Margin="10,374,10,50" Style="{StaticResource DeleteButtonStyle}"/>
                     <StackPanel VerticalAlignment="Bottom">
-                        <Label Content="Type your username"/>
-                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 5"/>
+                        <Label Content="Type your username" Width="102" FontSize="10"/>
+                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 5" Width="103"/>
                     </StackPanel>
                     <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14">
                         <Button.OpacityMask>
@@ -88,7 +88,7 @@
                           Background="#19FFFFFF" BorderBrush="#FF411C36" BorderThickness="1"
                           RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
                           ColumnHeaderHeight="32" HorizontalAlignment="Center"
-                          VerticalScrollBarVisibility="Visible" Height="235" Width="500">
+                          VerticalScrollBarVisibility="Visible" Height="235" Width="675">
 
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
@@ -209,7 +209,7 @@
                     </Button.RenderTransform>
                 </Button>
             </Border>
-            <Image ToolTip="Double click on a game to see its details." Margin="350,109,20,13" Grid.Column="1" Source="/Icons/tooltip.png"/>
+            <Image ToolTip="Double click on a game to see its details." Margin="308,109,62,13" Grid.Column="1" Source="/Icons/tooltip.png"/>
         </Grid>
     </Viewbox>
 </UserControl>
