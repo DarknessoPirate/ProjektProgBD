@@ -24,11 +24,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CoverImages\" />
+    <PackageReference Include="XPlat.Device.Geolocation" Version="1.8.1" />
   </ItemGroup>
 <ItemGroup>
   <Resource Include="Icons\close.png" />
@@ -36,5 +34,18 @@
   <Resource Include="Icons\tooltip.png" />
 </ItemGroup>
 
+<ItemGroup>
+  <None Update="appsettings.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
 
+  <None Update="Images\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
+
+<Target Name="CopyFiles" AfterTargets="Build">
+    <Copy SourceFiles="appsettings.json" DestinationFolder="$(OutputPath)"/>
+    <Copy SourceFiles="@(Images->'%(FullPath)')" DestinationFolder="$(OutputPath)Images\"/>
+</Target>
 </Project>

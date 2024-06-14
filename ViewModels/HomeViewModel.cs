@@ -1,8 +1,14 @@
 ﻿
 
 using ProjektProgBD.Models;
+using System.Net.Http;
 using System.Windows.Threading;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Newtonsoft.Json.Linq;
+using System.Windows;
+using System.Windows.Input;
+using XPlat.Device.Geolocation;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -13,19 +19,24 @@ namespace ProjektProgBD.ViewModels
             CurrentUser = user;
             CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
             CurrentTime = DateTime.Now.ToString("HH:mm");
-
+            
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMinutes(1)
             };
             _timer.Tick += TimerTick;
             _timer.Start();
+
+            InitializeAsync();
         }
 
         #region properties
         private User _currentUser;
         private string _currentDate;
         private string _currentTime;
+        private string _weatherCondition;
+        private string _weatherImage;
+        private double _temperature;
         private DispatcherTimer _timer;
         #endregion
 
@@ -64,9 +75,42 @@ namespace ProjektProgBD.ViewModels
                 onPropertyChanged(nameof(CurrentTime));
             }
         }
+
+        public string WeatherCondition
+        {
+            get => _weatherCondition;
+            set
+            {
+                _weatherCondition = value;
+                onPropertyChanged(nameof(WeatherCondition));
+            }
+        }
+        public string WeatherImage
+        {
+            get => _weatherImage;
+            set
+            {
+                _weatherImage = value;
+                onPropertyChanged(nameof(WeatherImage));
+            }
+        }
+
+        public double Temperature
+        {
+            get => _temperature;
+            set
+            {
+                _temperature = value;
+                onPropertyChanged(nameof(Temperature));
+            }
+        }
+
+
         #endregion
 
         #region commands
+
+
         #endregion
 
         #region functions
@@ -74,12 +118,54 @@ namespace ProjektProgBD.ViewModels
         {
             CurrentTime = DateTime.Now.ToString("HH:mm");
         }
+
+        private async void InitializeAsync()
+        {
+            await GetWeatherDataAsync();
+        }
+
+        public async Task GetWeatherDataAsync()
+        {
+            string apiKey = "fa418d9978c099f0c7c3739558cdff67";
+            string url = $"http://api.openweathermap.org/data/2.5/weather?q=Gliwice&appid={apiKey}&units=metric";
+
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    JObject weatherData = JObject.Parse(result);
+                    WeatherCondition = weatherData["weather"][0]["main"].ToString();
+                    Temperature = Convert.ToDouble(weatherData["main"]["temp"]);
+                    UpdateWeatherImage(WeatherCondition);
+                }
+            }
+        }
+
+
+        private void UpdateWeatherImage(string condition)
+        {
+            string imagePath = condition.ToLower() switch
+            {
+                "clear" => "/Images/clear.png",
+                "clouds" => "/Images/cloudy.png",
+                "rain" => "/Images/rainy.png",
+                "snow" => "/Images/snowing.png",
+                "thundering" => "/Images/stormy.png",
+                _ => "Images/default.png"
+            };
+
+            WeatherImage = Directory.GetCurrentDirectory() + imagePath;
+        }
+
+
         #endregion
 
 
 
 
 
-        
+
     }
 }
