@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjektProgBD.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using static System.Windows.Forms.AxHost;
 
 namespace ProjektProgBD.Repositories
@@ -107,14 +108,21 @@ namespace ProjektProgBD.Repositories
         {
             using (var db = new ShopDbContext())
             {
-                if (user != null)
+                try
                 {
-                    var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-                    if (foundUser != null)
+                if (user != null)
+                    {
+                        var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                        if (foundUser != null)
                         return true;
+                    }
+                return false;
+                }catch (Exception ex) {
+                
+                    MessageBox.Show(ex.Message);
+                    return false;   
                 }
             }
-                return false;
         }
 
         public static bool FindUserInDB(string userName)
