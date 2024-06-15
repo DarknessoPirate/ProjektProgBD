@@ -41,11 +41,11 @@
                     <TextBlock TextWrapping="Wrap" Text="$" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Margin="286,0,0,0" Width="37" FontSize="25" TextAlignment="Center" Foreground="#FFFFBA69"/>
                 </Grid>
             </Border>
-            <Border Margin="118,184,533,43" CornerRadius="20">
+            <Border Margin="118,184,533,43" CornerRadius="20" Width="150" Height="225">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
-                <Image Source="{Binding CurrentGame.CoverImagePath}"/>
+                <Image Source="{Binding CurrentGame.CoverImagePath}" Stretch="UniformToFill" Width="150" Height="225"/>
 
             </Border>
 
