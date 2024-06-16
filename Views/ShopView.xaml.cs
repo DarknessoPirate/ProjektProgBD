@@ -25,10 +25,6 @@ namespace ProjektProgBD.Views
             InitializeComponent();
         }
 
-        private void abc(object sender, MouseButtonEventArgs e)
-        {
-
-        }
 
     }
 }
