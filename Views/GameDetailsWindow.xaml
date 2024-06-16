@@ -45,7 +45,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
-                <Image Source="{Binding CurrentGame.CoverImagePath}" Stretch="UniformToFill" Width="150" Height="225"/>
+                <Image Source="{Binding CurrentGame.CoverImagePath}" Stretch="Fill" Width="150" Height="225"/>
 
             </Border>
 
