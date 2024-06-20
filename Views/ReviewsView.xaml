@@ -42,41 +42,11 @@
             RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
             Foreground="Black" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Content" Binding="{Binding Content}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="40">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Author" Binding="{Binding User.Name}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Game Title" Binding="{Binding Game.Name}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
+                <DataGridTextColumn Header="Content" Binding="{Binding Content}" />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="40"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding User.Name}"  />
+                <DataGridTextColumn Header="Game Title" Binding="{Binding Game.Name}"  />
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
