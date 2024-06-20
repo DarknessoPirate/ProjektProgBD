@@ -35,11 +35,10 @@
             CanUserResizeColumns="False"
             CanUserResizeRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
-                <DataGridTextColumn Header="Content" Binding="{Binding Content}" />
-                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="40"/>
-                <DataGridTextColumn Header="Author" Binding="{Binding User.Name}"  />
                 <DataGridTextColumn Header="Game Title" Binding="{Binding Game.Name}"  />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="40"/>
+                <DataGridTextColumn Header="Content" Binding="{Binding Content}" />
+                <DataGridTextColumn Header="Author" Binding="{Binding User.Name}"  />
             </DataGrid.Columns>
 
             <i:Interaction.Triggers>
