@@ -20,14 +20,12 @@ namespace ProjektProgBD.ViewModels
             _currentGame = game;
             _currentUser = user;
             _reviews = RepositoryReview.GetGameReviews(_currentGame);
-            _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
             _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
         private Game _currentGame;
-        private ObservableCollection<Game> _games;
         private ObservableCollection<Review> _reviews { get; set; }
         private string _reviewContent;
         private int[] _ratings;
@@ -56,15 +54,6 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public ObservableCollection<Game> Games
-        {
-            get { return _games; }
-            set
-            {
-                _games = value;
-                onPropertyChanged(nameof(Games));
-            }
-        }
 
         public ObservableCollection<Review> Reviews
         {

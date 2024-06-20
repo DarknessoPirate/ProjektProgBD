@@ -15,11 +15,9 @@ namespace ProjektProgBD.Tools
         {
             if (value is string uriString)
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(uriString, UriKind.RelativeOrAbsolute);
-                bitmap.EndInit();
-                return bitmap;
+                BitmapImage bitmapImage = new BitmapImage(new Uri(uriString, UriKind.RelativeOrAbsolute));
+
+                return bitmapImage;
             }
             return null;
         }

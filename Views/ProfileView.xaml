@@ -90,7 +90,7 @@
                                 <Border.Effect>
                                     <DropShadowEffect/>
                                 </Border.Effect>
-                                <Image Source="{Binding CoverImagePath}" Stretch="UniformToFill"
+                                <Image Source="{Binding CoverImagePath}" Stretch="Fill"
                                     HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="150" Margin="0,0,0,0"/>
                             </Border>
                         </StackPanel>
