@@ -98,17 +98,8 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Label Content="Select reviews from user:" FontSize="16" Margin="563,6,33,101" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0.19299999999999784"/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <TextBox Text="{Binding ReviewAuthor}" Margin="566,47,33,78" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Background="{x:Null}">
+        <Label Content="Select reviews from user:" FontSize="14.5" Margin="563,6,33,101" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Foreground="#FFF64668" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Text="{Binding ReviewAuthor}" Margin="566,47,33,78" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Background="{x:Null}" Foreground="#FFF64668" FontWeight="Bold" FontSize="13" TextAlignment="Center">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
