@@ -8,6 +8,7 @@ using ProjektProgBD.Repositories;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using ProjektProgBD.Views;
 namespace ProjektProgBD.ViewModels
 {
     public class ReviewsViewModel : ViewModelBase
@@ -16,18 +17,13 @@ namespace ProjektProgBD.ViewModels
         {
             _currentUser = user;
             _reviews = RepositoryReview.GetAllReviews();
-            _ratings = [1, 2, 3, 4, 5];
         }
 
         #region properties
         private User _currentUser;
         private Review _selectedReview;
-        private ObservableCollection<Review> _reviews;
-        private string _reviewContent;
-        private int[] _ratings;
-        private int _selectedRating;
+        private ObservableCollection<Review> _reviews;    
         private string _reviewAuthor;
-        private Game _selectedGame;
         #endregion
 
 
@@ -42,15 +38,6 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public Game SelectedGame
-        {
-            get { return _selectedGame; }
-            set
-            {
-                _selectedGame = value;
-                onPropertyChanged(nameof(SelectedGame));
-            }
-        }
 
         public Review SelectedReview
         {
@@ -72,35 +59,6 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        public string ReviewContent
-        {
-            get { return _reviewContent; }
-            set
-            {
-                _reviewContent = value;
-                onPropertyChanged(nameof(ReviewContent));
-            }
-        }
-
-        public int[] Ratings
-        {
-            get { return _ratings; }
-            set
-            {
-                _ratings = value;
-                onPropertyChanged(nameof(Ratings));
-            }
-        }
-
-        public int SelectedRating
-        {
-            get { return _selectedRating; }
-            set
-            {
-                _selectedRating = value;
-                onPropertyChanged(nameof(SelectedRating));
-            }
-        }
 
         public string ReviewAuthor
         {
@@ -115,21 +73,7 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region commands
-        private ICommand editReviewCommand;
-        public ICommand EditReviewCommand
-        {
-            get
-            {
-                if (editReviewCommand == null)
-                    editReviewCommand = new RelayCommand(
-                        parameter => EditReview(),
-                        predicate => SelectedReview != null &&
-                                     SelectedRating >= 1 && SelectedRating <= 10 &&
-                                     ReviewContent != ""
-                        );
-                return editReviewCommand;
-            }
-        }
+       
 
         private ICommand deleteReviewCommand;
         public ICommand DeleteReviewCommand
@@ -186,40 +130,24 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        private ICommand openReviewWindowCommand;
+        public ICommand OpenReviewWindowCommand
+        {
+            get
+            {
+                if (openReviewWindowCommand == null)
+                    openReviewWindowCommand = new RelayCommand(
+                        parameter => OpenReviewWindow(parameter),
+                        predicate => true
+                        );
+                return openReviewWindowCommand;
+            }
+        }
+
         #endregion
 
         #region functions
-        private void EditReview()
-        {
-            if (!string.IsNullOrWhiteSpace(ReviewContent) && SelectedReview.UserId == CurrentUser.Id)
-            {
-                
-                var newReview = new Review
-                {
-                    Id = SelectedReview.Id,
-                    Content = ReviewContent,
-                    Score = SelectedRating,
-                    UserId = CurrentUser.Id,
-                    GameId = SelectedReview.GameId,
-                    Game = SelectedReview.Game,
-                    User = SelectedReview.User,
-                };
-            
 
-                if (RepositoryReview.ModifyReviewInDb(SelectedReview.Id, ReviewContent, SelectedRating))
-                {                   
-                    int index = Reviews.IndexOf(SelectedReview);
-
-                    Reviews[index] = newReview;
-
-                    ReviewContent = string.Empty;
-                }
-            }
-            else
-            {
-                MessageBox.Show("You can only edit your reviews");
-            }
-        }
 
         private void DeleteReview()
         {
@@ -258,6 +186,18 @@ namespace ProjektProgBD.ViewModels
             {
                 MessageBox.Show("User with this username does not exist");
             }
+        }
+
+        private void OpenReviewWindow(object parameter)
+        {
+            var review = parameter as Review;
+            if (review != null)
+            {
+                var reviewWindow = new ReviewDetailsView();
+                reviewWindow.DataContext = new ReviewDetailsViewModel(_currentUser, review);
+                reviewWindow.Show();
+            }
+           
         }
 
         #endregion

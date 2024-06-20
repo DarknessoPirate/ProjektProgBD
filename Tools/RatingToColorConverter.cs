@@ -17,7 +17,7 @@ namespace ProjektProgBD.Tools
         {
             if (value is int rating)
             {
-                double normalizedValue = (double)rating / 10;
+                double normalizedValue = (double)rating / 5;
 
                 byte red = (byte)(255*(1-normalizedValue));
                 byte green = (byte)(255*(1 * normalizedValue));
