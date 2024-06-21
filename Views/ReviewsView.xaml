@@ -5,66 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              xmlns:tools="clr-namespace:ProjektProgBD.Tools"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-
         <ResourceDictionary>
-        <tools:RatingToColorConverter x:Key="RatingToColorConverter"/>
-            
+            <tools:RatingToColorConverter x:Key="RatingToColorConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/SliderStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF984063" Offset="0"/>
+                <GradientStop Color="#FF47416A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.5" Color="Black"/>
+        </Grid.Effect>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBlock Text="Review Manager" FontSize="20" HorizontalAlignment="Center"/>
-            <StackPanel Margin="10">
-                <Label Content="Edit your review:" FontSize="12"/>
-                <TextBox Text="{Binding ReviewContent}" Height="75"/>
-                <Label Content="Rating" FontSize="12"/>
-                <StackPanel>
-                    <Grid>
-                        <ProgressBar Height="18" VerticalAlignment="Center" x:Name="RatingBar"
-                                     Minimum="1" Maximum="10"
-                                     
-                                     Value="{Binding SelectedRating, Mode=OneWay}" 
-                                     Foreground="{Binding SelectedRating, Converter={StaticResource RatingToColorConverter}, Mode=OneWay}"/>
 
-                        <Slider Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Height="18"
-                                Value="{Binding SelectedRating, Mode=TwoWay}" 
-                                VerticalAlignment="Center" Background="Transparent"
-                                Style="{StaticResource TransparentSliderStyle}"/>
-                    </Grid>
-                </StackPanel>
-
-            </StackPanel>
-            <Button Command="{Binding EditReviewCommand}" Content="Edit" Margin="10 0 10 0"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Delete your review:" FontSize="24" Margin="0 0 0 20"/>
-            <Button Command="{Binding DeleteReviewCommand}" Content="Delete" Height="30"/>
-        </StackPanel>
-
-        <DataGrid Grid.Column="1" ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
+        <DataGrid Grid.Row="0" ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
             IsReadOnly="True"
             CanUserAddRows="False"
             AutoGenerateColumns="False"
             CanUserDeleteRows="False"
             CanUserResizeColumns="False"
-            CanUserResizeRows="False">
+            CanUserResizeRows="False"
+            RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
+            Foreground="Black" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40"/>
                 <DataGridTextColumn Header="Content" Binding="{Binding Content}" />
@@ -72,26 +48,113 @@
                 <DataGridTextColumn Header="Author" Binding="{Binding User.Name}"  />
                 <DataGridTextColumn Header="Game Title" Binding="{Binding Game.Name}"  />
             </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OpenReviewWindowCommand}" CommandParameter="{Binding SelectedReview}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
+        <Button Command="{Binding YourReviewsCommand}" Content="Your Reviews" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold" Margin="290,20,290,75" Grid.Row="1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="20" Padding="10">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="1"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Command="{Binding AllReviewsCommand}" Content="All Reviews" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold" Margin="19,22,557,15" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="1"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.19299999999999784"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Label Content="Select reviews from user:" FontSize="14.5" Margin="563,6,33,101" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Foreground="#FFF64668" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox Text="{Binding ReviewAuthor}" Margin="566,47,33,78" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Background="{x:Null}" Foreground="#FFF64668" FontWeight="Bold" FontSize="13" TextAlignment="Center">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.19299999999999784"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Button Command="{Binding ReviewAuthorReviewsCommand}" Content="User Reviews" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold" Margin="567,84,33,11" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="1"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.19299999999999784"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
-                <Label Content="Select your reviews:" FontSize="16"/>
-                <Button Command="{Binding YourReviewsCommand}" Content="Your Reviews" Margin="10 0 0 0"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
-                <Label Content="Select all reviews:" FontSize="16"/>
-                <Button Command="{Binding AllReviewsCommand}" Content="All Reviews" Margin="10 0 0 0"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Select reviews from user:" FontSize="16"/>
-                <TextBox Text="{Binding ReviewAuthor}" Width="150" Height="25" Margin="10 0 10 0"/>
-                <Button Command="{Binding ReviewAuthorReviewsCommand}" Content="User Reviews"/>
-            </StackPanel>
-
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+            <Button Command="{Binding DeleteReviewCommand}" Content="Delete Review" Height="52" Width="196" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="1"/>
+                                        </Border.Effect>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
-
     </Grid>
 </UserControl>

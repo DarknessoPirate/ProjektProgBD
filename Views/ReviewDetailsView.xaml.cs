@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace ProjektProgBD.Views
 {
     /// <summary>
-    /// Interaction logic for ShopView.xaml
+    /// Interaction logic for ReviewDetailsView.xaml
     /// </summary>
-    public partial class ShopView : UserControl
+    public partial class ReviewDetailsView : Window
     {
-        public ShopView()
+        public ReviewDetailsView()
         {
             InitializeComponent();
-        }
-
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
