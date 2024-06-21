@@ -23,6 +23,7 @@ namespace ProjektProgBD.Views
         public ReviewDetailsView()
         {
             InitializeComponent();
+
         }
     }
 }
