@@ -79,8 +79,8 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding City}" FontSize="11"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding WeatherCondition}" FontSize="18" Width="179" Margin="0,1,0,1"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Temperature, StringFormat={}{0:F1}°C}" FontSize="18" Panel.ZIndex="2" Width="178" Margin="0,1,0,1"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding WeatherCondition}" FontSize="18" Width="179" Margin="0,0,0,1"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Temperature, StringFormat={}{0:F1}°C}" FontSize="18" Panel.ZIndex="2" Width="178" Margin="0,0,0,1"/>
 
                     <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="{Binding WeatherImage, Converter={StaticResource ImageConverter}}" Width="60" Height="60" Margin="0,0,10,0"/>
                 </Grid>
