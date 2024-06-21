@@ -8,6 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Icons\coins.png" />
+  </ItemGroup>
+
  
 
   <ItemGroup>
@@ -32,6 +36,7 @@
   </ItemGroup>
 <ItemGroup>
   <Resource Include="Icons\close.png" />
+  <Resource Include="Icons\coins.png" />
   <Resource Include="Icons\settings.png" />
   <Resource Include="Icons\tooltip.png" />
 </ItemGroup>

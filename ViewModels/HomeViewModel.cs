@@ -1,11 +1,11 @@
-﻿
-
-using ProjektProgBD.Models;
+﻿using ProjektProgBD.Models;
 using System.Net.Http;
 using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using ProjektProgBD.Tools;
+using System.Windows.Input;
+using ProjektProgBD.Repositories;
 
 namespace ProjektProgBD.ViewModels
 {
@@ -30,6 +30,7 @@ namespace ProjektProgBD.ViewModels
 
         #region properties
         private User _currentUser;
+        private decimal _currentMoney;
         private string _currentDate;
         private string _currentTime;
         private string _city;
@@ -46,7 +47,19 @@ namespace ProjektProgBD.ViewModels
             set 
             {
                 _currentUser = value;
+                CurrentMoney = _currentUser.Money;
                 onPropertyChanged(nameof(CurrentUser)); 
+            }
+        }
+
+        public decimal CurrentMoney
+        {
+            get { return _currentMoney; }
+            set
+            {
+                _currentMoney = value;
+                CurrentUser.Money = value;
+                onPropertyChanged(nameof(CurrentMoney));
             }
         }
 
@@ -119,11 +132,29 @@ namespace ProjektProgBD.ViewModels
         #endregion
 
         #region commands
-
+        private ICommand getCoinsCommand;
+        public ICommand GetCoinsCommand
+        {
+            get
+            {
+                if (getCoinsCommand == null)
+                    getCoinsCommand = new RelayCommand(
+                    parameter => AddCoins(),
+                    predicate => true
+                    );
+                return getCoinsCommand;
+            }
+        }
 
         #endregion
 
         #region functions
+        public void AddCoins()
+        {
+            CurrentMoney += 100;
+            RepositoryUser.ModifyUserInDb(CurrentUser);
+        }
+
         private void TimerTick(object sender, EventArgs e)
         {
             CurrentTime = DateTime.Now.ToString("HH:mm");

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:ProjektProgBD.Views"
              xmlns:tools="clr-namespace:ProjektProgBD.Tools"
              mc:Ignorable="d" 
@@ -25,31 +26,109 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
-            <RowDefinition Height="16*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="2" Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="175" Margin="75,14,0,0" TextAlignment="Right" FontWeight="Bold"/>
+        <TextBlock Grid.Column="2" Text="{Binding CurrentUser.Name, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="158" Margin="87,14,0,0" TextAlignment="Right" FontWeight="Bold"/>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,266,45" Orientation="Horizontal">
             <Label VerticalAlignment="Bottom" FontSize="15" Width="81" Padding="25,0,0,0" Height="22">Date:</Label>
-            <TextBlock Text="{Binding CurrentDate}" FontSize="15" Width="174" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
+            <TextBlock Text="{Binding CurrentDate}" FontSize="15" Width="150" Height="22" VerticalAlignment="Bottom" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-1,45,1,1">
             <Label Width="82" FontSize="15" VerticalContentAlignment="Center" Height="21" Padding="25,0,5,0" Content="Hour:" VerticalAlignment="Top"/>
-            <TextBlock Text="{Binding CurrentTime}" Width="149" Height="21" FontSize="15" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBlock Text="{Binding CurrentTime}" Width="150" Height="21" FontSize="15" VerticalAlignment="Top" FontWeight="Bold"/>
         </StackPanel>
-        <TextBlock Text="Welcome to our Online Game Store!" Grid.ColumnSpan="3" Margin="130,13,0,80" Grid.Row="1" FontSize="30" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Width="548"/>
-        <TextBlock Text="Discover the latest and greatest in gaming at our virtual doorstep. Dive into a world of immersive experiences, endless adventures, and thrilling challenges. Whether you're a casual player, hardcore gamer, or somewhere in between, we've got something for everyone. 
-            &#x0a;Get exclusive deals, special offers, and discounts on your favorite games. Stay updated with the latest news and reviews. Join our vibrant community of gamers, share your experiences, and connect with fellow enthusiasts from around the globe.
 
-Start your gaming journey with us today. Let the fun begin!" TextWrapping="Wrap" Margin="0,67,0,100" FontSize="17" TextAlignment="Justify" Grid.ColumnSpan="3" Grid.RowSpan="2" Width="664" Grid.Row="1" HorizontalAlignment="Center"/>
+        <Border BorderBrush="#00000000" BorderThickness="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="157" Margin="28,13,0,0" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Top" Width="735" Background="White" CornerRadius="10,10,10,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
 
-        <Image Source="{Binding WeatherImage, Converter={StaticResource ImageConverter}}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0"/>
-        <StackPanel  Orientation="Vertical">
-            <TextBlock Text="{Binding City}"></TextBlock>
-            <TextBlock Text="{Binding WeatherCondition}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-            <TextBlock Text="{Binding Temperature, StringFormat={}{0:F1}°C}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="24"/>
-        </StackPanel>
+                <TextBlock Grid.Row="0" Text="Welcome to our Online Game Store!" FontSize="30" TextAlignment="Center" FontWeight="Bold" Width="548" Margin="0,0,0,1"/>
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="15" TextAlignment="Justify" Width="704">
+                    Discover the latest and greatest in gaming at our virtual doorstep. Dive into a world of immersive experiences, endless adventures, and thrilling challenges. Whether you're a casual player, hardcore gamer, or somewhere in between, we've got something for everyone.
+                    <LineBreak/><Bold>You are our lucky customer! Because of that You are eligable for a special liftime supply of Coins! Click below to claim your reward!</Bold>    
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <Border Background="White" BorderBrush="#00000000" Height="72" VerticalAlignment="Center" CornerRadius="10,10,10,10" Panel.ZIndex="-1" Grid.ColumnSpan="3" Margin="5,0,5,0">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="#FFF64668" BorderThickness="1,0,1,0" Background="#00000000" Height="60"/>
+
+                <Grid Grid.Row="0" Grid.Column="1" Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="15*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16" />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding City}" FontSize="11"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding WeatherCondition}" FontSize="18" Width="179" Margin="0,1,0,1"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Temperature, StringFormat={}{0:F1}°C}" FontSize="18" Panel.ZIndex="2" Width="178" Margin="0,1,0,1"/>
+
+                    <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="{Binding WeatherImage, Converter={StaticResource ImageConverter}}" Width="60" Height="60" Margin="0,0,10,0"/>
+                </Grid>
+
+            </Grid>
+
+        </Border>
+        <Grid Grid.Column="1" HorizontalAlignment="Center" Height="200" Grid.Row="2" VerticalAlignment="Center" Width="266">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Grid.Column="0" Source="/Icons/coins.png" Margin="82,19,82,10"/>
+
+            <Button x:Name="CoinBtn" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="170" 
+    Content="Get Coins!" 
+    Foreground="White"
+    Background="#FFF64668"
+    Command="{Binding GetCoinsCommand}" FontWeight="Bold">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                            CornerRadius="16">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FA7F97" TargetName="LoginBorder"  />
+                                            <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LoginBorder" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+        </Grid>
+
+        <TextBlock Grid.Column="2" Text="{Binding CurrentMoney, StringFormat=N2}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="158" Margin="87,46,0,0" FontWeight="Bold" TextAlignment="Right"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="Logged as:" VerticalAlignment="Top" Width="77" FontSize="16"/>
+        <TextBlock Grid.Column="2" Height="23" Margin="10,51,0,0" TextWrapping="Wrap" Text="Money:" VerticalAlignment="Top" Width="77" FontSize="16" HorizontalAlignment="Left"/>
 
     </Grid>
 </UserControl>

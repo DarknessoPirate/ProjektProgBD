@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjektProgBD.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -6,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace ProjektProgBD.Models
 {
@@ -19,5 +21,11 @@ namespace ProjektProgBD.Models
         public string CoverImagePath { get; set; } = null!;
         public ObservableCollection<User> Users { get; set;} = new ObservableCollection<User>();
         public ObservableCollection<Review> Reviews { get; set; } = new ObservableCollection<Review>();
+        [NotMapped]
+        public double AvgReating { get {
+                ObservableCollection<Review> revs = RepositoryReview.GetGameReviews(this);
+                return revs.Count == 0 ? double.NaN : revs.Average(r => r.Score);
+            }
+        }
     }
 }
