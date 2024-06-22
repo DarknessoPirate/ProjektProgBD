@@ -46,7 +46,13 @@ namespace ProjektProgBD.ViewModels
             {
                 _currentMoney = value;
                 onPropertyChanged(nameof(CurrentMoney));
+                onPropertyChanged(nameof(CurrentMoneyString));
             }
+        }
+
+        public string CurrentMoneyString
+        {
+            get { return $"${_currentMoney}"; }
         }
 
         public ObservableCollection<Game> Games
