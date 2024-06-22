@@ -136,7 +136,7 @@ namespace ProjektProgBD.ViewModels
                 return refreshGamesCommand;
             }
         }
-         
+
         private ICommand openMenuCommand;
         public ICommand OpenMenuCommand
         {

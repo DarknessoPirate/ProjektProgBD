@@ -17,6 +17,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+   
+
     <Viewbox Stretch="Fill">
         <Grid Width="800" Height="450">
             <Grid.RowDefinitions>

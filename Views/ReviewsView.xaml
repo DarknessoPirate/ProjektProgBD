@@ -17,7 +17,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+
+
+
     <Grid>
+
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF984063" Offset="0"/>
@@ -153,6 +157,7 @@
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding OpenReviewWindowCommand}" CommandParameter="{Binding SelectedReview}"/>
                 </i:EventTrigger>
+               
             </i:Interaction.Triggers>
         </DataGrid>
         <Button Command="{Binding YourReviewsCommand}" Content="Your Reviews" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold" Margin="290,20,290,75" Grid.Row="1">
