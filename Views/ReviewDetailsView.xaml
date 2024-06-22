@@ -38,7 +38,7 @@
                     <StackPanel Margin="10">
                     <Label Content="Edit your review:" FontSize="12" Foreground="#FFF64668"/>
                     <Border CornerRadius="10" BorderBrush="#FFF54567" BorderThickness="1,1,1,1">
-                        <TextBox Text="{Binding ReviewContent}" Height="150" TextWrapping="Wrap" Width="250" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="#FFFAC4FF"/>
+                        <TextBox Text="{Binding ReviewContent, UpdateSourceTrigger=PropertyChanged}" Height="150" TextWrapping="Wrap" Width="250" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="#FFFAC4FF"/>
                     </Border>
                     <Label Content="Rating" FontSize="12" Foreground="#FFF64668"/>
                     <Label Content="Rating" FontSize="12"/>
@@ -46,7 +46,7 @@
                         <Grid>
                             <ProgressBar Height="18" VerticalAlignment="Center" x:Name="RatingBar"
                                          Minimum="1" Maximum="5" Value="{Binding SelectedRating, Mode=OneWay}" 
-                                         Foreground="{Binding SelectedRating, Converter={StaticResource RatingToColorConverter}, Mode=OneWay}"/>
+                                         Foreground="{Binding SelectedRating, Converter={StaticResource RatingToColorConverter}, Mode=TwoWay}"/>
 
                             <Slider Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Height="18"
                                     Value="{Binding SelectedRating, Mode=TwoWay}" 
