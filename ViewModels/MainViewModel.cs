@@ -107,12 +107,7 @@ namespace ProjektProgBD.ViewModels
                 Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser)});
                 Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(currentUser) });
                 Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser, Tabs) });     
-                /*
-                 * 
-                 * DEBUGGING PURPOSES ONLY
-                 * DELETE AFTER USED
-                 * 
-                 */
+
                 if (currentUser.Name == "Darknesso" || currentUser.Name == "filip")
                 {
                     Tabs.Add(new TabItem { Header = "GameAdd", Content = new GameAddView(), DataContext = new GameAddViewModel() });
