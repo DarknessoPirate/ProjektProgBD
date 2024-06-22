@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -119,7 +120,7 @@ namespace ProjektProgBD.ViewModels
                     editReviewCommand = new RelayCommand(
                         parameter => EditReview(),
                         predicate => SelectedRating >= 1 && SelectedRating <= 5 &&
-                                     ReviewContent != "" && SelectedReview.UserId == CurrentUser.Id
+                                     ReviewContent != ""
                         );
                 return editReviewCommand;
             }
@@ -131,7 +132,7 @@ namespace ProjektProgBD.ViewModels
 
         private void EditReview()
         {
-            if (!string.IsNullOrWhiteSpace(ReviewContent) && SelectedReview.UserId == CurrentUser.Id)
+            if (SelectedReview.UserId == CurrentUser.Id)
             {
 
                 if (RepositoryReview.ModifyReviewInDb(SelectedReview.Id, ReviewContent, SelectedRating))
@@ -142,6 +143,10 @@ namespace ProjektProgBD.ViewModels
                     ReviewContent = string.Empty;
                     SelectedRating = 0;    
                 }
+            }
+            else
+            {
+                MessageBox.Show("You can't edit reviews that aren't yours");
             }
           
         }

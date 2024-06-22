@@ -123,13 +123,13 @@
             <Label Content="Selected Review:" FontSize="32"/>
                 <Border CornerRadius="20" Height="300"  Background="White">
                 <StackPanel HorizontalAlignment="Center" >
-                    <TextBlock Text="{Binding NewReviewContent}" FontSize="16" TextWrapping="Wrap" Width="200" MaxHeight="200"/>
+                    <TextBlock Text="{Binding NewReviewContent}" FontSize="14" TextWrapping="Wrap" Width="230" MaxHeight="115"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="{Binding NewRating}" FontSize="20"/>
                             <TextBlock Text="/5" FontSize="20" />
                         </StackPanel>
-                   
-                    <Image Source="{Binding SelectedReview.Game.CoverImagePath}" Stretch="Fill" Height="120" Width="150" VerticalAlignment="Bottom" Margin="0 20 0 10"/>
+
+                        <Image Source="{Binding SelectedReview.Game.CoverImagePath}" Stretch="Fill" Width="90" Height="150" VerticalAlignment="Bottom" Margin="0 5 0 10"/>
                 </StackPanel>
                 
             </Border>

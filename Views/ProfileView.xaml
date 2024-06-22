@@ -81,14 +81,14 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
 
-                        <StackPanel Width="100" Height="170" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,10,0,10">
-                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
-                            <Border BorderThickness="1" Margin="2" Background="Transparent" HorizontalAlignment="Center">
+                        <StackPanel Width="100" Height="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,10,0,10">
+                            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
+                            <Border BorderThickness="1" Background="Transparent" HorizontalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect/>
                                 </Border.Effect>
                                 <Image Source="{Binding CoverImagePath}" Stretch="Fill"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="150" Margin="0,0,0,0"/>
+                                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="150"/>
                             </Border>
                         </StackPanel>
                     </DataTemplate>
