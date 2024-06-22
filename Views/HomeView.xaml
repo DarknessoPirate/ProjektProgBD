@@ -128,7 +128,7 @@
 
         <TextBlock Grid.Column="2" Text="{Binding CurrentMoney, StringFormat=N2}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="158" Margin="87,46,0,0" FontWeight="Bold" TextAlignment="Right"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="Logged as:" VerticalAlignment="Top" Width="77" FontSize="16"/>
-        <TextBlock Grid.Column="2" Height="23" Margin="10,51,0,0" TextWrapping="Wrap" Text="Money:" VerticalAlignment="Top" Width="77" FontSize="16" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Column="2" Height="23" Margin="10,51,0,0" TextWrapping="Wrap" Text="Balance:" VerticalAlignment="Top" Width="77" FontSize="16" HorizontalAlignment="Left"/>
 
     </Grid>
 </UserControl>
