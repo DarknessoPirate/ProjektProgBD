@@ -97,10 +97,10 @@
             <Image Grid.Row="0" Grid.Column="0" Source="/Icons/coins.png" Margin="82,19,82,10"/>
 
             <Button x:Name="CoinBtn" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="170" 
-    Content="Get Coins!" 
-    Foreground="White"
-    Background="#FFF64668"
-    Command="{Binding GetCoinsCommand}" FontWeight="Bold">
+            Content="Get Money!" 
+            Foreground="White"
+            Background="#FFF64668"
+            Command="{Binding GetCoinsCommand}" FontWeight="Bold">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">
