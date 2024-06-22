@@ -35,9 +35,9 @@
 
 
                 <Image ToolTip="Double click on a game to see its details." Source="/Icons/tooltip.png" OpacityMask="Black" Height="18" VerticalAlignment="Center" Width="18" HorizontalAlignment="Left" Grid.Column="1" Margin="0,0,0,35"/>
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Height="90" Margin="0,7,0,0" >
-                    <TextBlock Text="Balance:" FontSize="16" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding CurrentMoneyString, Mode=OneWay}" FontSize="14" Foreground="Black" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top" Margin="0,7,0,0" >
+                    <TextBlock Text="Balance:" FontSize="38" Foreground="#984063" FontWeight="Bold" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentMoneyString, Mode=OneWay}" FontSize="34" Foreground="Black" Margin="0 30 0 0" HorizontalAlignment="Center"/>
                 </StackPanel>
 
 
