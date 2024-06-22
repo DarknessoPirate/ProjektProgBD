@@ -32,8 +32,8 @@
                 </Grid.ColumnDefinitions>
 
 
-                
-                
+
+
                 <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="-11,262,31,0" Height="90" Grid.Row="1">
                     <TextBlock Text="Logged in as:" FontSize="16" Foreground="#984063" FontWeight="Bold" HorizontalAlignment="Center"/>
                     <TextBlock Text="{Binding CurrentUser.Name, Mode=OneWay}" FontSize="14" Foreground="Black" Margin="0,5,0,0" HorizontalAlignment="Center"/>
@@ -42,8 +42,8 @@
                 </StackPanel>
 
 
-                
-                
+
+
                 <Button Grid.Row="1" Height="103" Width="150" Margin="-14,51,0,0" Command="{Binding BuyGameCommand}" Content="Buy game"
          Background="#F64668" Foreground="White" FontSize="16" FontWeight="Bold"
          Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -72,7 +72,7 @@
                     </Grid>
                     <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="10" Width="568">
                         <DataGrid ColumnWidth="*" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}"
-                              Height="348"
+                              Height="342"
                               IsReadOnly="True"
                               CanUserAddRows="False"
                               AutoGenerateColumns="False"
@@ -83,7 +83,7 @@
                               Background="#FFFFFF" BorderBrush="#DDDDDD" BorderThickness="1"
                               RowBackground="#F9F9F9" AlternatingRowBackground="#E3E3E3"
                               ColumnHeaderHeight="32"
-                              VerticalScrollBarVisibility="Visible" Width="541">
+                              VerticalScrollBarVisibility="Visible" Width="540">
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="Background" Value="#984063"/>
@@ -168,7 +168,7 @@
                                 <DataGridTemplateColumn Header="Cover">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding CoverImagePath}" Stretch="Fill" Height="100"
+                                            <Image Source="{Binding CoverImagePath}" Stretch="Fill" Height="100" Width="75"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

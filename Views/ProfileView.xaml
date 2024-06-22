@@ -40,14 +40,11 @@
                     <Border CornerRadius="0, 10, 0, 0" Margin="0,0,-2,423" Background="#FFF64668">
                         <TextBlock Margin="9,0,0,0" Text="Menu" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68" Height="19"/>
                     </Border>
-                    <Button Margin="10,88,10,333" Content="Home" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,0"/>
-                    <Button Margin="11,117,10,304" Content="Shop" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,1,0,1"/>
-                    <Button Margin="11,146,10,274" Content="Reviews" Background="{x:Null}" BorderBrush="#FFF64668" BorderThickness="0,0,0,1"/>
-                    <Button Command="{Binding LogoutCommand}" x:Name="LogoutBtn" Content="Log out" Margin="10,338,10,85" Style="{StaticResource LogoutButtonStyle}"/>
-                    <Button Command="{Binding DeleteAccountCommand}" x:Name="DeeleteBtn" Content="Delete account" Margin="10,374,10,50" Style="{StaticResource DeleteButtonStyle}"/>
-                    <StackPanel VerticalAlignment="Bottom">
+                    <StackPanel Height="200" Margin="10 0 0 0" VerticalAlignment="Bottom">
+                        <Button Command="{Binding LogoutCommand}" Margin="0 0 5 10 " x:Name="LogoutBtn" Content="Log out" Style="{StaticResource LogoutButtonStyle}"/>
                         <Label Content="Type your username" Width="102" FontSize="10"/>
-                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 5" Width="103"/>
+                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 5 10"/>
+                        <Button Command="{Binding DeleteAccountCommand}" Margin="0 0 5 0" x:Name="DeeleteBtn" Content="Delete account"  Style="{StaticResource DeleteButtonStyle}"/>
                     </StackPanel>
                     <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14">
                         <Button.OpacityMask>
@@ -68,10 +65,9 @@
                     <TextBlock Text="{Binding CurrentUser.Name}" FontSize="35" Height="48" HorizontalAlignment="Center" Width="292" TextAlignment="Center" FontWeight="Bold" Foreground="#FFF64668"/>
                 </StackPanel>
 
-                <StackPanel Height="35" VerticalAlignment="Top" Orientation="Horizontal" Margin="597,10,8,0" Grid.RowSpan="2">
-                    <TextBlock Text="Money:" FontSize="20" FontWeight="Bold" Height="32" Width="81" VerticalAlignment="Top" TextAlignment="Right" Padding="0,0,5,0"/>
-                    <TextBlock Text="{Binding CurrentUser.Money}" FontSize="20" Height="34" Width="64" VerticalAlignment="Top" TextAlignment="Right"/>
-                    <TextBlock Text="$" FontSize="20" Height="34" Width="21" VerticalAlignment="Top" FontWeight="Bold"/>
+                <StackPanel Height="35" VerticalAlignment="Top" Orientation="Horizontal" Margin="550,10,8,0" Grid.RowSpan="2">
+                    <TextBlock Text="Balance: " FontSize="20" FontWeight="Bold" Height="32" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding UserMoney}" FontSize="20" Height="34" TextAlignment="Right"/>
                 </StackPanel>
             </Grid>
             <TextBlock FontSize="20" Margin="104,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="27" Width="122" FontWeight="Bold" Grid.Row="1" Grid.ColumnSpan="2"><Run Text="Your games"/><Run Language="pl-pl" Text=":"/></TextBlock>
