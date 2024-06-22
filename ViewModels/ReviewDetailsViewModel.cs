@@ -20,6 +20,7 @@ namespace ProjektProgBD.ViewModels
             _ratings = [1, 2, 3, 4, 5];
             _newReviewContent = review.Content;
             _newRating = review.Score;
+            _selectedRating = 1;
         }
         #region properties
         private string _reviewContent;
@@ -120,7 +121,7 @@ namespace ProjektProgBD.ViewModels
                     editReviewCommand = new RelayCommand(
                         parameter => EditReview(),
                         predicate => SelectedRating >= 1 && SelectedRating <= 5 &&
-                                     ReviewContent != ""
+                                     ReviewContent != null && ReviewContent != ""
                         );
                 return editReviewCommand;
             }
@@ -141,7 +142,7 @@ namespace ProjektProgBD.ViewModels
                     NewRating = SelectedRating;
 
                     ReviewContent = string.Empty;
-                    SelectedRating = 0;    
+                    SelectedRating = 1;    
                 }
             }
             else

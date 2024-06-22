@@ -8,7 +8,13 @@
         mc:Ignorable="d"
         Title="GameDetailsWindow">
     <Window.Resources>
-        <t:RadiobuttonConverter x:Key="RadiobuttonConverter"/>
+        <ResourceDictionary>
+            <t:RatingToColorConverter x:Key="RatingToColorConverter"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/SliderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
@@ -25,10 +31,10 @@
             CornerRadius="6" Margin="31,23,439,19">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="15"
-                              Direction ="-90" 
-                              RenderingBias ="Quality" 
-                              ShadowDepth ="2" 
-                              Color ="Gray" />
+                                      Direction ="-90" 
+                                      RenderingBias ="Quality" 
+                                      ShadowDepth ="2" 
+                                      Color ="Gray" />
                 </Border.Effect>
                 <Grid Margin="0,10,-28,277">
 
@@ -52,12 +58,11 @@
             <TextBlock FontWeight="Bold" Margin="474,16,85,392" FontSize="20" TextAlignment="Center" Text="Game reviews"/>
 
             <DataGrid ColumnWidth="*" ItemsSource="{Binding Reviews, Mode=TwoWay}" SelectedItem="{Binding SelectedReview}"
-
-IsReadOnly="True"
-CanUserAddRows="False"
-CanUserDeleteRows="False"
-CanUserResizeColumns="False"
-CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,0,199" RenderTransformOrigin="0.5,0.5" Background="#00000000" CanUserReorderColumns="False" GridLinesVisibility="None" AutoGenerateColumns="False" MinColumnWidth="100" HeadersVisibility="None" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200" SelectionMode="Single" SelectionUnit="Cell" BorderBrush="{x:Null}" RowBackground="#00000000">
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,0,199" RenderTransformOrigin="0.5,0.5" Background="#00000000" CanUserReorderColumns="False" GridLinesVisibility="None" AutoGenerateColumns="False" MinColumnWidth="100" HeadersVisibility="None" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="200" SelectionMode="Single" SelectionUnit="Cell" BorderBrush="{x:Null}" RowBackground="#00000000">
 
                 <DataGrid.Columns>
                     <DataGridTemplateColumn CanUserResize="False" Width="390">
@@ -91,67 +96,23 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                     <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="AppBar" x:Name="appbar_star" Width="20" Height="20" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
                         <Path Width="20" Height="20" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" Fill="#FF000000" Data="F1 M 17.4167,32.25L 32.9107,32.25L 38,18L 43.0893,32.25L 58.5833,32.25L 45.6798,41.4944L 51.4583,56L 38,48.0833L 26.125,56L 30.5979,41.7104L 17.4167,32.25 Z "/>
                     </Canvas>
-                    <!-- StarButton Template -->
-                    <ControlTemplate x:Key="StarToggleButton" TargetType="{x:Type ToggleButton}">
-                        <Canvas
-                    Width="27"
-                    Height="20"
-                    Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
-                            <Path
-                        x:Name="ButtonPath"
-                        Width="20"
-                        Height="20
-                                "
-                        Canvas.Left="2"
-                        Canvas.Top="2"
-                        Data="F1 M 17.416,32.25L 32.910,32.25L 38,18L 43.089,32.25L 58.583,32.25L 45.679,41.494L 51.458,56L 38,48.083L 26.125,56L 30.597,41.710L 17.416,32.25 Z "
-                        Fill="Transparent"
-                        Stroke="#FFFFBA69"
-                        StrokeThickness="2"
-                        Stretch="Fill"/>
-                        </Canvas>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="true">
-                                <Setter TargetName="ButtonPath" Property="Fill" Value="#FFFFBA69"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
+                    
+                    
                 </StackPanel.Resources>
                 <StackPanel Orientation="Horizontal" Width="417" Height="29" Margin="0,0,0,5">
-                    <TextBlock FontSize="15" Width="268" Height="22" VerticalAlignment="Bottom" Margin="5,0,0,0" Foreground="#FFF64668"><Run Text="Write a review"/><Run Language="pl-pl" Text=":"/><LineBreak/><Run Language="pl-pl"/></TextBlock>
-                    <RadioButton x:Name="btn1"                       
-                    Content="All"
-                    GroupName="View"
-                    Padding="2"
-                    Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=1}"/>
-                    <RadioButton x:Name="btn2"
-                    Content="All2"
-                    GroupName="View"
-                    Padding="2"
-                    Template="{DynamicResource StarToggleButton}"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}">
+                    <Label FontWeight="Bold" FontSize="15">Score:</Label>
+                    <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+                        <Grid>
+                            <ProgressBar Height="18" Width="250" VerticalAlignment="Center" x:Name="RatingBar"
+                                         Minimum="1" Maximum="5" Value="{Binding SelectedRating, Mode=OneWay}" 
+                                         Foreground="{Binding SelectedRating, Converter={StaticResource RatingToColorConverter}, Mode=TwoWay}"/>
 
-                    </RadioButton>
-                    <RadioButton x:Name="btn3"
-                    Content="All3"
-                    GroupName="View"
-                    Padding="2"
-                    Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=3}"/>
-                    <RadioButton x:Name="btn4"
-                    Content="All4"
-                    GroupName="View"
-                    Padding="2"
-                    Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=4}"/>
-                    <RadioButton x:Name="btn5"
-                    Content="All5"
-                    GroupName="View"
-                    Padding="2"
-                    Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=5}"/>
-
+                            <Slider Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Height="18" Width="250"
+                                    Value="{Binding SelectedRating, Mode=TwoWay}" 
+                                    VerticalAlignment="Center" Background="Transparent"
+                                    Style="{StaticResource TransparentSliderStyle}"/>
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
                 <Border Width="439">
 
