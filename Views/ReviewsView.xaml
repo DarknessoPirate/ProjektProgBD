@@ -193,6 +193,7 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Image ToolTip="Double click on a review to see its details." Source="/Icons/tooltip.png" Margin="-137,60,137,60" Height="25" Grid.Row="1"/>
         <Button Command="{Binding AllReviewsCommand}" Content="All Reviews" FontSize="16" Background="#F64668" Foreground="White" FontWeight="Bold" Margin="19,22,557,15" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
