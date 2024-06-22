@@ -40,10 +40,10 @@
                     <Border CornerRadius="0, 10, 0, 0" Margin="0,0,-2,423" Background="#FFF64668">
                         <TextBlock Margin="9,0,0,0" Text="Menu" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68" Height="19"/>
                     </Border>
-                    <StackPanel Height="200" Margin="10 0 0 0" VerticalAlignment="Bottom">
+                    <StackPanel Height="200" Margin="5 0 0 0" VerticalAlignment="Bottom">
                         <Button Command="{Binding LogoutCommand}" Margin="0 0 5 10 " x:Name="LogoutBtn" Content="Log out" Style="{StaticResource LogoutButtonStyle}"/>
-                        <Label Content="Type your username" Width="102" FontSize="10"/>
-                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 5 10"/>
+                        <Label Content="Type your username" Width="110" FontSize="11"/>
+                        <TextBox Text="{Binding UserNameToDelete, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 10"/>
                         <Button Command="{Binding DeleteAccountCommand}" Margin="0 0 5 0" x:Name="DeeleteBtn" Content="Delete account"  Style="{StaticResource DeleteButtonStyle}"/>
                     </StackPanel>
                     <Button Command="{Binding CloseMenuCommand}" Content="Button" Margin="94,7,5,429" Background="Black" Width="15" Height="14">
@@ -82,7 +82,7 @@
                     <DataTemplate>
 
                         <StackPanel Width="100" Height="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,10,0,10">
-                            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
+                            <TextBlock Text="{Binding Name}" FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Border BorderThickness="1" Background="Transparent" HorizontalAlignment="Center">
                                 <Border.Effect>
                                     <DropShadowEffect/>
