@@ -6,7 +6,7 @@
         xmlns:t="clr-namespace:ProjektProgBD.Tools"
         xmlns:local="clr-namespace:ProjektProgBD.Views"
         mc:Ignorable="d"
-        Title="GameDetailsWindow">
+        Title="Game Details">
     <Window.Resources>
         <ResourceDictionary>
             <t:RatingToColorConverter x:Key="RatingToColorConverter"/>

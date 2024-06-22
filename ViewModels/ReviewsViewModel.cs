@@ -196,7 +196,7 @@ namespace ProjektProgBD.ViewModels
             review = RepositoryReview.GetReview(SelectedReview.Id);
             if (review != null)
             {
-                var reviewWindow = new ReviewDetailsView();
+                var reviewWindow = new ReviewDetailsWindow();
                 reviewWindow.DataContext = new ReviewDetailsViewModel(_currentUser, review);
                 reviewWindow.Show();
             }
