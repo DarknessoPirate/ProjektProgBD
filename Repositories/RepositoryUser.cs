@@ -77,14 +77,13 @@ namespace ProjektProgBD.Repositories
             return list;
         }
 
-        public static User GetUserFromDb(User user)
+        public static async Task<User?> GetUserFromDb(User user)
         {
             using (var db = new ShopDbContext())
             {
                 if (user != null)
                 {
-                    var resultUser =  db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-                    return resultUser;
+                    return await db.Users.SingleOrDefaultAsync(u => u.Name == user.Name && u.Password == user.Password);
                 }
                 return null;
             }
@@ -104,7 +103,7 @@ namespace ProjektProgBD.Repositories
             }
         }
 
-        public static bool FindUserInDB(User user)
+        public static async Task<bool> FindUserInDB(User user)
         {
             using (var db = new ShopDbContext())
             {
@@ -112,7 +111,7 @@ namespace ProjektProgBD.Repositories
                 {
                 if (user != null)
                     {
-                        var foundUser = db.Users.SingleOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+                        var foundUser = await db.Users.SingleOrDefaultAsync(u => u.Name == user.Name && u.Password == user.Password);
                         if (foundUser != null)
                         return true;
                     }
