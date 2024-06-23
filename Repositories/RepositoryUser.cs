@@ -117,8 +117,6 @@ namespace ProjektProgBD.Repositories
                     }
                 return false;
                 }catch (Exception ex) {
-                
-                    MessageBox.Show(ex.Message);
                     return false;   
                 }
             }

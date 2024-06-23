@@ -146,7 +146,6 @@ namespace ProjektProgBD.ViewModels
 
                     if (RepositoryReview.AddReviewToDb(newReview))
                     {
-                        MessageBox.Show("Review Added");
                         ReviewContent = string.Empty;
                         Reviews = RepositoryReview.GetGameReviews(_currentGame);
                     }
