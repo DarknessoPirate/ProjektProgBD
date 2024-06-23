@@ -83,16 +83,20 @@
             </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="10">
-            <Label Content="Selected Review:" FontSize="32"/>
-                <Border CornerRadius="20" Height="300"  Background="White">
-                <StackPanel HorizontalAlignment="Center" >
-                    <TextBlock Text="{Binding NewReviewContent}" FontSize="14" TextWrapping="Wrap" Width="230" MaxHeight="115"/>
+            <Label Content="Selected Review:" FontSize="20" HorizontalAlignment="Center"/>
+                <Border CornerRadius="20" Width="230" Height="300"  Background="White">
+                <StackPanel HorizontalAlignment="Center" Margin="0 5 0 0">
+                        <StackPanel Orientation="Horizontal" Width="210">
+                            <TextBlock Text="{Binding CurrentUser.Name}" FontWeight="Bold"/>
+                            <TextBlock Text=":" FontWeight="Bold"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding NewReviewContent}" FontSize="12" TextWrapping="Wrap" Width="220" MaxHeight="120"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding NewRating}" FontSize="20"/>
-                            <TextBlock Text="/5" FontSize="20" />
+                            <TextBlock Text="{Binding NewRating}" FontSize="18"/>
+                            <TextBlock Text="/5" FontSize="18" />
                         </StackPanel>
 
-                        <Image Source="{Binding SelectedReview.Game.CoverImagePath}" Stretch="Fill" Width="90" Height="150" VerticalAlignment="Bottom" Margin="0 5 0 10"/>
+                        <Image Source="{Binding SelectedReview.Game.CoverImagePath}" Stretch="Fill" Width="90" Height="130" VerticalAlignment="Bottom" Margin="0 5 0 10"/>
                 </StackPanel>
                 
             </Border>
