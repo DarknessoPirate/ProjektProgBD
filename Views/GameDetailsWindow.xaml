@@ -6,19 +6,118 @@
         xmlns:t="clr-namespace:ProjektProgBD.Tools"
         xmlns:local="clr-namespace:ProjektProgBD.Views"
         mc:Ignorable="d"
-        Title="GameDetailsWindow">
+        Title="GameDetailsWindow" Height="450" Width="780" ResizeMode="NoResize">
     <Window.Resources>
         <t:RadiobuttonConverter x:Key="RadiobuttonConverter"/>
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
         <Grid>
+            
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF984063"/>
                     <GradientStop Color="#FF41436A" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
+
+            <Image x:Name="star1" Source="/Icons/star.png" Margin="657,270,124,162" Width="20" Height="20">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="2">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="3">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="4">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="5">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image x:Name="star2" Source="/Icons/star.png" Margin="684,270,97,162" Width="20" Height="20">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="3">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="4">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="5">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image x:Name="star3" Source="/Icons/star.png" Margin="711,270,70,162" Width="20" Height="20">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="2">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="4">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="5">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image x:Name="star4" Source="/Icons/star.png" Margin="738,270,43,162" Width="20" Height="20">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="2">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="3">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedRating}" Value="5">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
 
             <Border Width="330"
             Background="White"
@@ -117,40 +216,39 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </StackPanel.Resources>
-                <StackPanel Orientation="Horizontal" Width="417" Height="29" Margin="0,0,0,5">
+                <StackPanel Orientation="Horizontal" Width="417" Height="29" Margin="0,0,0,5" Panel.ZIndex="1">
                     <TextBlock FontSize="15" Width="268" Height="22" VerticalAlignment="Bottom" Margin="5,0,0,0" Foreground="#FFF64668"><Run Text="Write a review"/><Run Language="pl-pl" Text=":"/><LineBreak/><Run Language="pl-pl"/></TextBlock>
+
                     <RadioButton x:Name="btn1"                       
                     Content="All"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=1}"/>
+                    IsChecked="{Binding SelectedRating, ConverterParameter=1, Converter={StaticResource RadiobuttonConverter}}"/>
                     <RadioButton x:Name="btn2"
                     Content="All2"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=2}">
-
-                    </RadioButton>
+                    IsChecked="{Binding SelectedRating, ConverterParameter=2, Converter={StaticResource RadiobuttonConverter}}"/>
                     <RadioButton x:Name="btn3"
                     Content="All3"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=3}"/>
+                    IsChecked="{Binding SelectedRating, ConverterParameter=3, Converter={StaticResource RadiobuttonConverter}}"/>
                     <RadioButton x:Name="btn4"
                     Content="All4"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=4}"/>
+                    IsChecked="{Binding SelectedRating, ConverterParameter=4, Converter={StaticResource RadiobuttonConverter}}"/>
                     <RadioButton x:Name="btn5"
                     Content="All5"
                     GroupName="View"
                     Padding="2"
                     Template="{DynamicResource StarToggleButton}" Height="20"
-                    IsChecked="{Binding SelectedRating, Converter={StaticResource RadiobuttonConverter}, ConverterParameter=5}"/>
+                    IsChecked="{Binding SelectedRating, ConverterParameter=5, Converter={StaticResource RadiobuttonConverter}}"/>
 
                 </StackPanel>
                 <Border Width="439">
@@ -191,8 +289,6 @@ Command="{Binding SubmitReviewCommand}">
                     </Button.Style>
                 </Button>
             </StackPanel>
-
-
         </Grid>
     </Viewbox>
 </Window>
