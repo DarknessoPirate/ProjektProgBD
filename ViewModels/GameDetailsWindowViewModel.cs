@@ -120,7 +120,7 @@ namespace ProjektProgBD.ViewModels
                             parameter => AddReview(),
                             predicate => ReviewContent != "" && ReviewContent != null &&
                                          CurrentGame != null &&
-                                         SelectedRating >= 1 && SelectedRating <= 5
+                                         SelectedRating >= 0 && SelectedRating <= 5
                         );
                 return submitReviewCommand;
             }
