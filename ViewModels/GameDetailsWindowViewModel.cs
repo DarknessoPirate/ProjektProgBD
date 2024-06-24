@@ -21,6 +21,7 @@ namespace ProjektProgBD.ViewModels
             _currentUser = user;
             _reviews = RepositoryReview.GetGameReviews(_currentGame);
             _ratings = [1, 2, 3, 4, 5];
+            _selectedRating = 1;
         }
 
         #region properties
@@ -117,7 +118,7 @@ namespace ProjektProgBD.ViewModels
                 if (submitReviewCommand == null)
                     submitReviewCommand = new RelayCommand(
                             parameter => AddReview(),
-                            predicate => ReviewContent != "" &&
+                            predicate => ReviewContent != "" && ReviewContent != null &&
                                          CurrentGame != null &&
                                          SelectedRating >= 1 && SelectedRating <= 5
                         );
@@ -145,7 +146,6 @@ namespace ProjektProgBD.ViewModels
 
                     if (RepositoryReview.AddReviewToDb(newReview))
                     {
-                        MessageBox.Show("Review Added");
                         ReviewContent = string.Empty;
                         Reviews = RepositoryReview.GetGameReviews(_currentGame);
                         SelectedRating = 0;

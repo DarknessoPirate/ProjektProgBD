@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using ProjektProgBD.Views;
+using System.Reflection.Metadata;
 namespace ProjektProgBD.ViewModels
 {
     public class ReviewsViewModel : ViewModelBase
@@ -43,7 +44,7 @@ namespace ProjektProgBD.ViewModels
         {
             get { return _selectedReview; }
             set
-            {
+            {           
                 _selectedReview = value;
                 onPropertyChanged(nameof(SelectedReview));
             }
@@ -144,6 +145,7 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+
         #endregion
 
         #region functions
@@ -191,9 +193,10 @@ namespace ProjektProgBD.ViewModels
         private void OpenReviewWindow(object parameter)
         {
             var review = parameter as Review;
+            review = RepositoryReview.GetReview(SelectedReview.Id);
             if (review != null)
             {
-                var reviewWindow = new ReviewDetailsView();
+                var reviewWindow = new ReviewDetailsWindow();
                 reviewWindow.DataContext = new ReviewDetailsViewModel(_currentUser, review);
                 reviewWindow.Show();
             }

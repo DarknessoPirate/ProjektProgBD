@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\star.png" />
+    <None Remove="Icons\coins.png" />
   </ItemGroup>
 
  
@@ -36,9 +36,9 @@
   </ItemGroup>
 <ItemGroup>
   <Resource Include="Icons\close.png" />
+  <Resource Include="Icons\coins.png" />
   <Resource Include="Icons\settings.png" />
   <Resource Include="Icons\tooltip.png" />
-  <Resource Include="Icons\star.png" />
 </ItemGroup>
 
 <ItemGroup>

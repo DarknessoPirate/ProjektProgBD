@@ -18,11 +18,12 @@ namespace ProjektProgBD.Views
     /// <summary>
     /// Interaction logic for ReviewDetailsView.xaml
     /// </summary>
-    public partial class ReviewDetailsView : Window
+    public partial class ReviewDetailsWindow : Window
     {
-        public ReviewDetailsView()
+        public ReviewDetailsWindow()
         {
             InitializeComponent();
+
         }
     }
 }

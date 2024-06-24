@@ -50,7 +50,7 @@ namespace ProjektProgBD.ViewModels
             get
             {
                 if (logInCommand == null)
-                    logInCommand = new RelayCommand(
+                    logInCommand = new AsyncRelayCommand(
                         parameter => LogIn(parameter), 
                         predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty()
                         );
@@ -95,24 +95,19 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
-        private void LogIn(object parameter)
+        private async Task LogIn(object parameter)
         {
             User newUser = new User { Name = _userName, Password = GetPassword(parameter) };
             newUser.Password = newUser.GetHashPassword();
-            bool foundUser = RepositoryUser.FindUserInDB(newUser);
+            var foundUser = await RepositoryUser.FindUserInDB(newUser);
             if (foundUser)
             {
-                var currentUser = RepositoryUser.GetUserFromDb(newUser);
+                var currentUser = await RepositoryUser.GetUserFromDb(newUser);
                 Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(currentUser)});
                 Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser)});
                 Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(currentUser) });
                 Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser, Tabs) });     
-                /*
-                 * 
-                 * DEBUGGING PURPOSES ONLY
-                 * DELETE AFTER USED
-                 * 
-                 */
+
                 if (currentUser.Name == "Darknesso" || currentUser.Name == "filip")
                 {
                     Tabs.Add(new TabItem { Header = "GameAdd", Content = new GameAddView(), DataContext = new GameAddViewModel() });

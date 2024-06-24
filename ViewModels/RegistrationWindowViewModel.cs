@@ -16,6 +16,8 @@ namespace ProjektProgBD.ViewModels
 {
     public class RegistrationWindowViewModel :ViewModelBase
     {
+        private const int _minUsernameLen = 5;
+
         #region private properties
 
         private string _userEmail;
@@ -32,6 +34,7 @@ namespace ProjektProgBD.ViewModels
             {
                 _userName = value;
                 onPropertyChanged(nameof(UserName));
+                ValidateUserName();
             }
         }
 
@@ -56,6 +59,16 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        public bool IsUsernameValid
+        {
+            get { return _isUserNameValid; }
+            set
+            {
+                _isUserNameValid = value;
+                onPropertyChanged(nameof(IsUsernameValid));
+            }
+        }
+
 
         #endregion
 
@@ -68,7 +81,7 @@ namespace ProjektProgBD.ViewModels
                 if (registerCommand == null)
                     registerCommand = new RelayCommand(
                         parameter => Register(parameter),
-                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty() && IsEmailValid == 1// ADD USERNAME CHECK HERE
+                        predicate => !GetPassword(predicate).IsNullOrEmpty() && !UserName.IsNullOrEmpty() && IsEmailValid == 1 && IsUsernameValid
                         );
 
                 return registerCommand;
@@ -160,11 +173,15 @@ namespace ProjektProgBD.ViewModels
 
         private void ValidateUserName()
         {
-            /*
-             *  IMPLEMENT THIS LATER
-             *  IMPLEMENT THIS LATER
-             *  IMPLEMENT THIS LATER
-             */
+            try
+            {
+                string pattern = @"^\w{" + _minUsernameLen + ",}$";
+                IsUsernameValid = Regex.IsMatch(UserName, pattern);
+            }
+            catch
+            {
+                IsUsernameValid = false;
+            }
         }
         #endregion
 

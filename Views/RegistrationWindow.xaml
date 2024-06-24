@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektProgBD.Views"
         mc:Ignorable="d"
-        Title="RegistrationWindow" 
-        Height="500" Width="800" ResizeMode="NoResize">
+        Title="RegistrationWindow" Height="500" Width="800">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -56,7 +55,36 @@
                   Width="255"
                   BorderThickness="0,0,0,1"
                   HorizontalAlignment="Left"
-                  Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                  Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" >
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="BorderBrush" Value="#FFA4A4A4"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Border Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1">
+                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsFocused" Value="True">
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
+                                                </Trigger>
+                                                <DataTrigger Binding="{Binding IsUsernameValid}" Value="true">
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                                                    <Setter Property="ToolTip" Value="Valid username format"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsUsernameValid}" Value="false">
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
+                                                    <Setter Property="ToolTip" Value="Invalid username format"/>
+                                                </DataTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
 
                     <TextBlock Text="Email" 
                    Grid.Row="2"

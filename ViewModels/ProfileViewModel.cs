@@ -22,6 +22,7 @@ namespace ProjektProgBD.ViewModels
             _currentUser = user;
             _games = RepositoryGame.GetUserGamesFromDb(_currentUser.Id);
             _tabs = tabs;
+            _userMoney = $"${user.Money}";
         }
 
         #region properties
@@ -30,6 +31,7 @@ namespace ProjektProgBD.ViewModels
         private ObservableCollection<Game> _games;
         private ObservableCollection<TabItem> _tabs;
         private int _visible = 0;
+        private string _userMoney;
         private string _userNameToDelete;
         #endregion
 
@@ -84,6 +86,16 @@ namespace ProjektProgBD.ViewModels
             }
         }
 
+        public string UserMoney
+        {
+            get { return _userMoney; }
+            set
+            {
+                _userMoney = value;
+                onPropertyChanged(nameof(UserMoney));
+            }
+        }
+
         public int Visible
         {
             get { return _visible; }
@@ -124,7 +136,7 @@ namespace ProjektProgBD.ViewModels
                 return refreshGamesCommand;
             }
         }
-         
+
         private ICommand openMenuCommand;
         public ICommand OpenMenuCommand
         {
