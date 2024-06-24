@@ -21,7 +21,7 @@ namespace ProjektProgBD.ViewModels
             _currentUser = user;
             _reviews = RepositoryReview.GetGameReviews(_currentGame);
             _ratings = [1, 2, 3, 4, 5];
-            _selectedRating = 1;
+            _selectedRating = 0;
         }
 
         #region properties

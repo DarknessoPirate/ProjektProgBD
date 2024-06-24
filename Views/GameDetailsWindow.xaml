@@ -229,7 +229,7 @@ CanUserResizeRows="False" HorizontalAlignment="Left" Width="403" Margin="387,52,
                     Content="All2"
                     GroupName="View"
                     Padding="2"
-                    Template="{DynamicResource StarToggleButton}"
+                    Template="{DynamicResource StarToggleButton}" Height="20"
                     IsChecked="{Binding SelectedRating, ConverterParameter=2, Converter={StaticResource RadiobuttonConverter}}"/>
                     <RadioButton x:Name="btn3"
                     Content="All3"
