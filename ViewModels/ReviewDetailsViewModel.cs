@@ -18,9 +18,10 @@ namespace ProjektProgBD.ViewModels
             _selectedReview = review;
             _currentUser = user;
             _ratings = [1, 2, 3, 4, 5];
+            _reviewContent =  review.Content;
             _newReviewContent = review.Content;
             _newRating = review.Score;
-            _selectedRating = 1;
+            _selectedRating = review.Score;
         }
         #region properties
         private string _reviewContent;
@@ -142,7 +143,7 @@ namespace ProjektProgBD.ViewModels
                     NewRating = SelectedRating;
 
                     ReviewContent = string.Empty;
-                    SelectedRating = 1;    
+                    SelectedRating = 0;    
                 }
             }
             else
