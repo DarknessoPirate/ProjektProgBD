@@ -101,10 +101,11 @@ namespace ProjektProgBD.ViewModels
             newUser.Password = newUser.GetHashPassword();
             var foundUser = await RepositoryUser.FindUserInDB(newUser);
             if (foundUser)
-            {
+            {               
                 var currentUser = await RepositoryUser.GetUserFromDb(newUser);
-                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = new HomeViewModel(currentUser)});
-                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser)});
+                var homeVM = new HomeViewModel(currentUser);
+                Tabs.Add(new TabItem { Header = "Home", Content = new HomeView(), DataContext = homeVM});
+                Tabs.Add(new TabItem { Header = "Shop", Content = new ShopView(), DataContext = new ShopViewModel(currentUser, ref homeVM)});
                 Tabs.Add(new TabItem { Header = "Reviews", Content = new ReviewsView(), DataContext = new ReviewsViewModel(currentUser) });
                 Tabs.Add(new TabItem { Header = "Profile", Content = new ProfileView(), DataContext = new ProfileViewModel(currentUser, Tabs) });     
 

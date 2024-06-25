@@ -103,7 +103,7 @@ namespace ProjektProgBD.ViewModels
         {
             try
             {
-                var newUser = new User { Name = _userName, Password = GetPassword(parameter), Email = _userEmail, Money = 100 };
+                var newUser = new User { Name = _userName, Password = GetPassword(parameter), Email = _userEmail, Money = 500 };
                 newUser.Password = newUser.GetHashPassword();
                 if (RepositoryUser.AddUserToDb(newUser))
                     MessageBox.Show("Account created!");

@@ -17,7 +17,7 @@ namespace ProjektProgBD.ViewModels
             CurrentDate = DateTime.Now.ToString("dd.MM.yyyy");
             CurrentTime = DateTime.Now.ToString("HH:mm");
             _geolocationService = new GeolocationService();
-            
+
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMinutes(1)
@@ -131,30 +131,8 @@ namespace ProjektProgBD.ViewModels
 
         #endregion
 
-        #region commands
-        private ICommand getCoinsCommand;
-        public ICommand GetCoinsCommand
-        {
-            get
-            {
-                if (getCoinsCommand == null)
-                    getCoinsCommand = new RelayCommand(
-                    parameter => AddCoins(),
-                    predicate => true
-                    );
-                return getCoinsCommand;
-            }
-        }
-
-        #endregion
-
         #region functions
-        public void AddCoins()
-        {
-            CurrentMoney += 100;
-            RepositoryUser.ModifyUserInDb(CurrentUser);
-        }
-
+       
         private void TimerTick(object sender, EventArgs e)
         {
             CurrentTime = DateTime.Now.ToString("HH:mm");
@@ -205,6 +183,10 @@ namespace ProjektProgBD.ViewModels
             WeatherImage = Directory.GetCurrentDirectory() + imagePath;
         }
 
+        public void RefreshBalance(decimal balance)
+        {
+            CurrentMoney = balance;
+        }
 
         #endregion
 

@@ -40,7 +40,7 @@
             <TextBlock Text="{Binding CurrentTime}" Width="150" Height="21" FontSize="15" VerticalAlignment="Top" FontWeight="Bold"/>
         </StackPanel>
 
-        <Border BorderBrush="#00000000" BorderThickness="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="157" Margin="28,13,0,0" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Top" Width="735" Background="White" CornerRadius="10,10,10,10">
+        <Border BorderBrush="#00000000" BorderThickness="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="200" Margin="28,13,0,0" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Top" Width="735" Background="White" CornerRadius="10,10,10,10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
@@ -48,7 +48,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Welcome to our Online Game Store!" FontSize="30" TextAlignment="Center" FontWeight="Bold" Width="548" Margin="0,0,0,1"/>
-                <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="15" TextAlignment="Justify" Width="704">
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="16" TextAlignment="Justify" Width="704">
                     Discover the latest and greatest in gaming at our virtual doorstep. Dive into a world of immersive experiences, endless adventures, and thrilling challenges. Whether you're a casual player, hardcore gamer, or somewhere in between, we've got something for everyone.
                     <LineBreak/><Bold>You are our lucky customer! Because of that You are eligable for a special liftime supply of Coins! Click below to claim your reward!</Bold>    
                 </TextBlock>
@@ -94,39 +94,9 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Grid.Column="0" Source="/Icons/coins.png" Margin="82,19,82,10"/>
-
-            <Button x:Name="CoinBtn" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="170" 
-            Content="Get Money!" 
-            Foreground="White"
-            Background="#FFF64668"
-            Command="{Binding GetCoinsCommand}" FontWeight="Bold">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
-                            CornerRadius="16">
-                                        <ContentPresenter HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FA7F97" TargetName="LoginBorder"  />
-                                            <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LoginBorder" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-
         </Grid>
 
-        <TextBlock Grid.Column="2" Text="{Binding CurrentMoney, StringFormat=N2}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="158" Margin="87,46,0,0" FontWeight="Bold" TextAlignment="Right"/>
+        <TextBlock Grid.Column="2" Text="{Binding CurrentMoney, StringFormat=N2, Mode=TwoWay}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="158" Margin="87,46,0,0" FontWeight="Bold" TextAlignment="Right"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="Logged as:" VerticalAlignment="Top" Width="77" FontSize="16"/>
         <TextBlock Grid.Column="2" Height="23" Margin="10,51,0,0" TextWrapping="Wrap" Text="Balance:" VerticalAlignment="Top" Width="77" FontSize="16" HorizontalAlignment="Left"/>
 

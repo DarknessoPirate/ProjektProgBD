@@ -13,18 +13,19 @@ namespace ProjektProgBD.ViewModels
 {
     public class ShopViewModel : ViewModelBase
     {
-        public ShopViewModel(User user)
+        public ShopViewModel(User user, ref HomeViewModel homeVM)
         {
             CurrentUser = user;
             CurrentMoney = CurrentUser.Money;
             Games = RepositoryGame.GetAllGamesFromDb();
+            _homeVM = homeVM;
         }
         #region properties
         private User _currentUser;
         private decimal _currentMoney;
         private ObservableCollection<Game> _games;
         private Game _selectedGame;
-        
+        private HomeViewModel _homeVM;
         #endregion
 
         #region accessors
@@ -131,7 +132,7 @@ namespace ProjektProgBD.ViewModels
                     db.SaveChanges();
                     CurrentMoney -= SelectedGame.Price;
                     CurrentUser.Money = CurrentMoney;
-
+                    _homeVM.RefreshBalance(CurrentMoney);
                     RepositoryUser.ModifyUserInDb(CurrentUser);
                 }
                 else
